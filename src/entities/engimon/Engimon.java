@@ -1,11 +1,13 @@
-package entities;
+package entities.engimon;
 
+import entities.Point;
+import entities.Skill;
 import enums.Elements;
 import interfaces.MoveAction;
 import java.util.EnumSet;
 
 public abstract class Engimon implements MoveAction {
-    // Attribute entities.Engimon
+    // Attribute entities.engimon.Engimon
     private String name;
     private int life;
     private int level;
@@ -18,6 +20,17 @@ public abstract class Engimon implements MoveAction {
     private int cumulative_exp;
 
     // Constructor
+    public Engimon() {
+        this.level = 1;
+        this.life = 3;
+        this.skills = new Skill[4];
+        this.elements = EnumSet.noneOf(Elements.class);
+        this.location = new Point(0, 0);
+        this.exp = 0;
+        this.cumulative_exp = 0;
+        this.hasParent = false;
+    }
+
     public Engimon(String name, int x, int y) {
         this.name = name;
         this.level = 1;
@@ -189,7 +202,14 @@ public abstract class Engimon implements MoveAction {
     }
 
     public int getJumlahSkill() {
-        return this.skills.length;
+        int counter = 0;
+        for (Skill skill : this.skills) {
+            if (skill != null) {
+                counter++;
+            }
+        }
+
+        return counter;
     }
 
     public boolean hasSkill(Skill skill) {
