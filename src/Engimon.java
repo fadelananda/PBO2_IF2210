@@ -1,28 +1,104 @@
 import java.util.*;
 
-public abstract class Engimon {
+public abstract class Engimon implements MoveAction {
     // Attribute Engimon
     private String name;
     private int life;
     private int level;
-    private Skill[] skills = new Skill[4];
-    private Engimon[] parents= new Engimon[2];
+    private Skill[] skills;
+    private Engimon[] parents;
     private EnumSet<Elements> elements;
+    private Point location;
     private boolean hasParent;
     private int exp;
     private int cumulative_exp;
+
+    // Constructor
+    public Engimon(String name, int x, int y) {
+        this.name = name;
+        this.level = 1;
+        this.life = 3;
+        this.skills = new Skill[4];
+        this.elements = EnumSet.noneOf(Elements.class);
+        this.location = new Point(x, y);
+        this.exp = 0;
+        this.cumulative_exp = 0;
+        this.hasParent = false;
+    }
 
     // Abstract Method
     public abstract void showAura();
     public abstract String getSpeciesName();
     public abstract void showDescription();
 
+    // Implement Interface
+    @Override
+    public void moveUp() {
+        this.location.setY(this.location.getY() + 1);
+    }
+
+    @Override
+    public void moveDown() {
+        this.location.setY(this.location.getY() - 1);
+    }
+
+    @Override
+    public void moveRight() {
+        this.location.setX(this.location.getX() + 1);
+    }
+
+    @Override
+    public void moveLeft() {
+        this.location.setX(this.location.getX() - 1);
+    }
+
+    // Print Methods
+    public void printInfo() {
+        System.out.println("Nama: " + this.name);
+        System.out.println("Species: " + this.getSpeciesName());
+        System.out.println("Level: " + this.level);
+        System.out.print("Elemen: ");
+        for (Elements element: this.elements) {
+            printElement(element);
+            System.out.print(" ");
+        }
+        System.out.println();
+        printParents();
+        System.out.println();
+        printAllSkills();
+        System.out.println();
+        showDescription();
+    }
+
+    public void printParents() {
+        System.out.print("Induk: ");
+        if (this.hasParent) {
+            System.out.println();
+            System.out.println("1. " + this.parents[0].getName() + " (" + this.parents[0].getSpeciesName() + ")");
+            System.out.println("2. " + this.parents[1].getName() + " (" + this.parents[1].getSpeciesName() + ")");
+        } else {
+            System.out.println("Tidak punya orang tua.");
+        }
+    }
+
+    public void printElement(Elements element) {
+        if (element == Elements.FIRE) System.out.print("Fire");
+        if (element == Elements.WATER) System.out.print("Water");
+        if (element == Elements.ELECTRIC) System.out.print("Electric");
+        if (element == Elements.GROUND) System.out.print("Ground");
+        if (element == Elements.ICE) System.out.print("Ice");
+    }
+
     public void printAllSkills() {
+        System.out.println("Daftar Skill: ");
         for (int i = 0; i < getJumlahSkill(); i++) {
             System.out.println((i+1) + ". " + this.skills[i].getName());
             System.out.println("Mastery Level :" + this.skills[i].getMasteryLevel());
             System.out.print("Element: ");
-            this.skills[i].printElements();
+            for (Elements element: this.elements) {
+                printElement(element);
+                System.out.print(" ");
+            }
             System.out.println();
         }
     }
@@ -92,6 +168,7 @@ public abstract class Engimon {
     // Functions for parent
     public void addParent(Engimon mom, Engimon dad) {
         if (!hasParent) {
+            this.parents = new Engimon[2];
             this.parents[0] = mom;
             this.parents[1] = dad;
         }
@@ -109,6 +186,27 @@ public abstract class Engimon {
 
     public int getJumlahSkill() {
         return this.skills.length;
+    }
+
+    public boolean hasSkill(Skill skill) {
+        for (int i = 0; i < getJumlahSkill(); i++) {
+            if (this.skills[i].getName().equals(skill.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Dipastikan skill sudah ada
+    public Skill getSkillByName(String skillName) {
+        for (int i = 0; i < this.getJumlahSkill(); i++) {
+            if (this.skills[i].getName().equals(skillName)) {
+                return this.skills[i];
+            }
+        }
+
+        return null;
     }
 
     public void addSkill(Skill skill) {

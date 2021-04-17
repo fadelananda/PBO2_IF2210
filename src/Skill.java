@@ -17,10 +17,6 @@ public final class Skill {
         this.elements.add(element);
     }
 
-    public void printElements() {
-
-    }
-
     // Getter
     public String getName() {
         return this.name;
