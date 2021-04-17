@@ -19,8 +19,8 @@ public class Wadem extends Engimon{
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Wih, lingkungan sekitar jadi dingin.");
+    public void interact() {
+        System.out.println(this.getName() + " : Wushhhhh!!!!");
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Wadem extends Engimon{
 
     @Override
     public void showDescription() {
-        System.out.println("Engimon AC alami");
+        System.out.println("Engimon AC alami.");
     }
 }

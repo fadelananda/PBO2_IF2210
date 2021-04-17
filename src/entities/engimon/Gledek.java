@@ -19,8 +19,8 @@ public class Gledek extends Engimon {
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Jedor!");
+    public void interact() {
+        System.out.println(this.getName() + " : Jedorrrrr!!!!");
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Gledek extends Engimon {
 
     @Override
     public void showDescription() {
-        System.out.println("Awas! Engimon ini bisa membunuh orang lewat setrumnya");
+        System.out.println("Awas! Engimon ini bisa membunuh orang lewat setrumnya.");
     }
 }

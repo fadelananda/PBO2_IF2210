@@ -21,8 +21,8 @@ public class Beckoo extends Engimon {
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Kok tiba-tiba semua barang membeku ya?");
+    public void interact() {
+        System.out.println(this.getName() + " : Beckooooo!!!");
     }
 
     @Override
@@ -32,6 +32,6 @@ public class Beckoo extends Engimon {
 
     @Override
     public void showDescription() {
-        System.out.println("Bisa membeku semua barang yang ada");
+        System.out.println("Bisa membeku semua barang yang ada.");
     }
 }

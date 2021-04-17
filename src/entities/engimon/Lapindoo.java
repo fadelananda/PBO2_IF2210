@@ -21,8 +21,8 @@ public class Lapindoo extends Engimon{
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Rumah sekitar tenggelam terkena lumpur lapindo");
+    public void interact() {
+        System.out.println(this.getName() + " : Glugluglug!!!!");
     }
 
     @Override
@@ -32,6 +32,6 @@ public class Lapindoo extends Engimon{
 
     @Override
     public void showDescription() {
-        System.out.println("Penyebab insiden Lumpur Lapindo");
+        System.out.println("Penyebab insiden Lumpur Lapindo.");
     }
 }

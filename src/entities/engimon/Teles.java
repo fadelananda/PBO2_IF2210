@@ -19,8 +19,8 @@ public class Teles extends Engimon {
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Lingkungan sekitar jadi basah");
+    public void interact() {
+        System.out.println(this.getName() + " : Tuelesssss!!!!");
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Teles extends Engimon {
 
     @Override
     public void showDescription() {
-        System.out.println("Memiliki kebiasaan membasahi Trainer-nya");
+        System.out.println("Memiliki kebiasaan membasahi Trainer-nya.");
     }
 }

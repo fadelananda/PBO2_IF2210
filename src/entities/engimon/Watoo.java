@@ -19,8 +19,8 @@ public class Watoo extends Engimon{
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Kok tiba-tiba banyak batunya ya?");
+    public void interact() {
+        System.out.println(this.getName() + " : Watossssss!!!");
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Watoo extends Engimon{
 
     @Override
     public void showDescription() {
-        System.out.println("Badan Engimon ini sangat keras");
+        System.out.println("Badan Engimon ini sangat keras.");
     }
 }

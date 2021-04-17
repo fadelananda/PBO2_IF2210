@@ -19,8 +19,8 @@ public class Geni extends Engimon {
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Lho celanaku kok kebakaran?");
+    public void interact() {
+        System.out.println(this.getName() + " : Geniiiii!!!");
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Geni extends Engimon {
 
     @Override
     public void showDescription() {
-        System.out.println("Bisa membakar semua barang di dunia ini");
+        System.out.println("Bisa membakar semua barang di dunia ini.");
     }
 }

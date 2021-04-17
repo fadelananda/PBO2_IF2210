@@ -44,7 +44,7 @@ public abstract class Engimon implements MoveAction {
     }
 
     // Abstract Method
-    public abstract void showAura();
+    public abstract void interact();
     public abstract String getSpeciesName();
     public abstract void showDescription();
 
@@ -80,11 +80,11 @@ public abstract class Engimon implements MoveAction {
             System.out.print(" ");
         }
         System.out.println();
+        System.out.print("Deskripsi Engimon: ");
+        showDescription();
         printParents();
-        System.out.println();
         printAllSkills();
         System.out.println();
-        showDescription();
     }
 
     public void printParents() {
@@ -107,11 +107,11 @@ public abstract class Engimon implements MoveAction {
     }
 
     public void printAllSkills() {
-        System.out.println("Daftar entities.Skill: ");
+        System.out.println("Daftar Skill: ");
         for (int i = 0; i < getJumlahSkill(); i++) {
             System.out.println((i+1) + ". " + this.skills[i].getName());
-            System.out.println("Mastery Level :" + this.skills[i].getMasteryLevel());
-            System.out.print("Element: ");
+            System.out.println("   Mastery Level :" + this.skills[i].getMasteryLevel());
+            System.out.print("   Element: ");
             for (Elements element: this.elements) {
                 printElement(element);
                 System.out.print(" ");
@@ -188,6 +188,7 @@ public abstract class Engimon implements MoveAction {
             this.parents = new Engimon[2];
             this.parents[0] = mom;
             this.parents[1] = dad;
+            this.hasParent = true;
         }
     }
 
@@ -198,7 +199,7 @@ public abstract class Engimon implements MoveAction {
 
     // Functions for skill
     public boolean isFullSkills() {
-        return this.skills.length == 4;
+        return getJumlahSkill() == 4;
     }
 
     public int getJumlahSkill() {
@@ -234,8 +235,8 @@ public abstract class Engimon implements MoveAction {
     }
 
     public void addSkill(Skill skill) {
-        if (!isFullSkills() && isSkillValid(skill)) {
-            this.skills[this.skills.length - 1] = skill;
+        if (!isFullSkills() && isSkillValid(skill) && !hasSkill(skill)) {
+            this.skills[this.getJumlahSkill()] = skill;
         }
     }
 

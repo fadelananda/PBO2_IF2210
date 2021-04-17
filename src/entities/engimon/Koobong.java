@@ -21,8 +21,8 @@ public class Koobong extends Engimon {
     }
 
     @Override
-    public void showAura() {
-        System.out.println("Wah rumah itu terkena setrum terus kebakaran");
+    public void interact() {
+        System.out.println(this.getName() + " : Bongobongobong!!!");
     }
 
     @Override
@@ -32,6 +32,6 @@ public class Koobong extends Engimon {
 
     @Override
     public void showDescription() {
-        System.out.println("Awas! Kamu bisa mati kesetrum kalau enggak mati kebakar");
+        System.out.println("Awas! Kamu bisa mati kesetrum kalau enggak mati kebakar.");
     }
 }
