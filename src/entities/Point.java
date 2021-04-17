@@ -1,3 +1,5 @@
+package entities;
+
 public final class Point {
     private int x;
     private int y;

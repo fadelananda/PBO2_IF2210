@@ -1,3 +1,5 @@
+package interfaces;
+
 public interface MoveAction {
     void moveUp();
     void moveDown();

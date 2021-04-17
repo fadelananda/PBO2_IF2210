@@ -1,3 +1,6 @@
+package entities;
+
+import enums.Elements;
 import java.util.*;
 
 public final class Skill {

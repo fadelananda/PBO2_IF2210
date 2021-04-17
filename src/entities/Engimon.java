@@ -1,7 +1,11 @@
-import java.util.*;
+package entities;
+
+import enums.Elements;
+import interfaces.MoveAction;
+import java.util.EnumSet;
 
 public abstract class Engimon implements MoveAction {
-    // Attribute Engimon
+    // Attribute entities.Engimon
     private String name;
     private int life;
     private int level;
@@ -90,7 +94,7 @@ public abstract class Engimon implements MoveAction {
     }
 
     public void printAllSkills() {
-        System.out.println("Daftar Skill: ");
+        System.out.println("Daftar entities.Skill: ");
         for (int i = 0; i < getJumlahSkill(); i++) {
             System.out.println((i+1) + ". " + this.skills[i].getName());
             System.out.println("Mastery Level :" + this.skills[i].getMasteryLevel());
@@ -124,7 +128,7 @@ public abstract class Engimon implements MoveAction {
         return this.parents;
     }
 
-    public Set<Elements> getElements() {
+    public EnumSet<Elements> getElements() {
         return this.elements;
     }
 
