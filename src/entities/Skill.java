@@ -1,7 +1,7 @@
 package entities;
 
 import enums.Elements;
-import java.util.*;
+import java.util.EnumSet;
 
 public final class Skill {
     private String name;

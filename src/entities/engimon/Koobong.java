@@ -1,17 +1,28 @@
 package entities.engimon;
 
+import entities.Skill;
+import enums.Elements;
+
+import java.util.EnumSet;
+
 public class Koobong extends Engimon {
     public Koobong() {
         this.setName("Wild Koobong");
+        this.addElement(Elements.FIRE);
+        this.addElement(Elements.ELECTRIC);
+        this.addSkill(new Skill("Setrum Kobongan", 100, 1, EnumSet.of(Elements.ELECTRIC, Elements.FIRE)));
     }
 
     public Koobong(String name, int x, int y) {
         super(name, x, y);
+        this.addElement(Elements.FIRE);
+        this.addElement(Elements.ELECTRIC);
+        this.addSkill(new Skill("Setrum Kobongan", 100, 1, EnumSet.of(Elements.ELECTRIC, Elements.FIRE)));
     }
 
     @Override
     public void showAura() {
-
+        System.out.println("Wah rumah itu terkena setrum terus kebakaran");
     }
 
     @Override
@@ -21,6 +32,6 @@ public class Koobong extends Engimon {
 
     @Override
     public void showDescription() {
-
+        System.out.println("Awas! Kamu bisa mati kesetrum kalau enggak mati kebakar");
     }
 }
