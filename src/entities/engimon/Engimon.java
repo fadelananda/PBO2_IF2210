@@ -275,4 +275,9 @@ public abstract class Engimon implements MoveAction {
             this.exp -= 100*(this.exp/100);
         }
     }
+
+    public String toString()
+    {
+        return String.format("%s/%s/Lv.%d", this.name, this.getSpeciesName(),this.level);
+    }
 }
