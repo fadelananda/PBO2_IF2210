@@ -26,6 +26,11 @@ public class SkillItem {
     {
         return this.skill;
     }
+
+    public String toString()
+    {
+        return String.format("%s", this.skill.getName());
+    }
 //    public boolean learn(Engimon)
 }
 
