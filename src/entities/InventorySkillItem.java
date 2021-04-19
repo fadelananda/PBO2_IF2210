@@ -1,8 +1,5 @@
-package entities.engimon;
-
-import entities.Inventory;
-import entities.SkillItem;
-
+package entities;
+import entities.engimon.Engimon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +56,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
     {
         for (int i = 0; i < listInventory.size() ; i++)
         {
-            System.out.println(Integer.toString(i + 1) +". "+ listInventory.get(i)+" = " + jumlahTiapItem.get(i));
+            System.out.println(Integer.toString(i + 1) +". "+ listInventory.get(i)+"/Qty:" + jumlahTiapItem.get(i));
         }
     }
 
