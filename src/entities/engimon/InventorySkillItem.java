@@ -62,4 +62,13 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             System.out.println(Integer.toString(i + 1) +". "+ listInventory.get(i)+" = " + jumlahTiapItem.get(i));
         }
     }
+
+    void learnSkillItem(int index, Engimon engi){
+        boolean learn =listInventory.get(index -1).learn(engi);
+        if (learn)
+        {
+            deleteItemByIdx(index,1);
+            jumlahItem--;
+        }
+    }
 }
