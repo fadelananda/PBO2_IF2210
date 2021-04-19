@@ -1,4 +1,7 @@
 package entities;
+import entities.engimon.Engimon;
+
+import java.util.Scanner;
 
 public class SkillItem {
     private int skillItemId;
@@ -29,42 +32,41 @@ public class SkillItem {
 
     public String toString()
     {
-        return String.format("%s", this.skill.getName());
+        return String.format("%s/Pow:%d", this.skill.getName(),this.skill.getBasePower());
     }
-//    public boolean learn(Engimon)
+    public boolean learn(Engimon engi){
+        if (engi.isElementValid(this.skill.getElements()))
+        {
+            if (engi.isSkillValid(this.skill))
+            {
+                if (engi.getJumlahSkill() < 4)
+                {
+                    engi.addSkill(this.skill);
+                    System.out.println(this.skill.getName() + " berhasil dipelajari "+ engi.getName());
+                    return true;
+                }else
+                {
+                    Scanner keyboard = new Scanner(System.in);
+                    engi.printAllSkills();
+                    System.out.println("=======================================================================");
+                    System.out.println("input indeks skill yang ingin di replace");
+                    System.out.println(">>");
+                    int indexReplace;
+                    indexReplace = keyboard.nextInt();
+                    engi.replaceSkill(indexReplace-1,this.skill);
+                    System.out.println("=======================================================================");
+                    System.out.println(this.skill.getName() + " berhasil dipelajari "+ engi.getName());
+                    return true;
+                }
+            }else
+            {
+                System.out.println("Skill sudah dipelajari " + engi.getName());
+                return false;
+            }
+        }else
+        {
+            System.out.println("Element skill item tidak kompatibel dengan " + engi.getName());
+            return false;
+        }
+    }
 }
-
-
-
-//        bool Skill_Item::learn(Engimon* engi){
-//        if (engi->isElementValid(this->skill.getElement()))
-//        {
-//        if (engi->IsSkillValid(this->skill))
-//        {
-//        if ( engi->getJumlahSkill() < 4)
-//        {
-//        engi->addSkill(this->skill);
-//        cout << this->skill.getSkillName() <<" berhasil dipelajari "<< engi->getName() << endl;
-//        return true;
-//        }else{
-//        engi->printAllSkill();
-//        cout <<"=======================================================================" <<endl;
-//        cout << "input indeks skill yang ingin di replace\n" << ">>";
-//        int indexReplace;
-//        cin >> indexReplace;
-//        engi->replaceSkill(indexReplace - 1, this->skill);
-//        cout <<"=======================================================================" <<endl;
-//        cout << this->skill.getSkillName() <<" berhasil dipelajari "<< engi->getName() << endl;
-//        return true;
-//        }
-//
-//        }else{
-//        cout << "Skill sudah dipelajari "<< engi->getName() << endl;
-//        return false;
-//        }
-//
-//        }else{
-//        cout << "Element skill item tidak kompatibel dengan " << engi->getName()<< endl;
-//        return false;
-//        }
-//        }

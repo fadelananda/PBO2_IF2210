@@ -250,6 +250,18 @@ public abstract class Engimon implements MoveAction {
         return false;
     }
 
+    public boolean isElementValid(EnumSet<Elements> elements)
+    {
+        for (Elements elem : elements)
+        {
+            if (!this.elements.contains(elem))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void replaceSkill(int index, Skill skill) {
         if (isSkillValid(skill)) {
             this.skills[index] = skill;

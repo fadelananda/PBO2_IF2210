@@ -2,6 +2,9 @@ package entities;
 
 import entities.engimon.Engimon;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 public class InventoryEngimon extends Inventory<Engimon>{
 
     public void addItem(Engimon item,int n)
@@ -10,8 +13,9 @@ public class InventoryEngimon extends Inventory<Engimon>{
         {
             System.out.println("Berhasil ditambahkan!");
             listInventory.add(item);
-//            Collections.sort(listInventory, (Engimon e1, Engimon e2) -> e2.getLevel()-e1.getLevel());
-//            listInventory = listInventory.stream().collect(Collectors.groupingBy(Engimon::getSpeciesName)).values().stream().toList();
+            Collections.sort(listInventory, Comparator.comparing(Engimon::getSpeciesName)
+                    .thenComparing((Engimon e1, Engimon e2) -> e2.getLevel()-e1.getLevel()));
+
             jumlahItem++;
         }else{
             System.out.println("Inventory sudah penuh");
