@@ -8,6 +8,7 @@ public class SkillItem {
     private static int skillItemCount = 0;
     private Skill skill;
 
+    //ctor
     public SkillItem(Skill skill)
     {
         this.skill = skill;

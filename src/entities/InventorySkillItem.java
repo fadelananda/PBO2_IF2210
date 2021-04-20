@@ -6,7 +6,7 @@ import java.util.List;
 
 public class InventorySkillItem extends Inventory<SkillItem> {
     private List<Integer> jumlahTiapItem = new ArrayList<>();
-
+    //  add item ke dalam inventory sebanyak n
     public void addItem(SkillItem item, int n)
     {
         if (jumlahItem < MAX_INVENTORY)
@@ -28,7 +28,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             System.out.println("Inventory sudah penuh");
         }
     }
-    //
+    //      del item berdasarkan index inventory sebanyak n
     public void deleteItemByIdx(int index, int n)
     {
         if (jumlahTiapItem.get(index) > n)
@@ -44,14 +44,14 @@ public class InventorySkillItem extends Inventory<SkillItem> {
         System.out.println("Item berhasil dihapus dari inventory");
     }
 
-    //    //    // mencari item berdasarkan indeks saat isi inventory ditampilkan
+// mencari item berdasarkan indeks saat isi inventory ditampilkan
     public SkillItem getItemByIdxShowInventory(int index)
     {
         return listInventory.get(index);
     }
 
 
-    //    //    tampilkan isi inventory
+//    tampilkan isi inventory
     public void showInventory()
     {
         for (int i = 0; i < listInventory.size() ; i++)
@@ -59,7 +59,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             System.out.println(Integer.toString(i + 1) +". "+ listInventory.get(i)+"/Qty:" + jumlahTiapItem.get(i));
         }
     }
-
+// learn skill item
     void learnSkillItem(int index, Engimon engi){
         boolean learn =listInventory.get(index -1).learn(engi);
         if (learn)
