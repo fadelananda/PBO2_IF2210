@@ -28,26 +28,26 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             System.out.println("Inventory sudah penuh");
         }
     }
-    //      del item berdasarkan index inventory sebanyak n
+    //      del item berdasarkan index setelah memanggil method showInventory sebanyak n
     public void deleteItemByIdx(int index, int n)
     {
-        if (jumlahTiapItem.get(index) > n)
+        if (jumlahTiapItem.get(index - 1) > n)
         {
             jumlahItem -= n;
-            int total = jumlahTiapItem.get(index) - n;
-            jumlahTiapItem.set(index,total);
+            int total = jumlahTiapItem.get(index - 1) - n;
+            jumlahTiapItem.set(index - 1,total);
         }else{
-            jumlahItem-=jumlahTiapItem.get(index);
-            jumlahTiapItem.remove(index);
-            listInventory.remove(index);
+            jumlahItem-=jumlahTiapItem.get(index - 1);
+            jumlahTiapItem.remove(index - 1);
+            listInventory.remove(index -1);
         }
         System.out.println("Item berhasil dihapus dari inventory");
     }
 
-// mencari item berdasarkan indeks saat isi inventory ditampilkan
+// mencari item berdasarkan indeks setelah memanggil method showInventory
     public SkillItem getItemByIdxShowInventory(int index)
     {
-        return listInventory.get(index);
+        return listInventory.get(index - 1);
     }
 
 
@@ -59,7 +59,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             System.out.println(Integer.toString(i + 1) +". "+ listInventory.get(i)+"/Qty:" + jumlahTiapItem.get(i));
         }
     }
-// learn skill item
+// learn skill item berdasarkan index setelah memanggil method showInventory
     void learnSkillItem(int index, Engimon engi){
         boolean learn =listInventory.get(index -1).learn(engi);
         if (learn)

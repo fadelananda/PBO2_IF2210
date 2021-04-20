@@ -21,7 +21,6 @@ public class TestingInventory {
         engiBag.addItem(engi4,1);
         engiBag.addItem(engi3,1);
         engiBag.showInventory();
-        engiBag.deleteItemByIdx(1,1);
         System.out.println("===================jml item");
         System.out.println(Inventory.getJumlahItem());
 
@@ -48,5 +47,8 @@ public class TestingInventory {
         skillBag.showInventory();
         System.out.println("===================jml item");
         System.out.println(Inventory.getJumlahItem());
+//        System.out.println(engiBag.getItemByIdxShowInventory(3));
+        engiBag.deleteItemByIdx(3,1);
+        engiBag.showInventory();
     }
 }

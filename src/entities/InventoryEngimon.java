@@ -21,18 +21,18 @@ public class InventoryEngimon extends Inventory<Engimon>{
             System.out.println("Inventory sudah penuh");
         }
     }
-//      del item berdasarkan index inventory sebanyak n(kalo engimon n=1)
+//      del item berdasarkan index setelah memanggil method showInventory sebanyak n(kalo engimon n=1)
     public void deleteItemByIdx(int index,int n)
     {
-        listInventory.remove(index);
+        listInventory.remove(index - 1);
         jumlahItem--;
         System.out.println("Item berhasil dihapus dari inventory");
     }
 
-//   mencari item berdasarkan indeks saat isi inventory ditampilkan
+//   mencari item berdasarkan indeks setelah memanggil method showInventory
     public Engimon getItemByIdxShowInventory(int index)
     {
-        return listInventory.get(index);
+        return listInventory.get(index - 1);
     }
 
 
