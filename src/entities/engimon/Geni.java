@@ -25,7 +25,7 @@ public class Geni extends Engimon {
 
     @Override
     public String getSpeciesName() {
-        return "Beckoo";
+        return "Geni";
     }
 
     @Override
