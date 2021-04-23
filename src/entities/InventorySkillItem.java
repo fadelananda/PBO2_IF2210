@@ -65,7 +65,6 @@ public class InventorySkillItem extends Inventory<SkillItem> {
         if (learn)
         {
             deleteItemByIdx(index,1);
-            jumlahItem--;
         }
     }
 }
