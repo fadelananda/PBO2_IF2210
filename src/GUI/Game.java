@@ -181,13 +181,6 @@ public class Game extends JFrame implements Runnable
 
 	}
 
-	public static void main(String[] args) 
-	{
-		Game game = new Game();
-		Thread gameThread = new Thread(game);
-		gameThread.start();
-	}
-
 	public KeyBoardListener getKeyListener() 
 	{
 		return keyListener;
