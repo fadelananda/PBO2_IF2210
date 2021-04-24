@@ -10,6 +10,7 @@ import java.lang.Runnable;
 import java.lang.Thread;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import javax.imageio.ImageIO;
 
@@ -36,12 +37,14 @@ public class Game extends JFrame implements Runnable
 	private MouseEventListener mouseListener = new MouseEventListener(this);
 
 	private Player player;
-
+	private JPanel currentPanel;
 	private int xZoom = 3;
 	private int yZoom = 3;
 
 	public Game() 
 	{
+		currentPanel = new OpeningPanel();
+
 		//Make our program shutdown when we exit out.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -51,9 +54,9 @@ public class Game extends JFrame implements Runnable
 		//Put our frame in the center of the screen.
 		setLocationRelativeTo(null);
 
-		//Add our graphics compoent
+		//Add our graphics component
 		add(canvas);
-
+		add(currentPanel);
 		//Make our frame visible.
 		setVisible(true);
 
