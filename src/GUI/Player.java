@@ -1,3 +1,5 @@
+package GUI;
+
 public class Player implements GameObject
 {
 	Rectangle playerRectangle;
@@ -20,14 +22,14 @@ public class Player implements GameObject
 	{
 		KeyBoardListener keyListener = game.getKeyListener();
 
-		if(keyListener.up())
-			playerRectangle.y -= speed;
-		if(keyListener.down())
-			playerRectangle.y += speed;
-		if(keyListener.left())
-			playerRectangle.x -= speed;
-		if(keyListener.right())
-			playerRectangle.x += speed;
+		if(keyListener.up() && (playerRectangle.y-speed >= 0))
+            playerRectangle.y -= speed;
+        if(keyListener.down() && (playerRectangle.y <= 720))
+            playerRectangle.y += speed;
+        if(keyListener.left() && ((playerRectangle.x-speed >= 0)))
+            playerRectangle.x -= speed;
+        if(keyListener.right() && (playerRectangle.x <= 950))
+            playerRectangle.x += speed;
 	}
 
 

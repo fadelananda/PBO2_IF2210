@@ -1,4 +1,6 @@
-public class Rectangle 
+package GUI;
+
+public class Rectangle
 {
 	public int x,y,w,h;
 	private int[] pixels;

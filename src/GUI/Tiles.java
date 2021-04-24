@@ -1,3 +1,5 @@
+package GUI;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -6,7 +8,7 @@ import java.util.ArrayList;
 public class Tiles 
 {
 	private SpriteSheet spriteSheet;
-	private ArrayList<Tile> tilesList = new ArrayList<Tile>();
+	private ArrayList<Tile> tilesList = new ArrayList<>();
 
 	//This will only work assuming the sprites in the spriteSheet have been loaded.
 	public Tiles(File tilesFile, SpriteSheet spriteSheet)
