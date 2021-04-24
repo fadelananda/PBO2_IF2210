@@ -70,5 +70,12 @@ public class TestingPlayer {
         System.out.println("===================jml item");
         System.out.println("total " + tang.countBag());
         System.out.println();
+
+        //TESTING BATTLE
+
+        boolean isBattleFinised = false;
+        tang.battle(engi4, isBattleFinised);
+        System.out.println(tang.getActiveEngimon().getJumlahSkill());
+        //System.out.println("Jumlah skills engi1 : " + engi1)
     }
 }

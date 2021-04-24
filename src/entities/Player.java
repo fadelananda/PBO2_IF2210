@@ -107,7 +107,7 @@ public class Player {
           return;
       }
       else{
-          Engimon playerEngimon = this.EngiBag.getItemByIdxShowInventory(this.idxCurrActiveEngimon);
+          Engimon playerEngimon = this.getActiveEngimon();
 
           // Hitung power
           int playerLevel = playerEngimon.getLevel();
@@ -139,12 +139,15 @@ public class Player {
                   // Engimon lawan menjadi milik player, jika inventory cukup
                   if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
                       System.out.println("Anda mendapatkan Engimon musuh!");
+                      this.addEngimon(Opponent);
                       System.out.println("Jumlah items dalam inventory Anda sekarang: " + Inventory.jumlahItem);
                   }
                   //mendapatkan exp sebesar 20 satuan exp
                   playerEngimon.addExp(20);
                   //mendapatkan skill item pada slot pertama musuh
-                  playerEngimon.addSkill(Opponent.getSkills()[0]);
+                  System.out.println("Anda mendapatkan skill : " + Opponent.getSkills()[0].getName());
+                  //tambahkan ke skill item
+                  this.SkillItemBag.addItem(new SkillItem(Opponent.getSkills()[0]), 1);
               }
               else{
                   System.out.println("Engimon Anda kalah");
@@ -167,7 +170,9 @@ public class Player {
    private float calSkillPoint(Engimon e){
         float skillPoint = 0.0f;
         for(Skill s : e.getSkills()){
-            skillPoint += s.getBasePower()*s.getMasteryLevel();
+            if(s != null){
+                skillPoint += s.getBasePower()*s.getMasteryLevel();
+            }
         }
         return skillPoint;
    }
