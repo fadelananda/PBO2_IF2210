@@ -1,3 +1,5 @@
+package GUI;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;

@@ -1,5 +1,6 @@
+package GUI;
+
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;

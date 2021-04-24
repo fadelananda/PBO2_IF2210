@@ -1,3 +1,5 @@
+package GUI;
+
 public class Player implements GameObject
 {
 	Rectangle playerRectangle;
