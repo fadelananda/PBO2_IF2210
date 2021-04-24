@@ -97,9 +97,90 @@ public class Player {
 
 
     // BATTLE
-//    public void battle(Engimon Opponent, bool &isBattleHasFinished) {
-//        // SURYA
-//    }
+   public void battle(Engimon Opponent, boolean isBattleHasFinished) {
+      // anggaplah kalau tidak ada engimon yang aktif
+      // idxCurrActiveEngimo = -1
+      if(this.idxCurrActiveEngimon == -1){
+          System.out.println("Anda tidak memiliki Engimon yang aktif!");
+          System.out.println("Silahkan memilih Engimon terlebih dahulu...");
+          isBattleHasFinished = true;
+          return;
+      }
+      else{
+          Engimon playerEngimon = this.EngiBag.getItemByIdxShowInventory(this.idxCurrActiveEngimon);
+
+          // Hitung power
+          int playerLevel = playerEngimon.getLevel();
+          int oppLevel = Opponent.getLevel();
+          float playerElmtAdvantage = this.getAdvantage(playerEngimon.getElements(), Opponent.getElements());
+          float oppElmtAdvantage = this.getAdvantage(Opponent.getElements(), playerEngimon.getElements());
+          //sum every skill base power * mastery_level
+          float playerSkillPoint = calSkillPoint(playerEngimon);
+          float oppSkillPoint = calSkillPoint(Opponent);
+
+          float playerPower = playerLevel*playerElmtAdvantage + playerSkillPoint;
+          float oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
+
+          //tampilkan status lengkap engimon musuh
+          Opponent.printInfo();
+          System.out.println("Total power level " +  Opponent.getName() + " : " + oppPower + " (OPPONENT)");
+          System.out.println("Total power level " +  playerEngimon.getName() + " : " + playerPower + " (PLAYER)");
+
+          //berikan opsi proceed battle/not
+          Scanner sc = new Scanner(System.in);
+
+          // Character input
+          System.out.print("Proceed the battle (Y/N) : ");
+          char opt = sc.next().charAt(0);
+          if(opt == 'Y') {
+              System.out.println("Memulai Battle...");
+              if(playerPower >= oppPower){
+                  System.out.println("Engimon Anda memenangkan battle ini!");
+                  // Engimon lawan menjadi milik player, jika inventory cukup
+                  if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
+                      System.out.println("Anda mendapatkan Engimon musuh!");
+                      System.out.println("Jumlah items dalam inventory Anda sekarang: " + Inventory.jumlahItem);
+                  }
+                  //mendapatkan exp sebesar 20 satuan exp
+                  playerEngimon.addExp(20);
+                  //mendapatkan skill item pada slot pertama musuh
+                  playerEngimon.addSkill(Opponent.getSkills()[0]);
+              }
+              else{
+                  System.out.println("Engimon Anda kalah");
+                  playerEngimon.reduceLife();
+                  if(playerEngimon.getLife() == 0){
+                      System.out.println("Engimon yang aktif sudah mati");
+                      System.out.println("Silahkan memilih Engimon pada inventory Anda");
+                      this.idxCurrActiveEngimon = -1;
+                  }
+                  sc.next();
+                  return;
+              }
+          } else{
+              isBattleHasFinished = true;
+              return;
+          }
+      }
+   }
+
+   private float calSkillPoint(Engimon e){
+        float skillPoint = 0.0f;
+        for(Skill s : e.getSkills()){
+            skillPoint += s.getBasePower()*s.getMasteryLevel();
+        }
+        return skillPoint;
+   }
+
+   private float getAdvantage(EnumSet<Elements> e1, EnumSet<Elements> e2){
+        float mxAdvantage = 0.0f;
+        for(Elements e_1 : e1){
+            for(Elements e_2 : e2){
+                mxAdvantage = Math.max(mxAdvantage, checkAdvantage(e_1, e_2));
+            }
+        }
+        return mxAdvantage;
+   }
 
 
     // BREEDING
@@ -284,5 +365,7 @@ public class Player {
 
     // ISIAN GUInya BELOM
     // ...
+    public static void main(String[] args){
 
+    }
 }
