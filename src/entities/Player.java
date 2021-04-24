@@ -3,11 +3,8 @@ package entities;
 import entities.engimon.Engimon;
 import enums.Elements;
 import interfaces.MoveAction;
-import java.util.EnumSet;
-import java.util.Scanner;
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class Player {
 
@@ -145,45 +142,45 @@ public class Player {
 //        }
 //    }
 
-//    public Skill[] inheritSkill(Engimon dad, Engimon mom) {
-//        List<Skill> retSkill = new ArrayList<Skill>();
-//        List<Skill> combinedSkill = new ArrayList<Skill>();
-//        Skill[] dadSkill = dad.getSkills();
-//        Skill[] momSkill = mom.getSkills();
-//
-//        for (int i = 0; i < dad.getJumlahSkill(); i++) {
-//            combinedSkill.add(dadSkill[i]);
-//        }
-//
-//        for (int i = 0; i < mom.getJumlahSkill(); i++) {
-//            combinedSkill.add(momSkill[i]);
-//        }
-//
-//          combinedSkill.sort();
-//
-//          list<Skill>::reverse_iterator itr = combinedSkill.rbegin();
-//
-//          while (itr != combinedSkill.rend()) {
-//                if (dad.hasSkill(*itr) && mom.hasSkill(*itr)) {
-//                    if (dad.getSkillMasteryLevel(*itr) == mom.getSkillMasteryLevel(*itr)) {
-//                        itr->setMasteryLevel(itr->getMasteryLevel() + 1);
-//                        retSkill.push_back(*itr);
-//                    } else {
-//                        if (dad.getSkillEngi(*itr) > mom.getSkillEngi(*itr)) {
-//                            retSkill.push_back(dad.getSkillEngi(*itr));
-//                        } else {
-//                            retSkill.push_back(mom.getSkillEngi(*itr));
-//                        }
-//                    }
-//                } else {
+    public Skill[] inheritSkill(Engimon dad, Engimon mom) {
+        Skill[] retSkill = new Skill[4];
+        Skill[] combinedSkill = new Skill[8];
+
+        Skill[] dadSkill = dad.getSkills();
+        Skill[] momSkill = mom.getSkills();
+
+        for (int i = 0; i < dad.getJumlahSkill(); i++) {
+            combinedSkill[i] = dadSkill[i];
+        }
+
+        for (int i = 0; i < mom.getJumlahSkill(); i++) {
+            combinedSkill[i+4] = momSkill[i];
+        }
+
+        Arrays.sort(combinedSkill, Comparator.comparingInt(Skill :: getMasteryLevel));
+        Collections.reverse(Arrays.asList(combinedSkill));
+
+        int nSkill = 0;
+        for(Skill skill : combinedSkill) {
+            if (dad.hasSkill(skill) && mom.hasSkill(skill)) {
+//                if (dad.getSkillMasteryLevel(*itr) == mom.getSkillMasteryLevel(*itr)) {
+//                    itr->setMasteryLevel(itr->getMasteryLevel() + 1);
 //                    retSkill.push_back(*itr);
+//                } else {
+//                    if (dad.getSkillEngimon(*itr) > mom.getSkillEngi(*itr)) {
+//                        retSkill.push_back(dad.getSkillEngi(*itr));
+//                    } else {
+//                        retSkill.push_back(mom.getSkillEngi(*itr));
+//                    }
 //                }
-//
-//                ++itr;
-//            }
-//
-//          return retSkill;
-//    }
+            } else {
+                retSkill[nSkill] = skill;
+                nSkill++;
+            }
+        }
+
+          return retSkill;
+    }
 
     public boolean compareMasteryLevel(Skill elmt1, Skill elmt2) {
         return elmt1.getMasteryLevel() > elmt2.getMasteryLevel();
@@ -220,13 +217,13 @@ public class Player {
     public String inheritSpecies(EnumSet<Elements> inheritedElmt) {
         if (inheritedElmt.size() == 1) {
             if (inheritedElmt.contains(Elements.FIRE)) {
-                return "Fuayer";
+                return "Geni";
             } else if (inheritedElmt.contains(Elements.WATER)) {
-                return "Arwanae";
+                return "Teles";
             } else if (inheritedElmt.contains(Elements.ELECTRIC)) {
-                return "Haeme";
+                return "Gledek";
             } else if (inheritedElmt.contains(Elements.GROUND)) {
-                return "Watwo";
+                return "Watoo";
             } else if (inheritedElmt.contains(Elements.ICE)) {
                 return "Wadem";
             }
