@@ -20,6 +20,7 @@ public class SpriteSheet {
 
     }
 
+    //spritesizeX and Y menyatakan banyaknya kotak di spritesheet
     public void loadsprites(int spriteSizeX, int spriteSizeY){
         loadedSprites = new Sprite[(SIZEX/spriteSizeX)*(SIZEY/spriteSizeY)];
         int spriteID = 0;

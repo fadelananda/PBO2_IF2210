@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Map {
     /*FIELDS*/
-    private ArrayList<mapTile> maptiles = new ArrayList<mapTile>();
+    private ArrayList<MapTile> maptiles = new ArrayList<MapTile>();
     private Tiles tiles;
     private int filler;
     
@@ -31,7 +31,7 @@ public class Map {
                 String[] splitString = line.split(",");
                 if(splitString.length >= 3)
                 {
-                    mapTile mappedTile = new mapTile(Integer.parseInt(splitString[0]),
+                    MapTile mappedTile = new MapTile(Integer.parseInt(splitString[0]),
                                                             Integer.parseInt(splitString[1]),
                                                             Integer.parseInt(splitString[2]));
                     maptiles.add(mappedTile);
@@ -48,24 +48,30 @@ public class Map {
         int xinc = 16*xzoom;
         int yinc = 16*yzoom;
 
-        for(int i = 0; i < renderer.getCamera().width; i++)
-            for(int j = 0; j < renderer.getCamera().height; j++)
-                tiles.renderTile(filler, renderer, xinc*i, yinc*j, xzoom, yzoom);
+        Rectangle camera = renderer.getCamera();
+        for(int y = camera.y - yinc - (camera.y % yzoom); y < camera.y + camera.height; y+= yinc)
+            for(int x = camera.x - xinc - (camera.x % xinc); x < camera.x + camera.width; x+= xinc)
+                tiles.renderTile(filler, renderer, x, y, xzoom, yzoom);
 
-        //load
-        for(mapTile m : maptiles){
+
+        // for(int i = 0; i < renderer.getCamera().width; i++)
+        //     for(int j = 0; j < renderer.getCamera().height; j++)
+        //         tiles.renderTile(filler, renderer, xinc*i, yinc*j, xzoom, yzoom);
+
+        for(MapTile m : maptiles){
             tiles.renderTile(m.tileid, renderer, xinc*m.x, yinc*m.y, xzoom, yzoom);
         }
     }
 
-    class mapTile{
+    /*SUBCLASS INSIDE MAP*/
+    class MapTile{
         /*FIELDS*/
         int tileid;
         int x;
         int y;
 
         /*METHODS*/
-        public mapTile(int tileid, int x, int y){
+        public MapTile(int tileid, int x, int y){
             this.tileid = tileid;
             this.x = x;
             this.y = y;

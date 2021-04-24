@@ -26,6 +26,7 @@ public class Game extends JFrame implements Runnable{
     private Map map;
 
     /*STATICS*/
+    //buat transparency
     public static int alpha = 0xFF00DC;
 
     /*METHODS*/
@@ -41,7 +42,7 @@ public class Game extends JFrame implements Runnable{
         //ukuran windownya
         setBounds(0,0, 800, 800);
         //biar ga bisa diresize
-        setResizable(false);
+        // setResizable(false);
         //taroh di tengah
         setLocationRelativeTo(null);
         //biar frame nya keliatan
@@ -50,17 +51,20 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
+
         // create out object for buffer stregy
         canvas.createBufferStrategy(3);
-        //create render handler
+
+        //create render handler of window width and height
         renderer = new RenderHandler(getWidth(), getHeight());
+
         //load tiles buat map
-        mapImg = loadImage("assets/rpg_tiles.png");
-        mapsprites = new SpriteSheet(mapImg);
-        mapsprites.loadsprites(16, 16);
+        mapImg = loadImage("assets/rpg_tiles.png"); //load image doang
+        mapsprites = new SpriteSheet(mapImg); //masukin img ke spritesheetnya
+        mapsprites.loadsprites(16, 16); //mecah mecah jadi 16x16 biar bisa dipake
         
-        tilesforMap = new Tiles(new File("assets/Tiles.txt"), mapsprites);
-        map = new Map(new File("assets/Map.txt"), tilesforMap);
+        tilesforMap = new Tiles(new File("assets/Tiles.txt"), mapsprites); //load tiles yang bisa dipake berd. spritesheet yg tadi
+        map = new Map(new File("assets/Map.txt"), tilesforMap); //define map nya
     }
 
     /*LOAD IMAGE AS A BUFFERED IMAGE*/

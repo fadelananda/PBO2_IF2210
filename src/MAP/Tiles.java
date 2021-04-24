@@ -15,7 +15,7 @@ public class Tiles {
                 String[] entry = scanner.nextLine().split("-");
                 int x = Integer.parseInt(entry[1]);
                 int y = Integer.parseInt(entry[2]);
-                tiles.add(new Tile(entry[0], spritesh.getSprite(x, y)));
+                tiles.add(new Tile(spritesh.getSprite(x, y), entry[0]));
             }
             scanner.close();
         }
@@ -25,18 +25,20 @@ public class Tiles {
     }
 
     public void renderTile(int tileID, RenderHandler renderer, int xPosition, int yPosition, int xZoom, int yZoom){
-        if(tileID >= 0 && tiles.size() > tileID)
+        if(0 <= tileID && tileID < tiles.size())
             renderer.renderSprite(tiles.get(tileID).sprite, xPosition, yPosition, xZoom, yZoom);
+        // else{
+        //     System.out.println("nope");
+        // }
     }
 
     class Tile{
-        public String tilename;
         public Sprite sprite;
+        public String tilename;
 
-        public Tile(String name, Sprite sp){
-            this.tilename = name;
+        public Tile(Sprite sp, String name){
             this.sprite = sp;
+            this.tilename = name;
         }
-        
     }
 }
