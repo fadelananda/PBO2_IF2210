@@ -1,62 +1,52 @@
 package GUI;
 
-public class Rectangle
-{
-	public int x,y,w,h;
-	private int[] pixels;
+public class Rectangle {
+    /*FIELDS*/
+    public int x, y, width, height;
+    private int[] pixels;
 
-	Rectangle(int x, int y, int w, int h) 
-	{
-		this.x = x;
-		this.y = y;
-		this.w = w;
-		this.h = h;
-	}
+    /*METHODS*/
+    public Rectangle(){
+        this(0,0,0,0);
+    }
 
-	Rectangle() 
-	{
-		this(0,0,0,0);
-	}
+    public Rectangle(int x, int y, int w, int h){
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+    }
 
-	public void generateGraphics(int color) 
-	{
-		pixels = new int[w*h];
-		for(int y = 0; y < h; y++)
-			for(int x = 0; x < w; x++)
-				pixels[x + y * w] = color;
-	}
+    public void generatePixels(int borderwidth, int bordercolor){
+        pixels = new int[width*height];
+        // for(int i = 0; i < width*height; i++)
+        //     pixels[i] = color;
+        createBorder(borderwidth, bordercolor);
+    }
 
-	public void generateGraphics(int borderWidth, int color) {
-		pixels = new int[w*h];
-		
-		for(int i = 0; i < pixels.length; i++)
-			pixels[i] = Game.alpha;
+    public int[] getPixels(){
+        return pixels;
+    }
 
-		for(int y = 0; y < borderWidth; y++)
-			for(int x = 0; x < w; x++)
-				pixels[x + y * w] = color;
+    public void createBorder(int width, int color){
+        /*FILLING WITH ALPHA VALUE SO IT BECOMES TRANSPARENT*/
+        for(int i = 0; i < this.width*this.height; i++){
+            pixels[i] = Game.alpha;
+        }
 
-		for(int y = 0; y < h; y++)
-			for(int x = 0; x < borderWidth; x++)
-				pixels[x + y * w] = color;
+        /*INSIDE BORDERS*/
+        //top and bottom border
+        for(int j = 0; j < width; j++)
+            for(int i = 0; i < this.width; i++){
+                pixels[i + j*this.width] = color;
+                pixels[i + (this.height-j-1)*this.width] = color;
+            }
 
-		for(int y = 0; y < h; y++)
-			for(int x = w - borderWidth; x < w; x++)
-				pixels[x + y * w] = color;
-
-		for(int y = h - borderWidth; y < h; y++)
-			for(int x = 0; x < w; x++)
-				pixels[x + y * w] = color;
-		
-	}
-
-	public int[] getPixels() 
-	{
-		if(pixels != null)
-			return pixels;
-		else
-			System.out.println("Attempted to retrive pixels from a Rectangle without generated graphics.");
-
-		return null;
-	}
+        //left and right borders
+        for(int i = 0; i < width; i++)
+            for(int j = 0; j < this.height; j++){
+                pixels[i + j*this.width] = color;
+                pixels[(this.width-i-1) + j*this.width] = color;
+            }
+    }
 }

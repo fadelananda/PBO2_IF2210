@@ -2,62 +2,45 @@ package GUI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Tiles 
-{
-	private SpriteSheet spriteSheet;
-	private ArrayList<Tile> tilesList = new ArrayList<>();
+public class Tiles {
+    private ArrayList<Tile> tiles = new ArrayList<>();
+    private SpriteSheet spritesh;
 
-	//This will only work assuming the sprites in the spriteSheet have been loaded.
-	public Tiles(File tilesFile, SpriteSheet spriteSheet)
-	{
-		this.spriteSheet = spriteSheet;
-		try 
-		{
-			Scanner scanner = new Scanner(tilesFile);
-			while(scanner.hasNextLine()) 
-			{
-				String line = scanner.nextLine();
-				if(!line.startsWith("//"))
-				{
-					String[] splitString = line.split("-");
-					String tileName = splitString[0];
-					int spriteX = Integer.parseInt(splitString[1]);
-					int spriteY = Integer.parseInt(splitString[2]);
-					Tile tile = new Tile(tileName, spriteSheet.getSprite(spriteX, spriteY));
-					tilesList.add(tile);
-				}
-			}
-		} 
-		catch(FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-	}
+    public Tiles(File tilesFile, SpriteSheet spritesh){
+        this.spritesh = spritesh;
+        try{
+            Scanner scanner = new Scanner(tilesFile);
+            while(scanner.hasNextLine()){
+                String[] entry = scanner.nextLine().split("-");
+                int x = Integer.parseInt(entry[1]);
+                int y = Integer.parseInt(entry[2]);
+                tiles.add(new Tile(spritesh.getSprite(x, y), entry[0]));
+            }
+            scanner.close();
+        }
+        catch(FileNotFoundException ex){
+            ex.printStackTrace();
+        }
+    }
 
-	public void renderTile(int tileID, RenderHandler renderer, int xPosition, int yPosition, int xZoom, int yZoom)
-	{
-		if(tileID >= 0 && tilesList.size() > tileID)
-		{
-			renderer.renderSprite(tilesList.get(tileID).sprite, xPosition, yPosition, xZoom, yZoom);
-		}
-		else
-		{
-			System.out.println("TileID " + tileID + " is not within range " + tilesList.size() + ".");
-		}
-	}
+    public void renderTile(int tileID, RenderHandler renderer, int xPosition, int yPosition, int xZoom, int yZoom){
+        if(0 <= tileID && tileID < tiles.size())
+            renderer.renderSprite(tiles.get(tileID).sprite, xPosition, yPosition, xZoom, yZoom);
+        // else{
+        //     System.out.println("nope");
+        // }
+    }
 
-	class Tile 
-	{
-		public String tileName;
-		public Sprite sprite;
+    class Tile{
+        public Sprite sprite;
+        public String tilename;
 
-		public Tile(String tileName, Sprite sprite) 
-		{
-			this.tileName = tileName;
-			this.sprite = sprite;
-		}
-	}
+        public Tile(Sprite sp, String name){
+            this.sprite = sp;
+            this.tilename = name;
+        }
+    }
 }
