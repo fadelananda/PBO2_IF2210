@@ -338,6 +338,9 @@ public abstract class Engimon implements MoveAction, GameObject {
 
     // GUI GUI an gaes
     public void render(RenderHandler renderer, int xzoom, int yzoom){
+        if(isTame){
+            engiImg.createBorder(1, 9873);
+        }
         renderer.renderSprite(engiImg, xpos, ypos, 3, 3);
     }
 

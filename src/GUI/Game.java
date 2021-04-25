@@ -117,11 +117,12 @@ public class Game extends JFrame implements Runnable{
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
         wildEngimons.add(gengens);
-        Teles telessss = new Teles(engiAvas, "halo", 550, 200);
-//        wildEngimons.add(telessss);
-        objects.add(telessss);
-        Wadem wademe = new Wadem(engiAvas, "tess", 0, 500);
-        objects.add(wademe);
+        Teles telessss = new Teles(engiAvas);
+        wildEngimons.add(telessss);
+        // objects.add(telessss);
+        Wadem wademe = new Wadem(engiAvas);
+        // objects.add(wademe);
+        wildEngimons.add(wademe);
 
         //Add listener
         canvas.addKeyListener(keyListener);

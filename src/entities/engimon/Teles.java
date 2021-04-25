@@ -16,6 +16,8 @@ public class Teles extends Engimon {
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
         this.BORDER_LEFT = 540;
+        this.xpos = 550;
+        this.ypos = 200;
     }
 
     public Teles(Tiles engiTiles, String name, int x, int y) {
