@@ -26,20 +26,20 @@ public abstract class Engimon implements MoveAction, GameObject {
     private boolean hasParent;
     private int exp;
     private int cumulative_exp;
-    private boolean isTame = false;
+    protected boolean isTame = false;
 
     /*ATTRIBUTE FOR GUI*/
     protected Sprite engiImg;
     protected Tiles engiTiles;
-    static final int BORDER_UP = 10;
-    static final int BORDER_DOWN = 645;
-    static final int BORDER_LEFT = 0;
-    static final int BORDER_RIGHT = 645;
+    protected int BORDER_UP = 10;
+    protected int BORDER_DOWN = 645;
+    protected int BORDER_LEFT = 0;
+    protected int BORDER_RIGHT = 645;
     protected int xpos = 200;
     protected int ypos = 200;
     protected int speed = 7;
-    private int nRandoms = 0;
-    private int whereRandom = -1;
+    protected int nRandoms = 0;
+    protected int whereRandom = -1;
     protected int engiwidth;
     protected int engiheight;
 
@@ -197,7 +197,7 @@ public abstract class Engimon implements MoveAction, GameObject {
     }
 
     public int getYpos(){
-        return xpos;
+        return ypos;
     }
 
     // Setter
