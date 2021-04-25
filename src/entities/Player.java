@@ -26,9 +26,9 @@ public class Player implements GameObject {
     private Sprite playerAvatar;
     int speed = 10;
     static final int BORDER_UP = 10;
-    static final int BORDER_DOWN = 720;
-    static final int BORDER_LEFT = 10;
-    static final int BORDER_RIGHT = 950;
+    static final int BORDER_DOWN = 645;
+    static final int BORDER_LEFT = 0;
+    static final int BORDER_RIGHT = 645;
     private int xpos = 300;
     private int ypos = 300;
     private Tiles engiTiles;
@@ -419,25 +419,20 @@ public class Player implements GameObject {
 
     public void update(Game game){
         KeyboardListener keyListener = game.getKeyListener();
+        int newX = xpos;
+        int newY = ypos;
+        
         if(keyListener.up() && (ypos >= BORDER_UP)){
-            if(ypos > 0){
-                ypos -= speed;
-            }
+            ypos -= speed;
         }
         if(keyListener.down() && (ypos <= BORDER_DOWN)){
-            if(ypos < 665){
-                ypos += speed;
-            }
+            ypos += speed;
         }
         if(keyListener.left() && (xpos >= BORDER_LEFT)){
-            if(xpos > 0){
-                xpos -= speed;
-            }
+            xpos -= speed;
         }
         if(keyListener.right() && (xpos <= BORDER_RIGHT)){
-            if(xpos < 655){
-                xpos += speed;
-            }
+            xpos += speed;
         }
     }
 
