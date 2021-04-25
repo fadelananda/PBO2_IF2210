@@ -24,23 +24,37 @@ import java.util.EnumSet;
 // import java.awt.Color;
 // import java.util.Scanner;
 
+import GUI.Tiles.Tile;
+import entities.Player;
+import entities.engimon.Beckoo;
+import entities.engimon.Engimon;
+import entities.engimon.Geni;
+
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
     private Canvas canvas = new Canvas();
     private BufferStrategy buffstrat;
     private RenderHandler renderer;
 
-    //textures and avatars
+    //texture
     private BufferedImage mapImg;
-    private BufferedImage avaImg;
     private SpriteSheet mapsprites;
-    private SpriteSheet avasprites;
     private Tiles tilesforMap;
     private Map map;
-    private PlayerT player;
+
+    //player avatar
+    private BufferedImage avaImg;
+    private SpriteSheet avasprites;
+    private Player playya;
+
+    //engimon avatar
+    private BufferedImage engiImg;
+    private SpriteSheet engisprites;
+    private Tiles engiAvas;
 
     //objects
     private ArrayList<GameObject> objects;
+    private ArrayList<Engimon> wildEngimons;
     private KeyboardListener keyListener = new KeyboardListener();
 
     /*STATICS*/
@@ -99,12 +113,28 @@ public class Game extends JFrame implements Runnable{
         avasprites = new SpriteSheet(avaImg);
         avasprites.loadsprites(32, 32);
 
+        //load engimons
+        engiImg = loadImage("assets/engimons.png");
+        engisprites = new SpriteSheet(engiImg);
+        engisprites.loadsprites(16, 16);
+        engiAvas = new Tiles(new File("assets/Engimon.txt"), engisprites);
+
         //create an objects holder 4 the gaem
         objects = new ArrayList<>();
+        wildEngimons = new ArrayList<>();
 
         //create a player and add it to the list of objects
-        PlayerT joni = new PlayerT(avasprites);
-        objects.add(joni);
+        playya = new Player(avasprites, engiAvas);
+        objects.add(playya);
+
+        //create an engimon, beckoo and add it to the list of objects
+        Beckoo bebeckqo = new Beckoo(engiAvas, "wkwkwk", 200, 200);
+        objects.add(bebeckqo);
+
+        //same thing but geni to spice things up a bit lol wkwkwkwk
+        Geni gengens = new Geni(engiAvas);
+        objects.add(gengens); //tetep add ke objects biar tetep keliatan
+        wildEngimons.add(gengens);
 
         //Add listener
         canvas.addKeyListener(keyListener);
@@ -112,7 +142,7 @@ public class Game extends JFrame implements Runnable{
     }
 
     /*LOAD IMAGE AS A BUFFERED IMAGE*/
-    public BufferedImage loadImage(String path){
+    public static BufferedImage loadImage(String path){
         try{
             BufferedImage loadedImage = ImageIO.read(Game.class.getResource(path));
             BufferedImage formatted = new BufferedImage(loadedImage.getWidth(),
@@ -161,6 +191,21 @@ public class Game extends JFrame implements Runnable{
         for(GameObject obj: objects){
             obj.update(this);
         }
+
+        //checkcollision
+        for(Engimon e: wildEngimons){
+            if(checkCollision(playya, e)){
+                System.out.println("tabrakan di : "+e.getXpos());
+            }
+        }
+    }
+
+    private boolean checkCollision(Player p, Engimon e){
+        if(p.getXpos() < e.getXpos() + e.getEngiWidth() &&
+        p.getXpos() + p.getPlayerWidth() > e.getXpos() &&
+        p.getYpos() < e.getYpos() + e.getEngiHeight() &&
+        p.getYpos() + p.getPlayerHeight() > e.getYpos()) return true;
+        else return false;
     }
 
     public void run(){

@@ -9,8 +9,16 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.EnumSet;
+import java.util.Random;
 
-public abstract class Engimon implements MoveAction {
+import GUI.Game;
+import GUI.GameObject;
+import GUI.KeyboardListener;
+import GUI.RenderHandler;
+import GUI.Sprite;
+import GUI.Tiles;
+
+public abstract class Engimon implements MoveAction, GameObject {
     // Attribute entities.engimon.Engimon
     private String name;
     private int life;
@@ -22,6 +30,22 @@ public abstract class Engimon implements MoveAction {
     private boolean hasParent;
     private int exp;
     private int cumulative_exp;
+    private boolean isTame = false;
+
+    /*ATTRIBUTE FOR GUI*/
+    protected Sprite engiImg;
+    protected Tiles engiTiles;
+    static final int BORDER_UP = 10;
+    static final int BORDER_DOWN = 645;
+    static final int BORDER_LEFT = 0;
+    static final int BORDER_RIGHT = 645;
+    protected int xpos = 200;
+    protected int ypos = 200;
+    protected int speed = 7;
+    private int nRandoms = 0;
+    private int whereRandom = -1;
+    protected int engiwidth;
+    protected int engiheight;
 
     // Constructor
     public Engimon() {
@@ -45,6 +69,9 @@ public abstract class Engimon implements MoveAction {
         this.exp = 0;
         this.cumulative_exp = 0;
         this.hasParent = false;
+        this.xpos = x;
+        this.ypos = y;
+        this.isTame= true;
     }
 
     // Abstract Method
@@ -188,6 +215,22 @@ public abstract class Engimon implements MoveAction {
         return this.cumulative_exp;
     }
 
+    public int getEngiWidth(){
+        return engiwidth;
+    }
+
+    public int getEngiHeight(){
+        return engiheight;
+    }
+
+    public int getXpos(){
+        return xpos;
+    }
+
+    public int getYpos(){
+        return xpos;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;
@@ -322,5 +365,54 @@ public abstract class Engimon implements MoveAction {
     public String toString()
     {
         return String.format("%s/%s/Lv.%d", this.name, this.getSpeciesName(),this.level);
+    }
+
+    // GUI GUI an gaes
+    public void render(RenderHandler renderer, int xzoom, int yzoom){
+        renderer.renderSprite(engiImg, xpos, ypos, 3, 3);
+    }
+
+    public void update(Game game){
+        KeyboardListener keyListener = game.getKeyListener();
+        if(isTame){
+            if(keyListener.up() && (ypos >= BORDER_UP)){
+                ypos -= speed;
+            }
+            if(keyListener.down() && (ypos <= BORDER_DOWN)){
+                ypos += speed;
+            }
+            if(keyListener.left() && (xpos >= BORDER_LEFT)){
+                xpos -= speed;
+            }
+            if(keyListener.right() && (xpos <= BORDER_RIGHT)){
+                xpos += speed;
+            }
+        }
+        else{
+            Random rand = new Random();
+            if(nRandoms == 0){
+                whereRandom = rand.nextInt(4);
+                nRandoms = 25;
+            }
+            if(whereRandom == 0 && (ypos >= BORDER_UP)){
+                ypos -= 4;
+                nRandoms--;
+            }
+            else if(whereRandom == 1 && (ypos <= BORDER_DOWN)){
+                ypos += 4;
+                nRandoms--;
+            }
+            else if(whereRandom == 2 && (xpos >= BORDER_LEFT)){
+                xpos -= 4;
+                nRandoms--;
+            }
+            else if(whereRandom == 3 && (xpos <= BORDER_RIGHT)){
+                xpos += 4;
+                nRandoms--;
+            }
+            else{
+                nRandoms--;
+            }
+        }
     }
 }

@@ -10,7 +10,15 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class Player {
+import GUI.Game;
+import GUI.GameObject;
+import GUI.KeyboardListener;
+import GUI.RenderHandler;
+import GUI.Sprite;
+import GUI.SpriteSheet;
+import GUI.Tiles;
+
+public class Player implements GameObject {
 
     private InventoryEngimon EngiBag;
     private InventorySkillItem SkillItemBag;
@@ -18,12 +26,31 @@ public class Player {
     private int idxCurrActiveEngimon;
     private Point plocation;
 
-    public Player() {
+    /*FIELDS FOR GUI*/
+    private Sprite playerAvatar;
+    int speed = 10;
+    static final int BORDER_UP = 10;
+    static final int BORDER_DOWN = 645;
+    static final int BORDER_LEFT = 0;
+    static final int BORDER_RIGHT = 645;
+    private Tiles engiTiles;
+    private int xpos = 300; //spawn position
+    private int ypos = 300; //spawn position
+    private int playerwidth;
+    private int playerheight;
+
+    public Player(SpriteSheet avaspritesh, Tiles engiTiles) {
         this.EngiBag = new InventoryEngimon();
         this.SkillItemBag = new InventorySkillItem();
         this.idxCurrActiveEngimon = 0;
         this.plocation = new Point(0, 0);
+        this.engiTiles = engiTiles;
         initElmtAdvantage();
+
+        //GUI
+        playerAvatar = avaspritesh.getSprite(1, 0);
+        playerwidth = playerAvatar.getWidth();
+        playerheight = playerAvatar.getHeight();
     }
 
     public void initElmtAdvantage() {
@@ -80,6 +107,21 @@ public class Player {
         return this.plocation.getY();
     }
 
+    public int getPlayerWidth(){
+        return playerwidth;
+    }
+
+    public int getPlayerHeight(){
+        return playerheight;
+    }
+
+    public int getXpos(){
+        return xpos;
+    }
+
+    public int getYpos(){
+        return ypos;
+    }
 
     // Add item
     public void addEngimon(Engimon engimon) {
@@ -197,25 +239,28 @@ public class Player {
     public Engimon breed(Engimon dad, Engimon mom){
         try{
             if (dad.getLevel() >= 4 && mom.getLevel() >= 4) {
-                String nama;
+                // list of inherited parent skills
                 Skill[] inheritedSkill = this.inheritSkill(dad, mom);
+                // resulting child element
                 EnumSet<Elements> inheritedElmt = this.inheritElement(dad, mom);
+                // resulting child species
                 String inheritedSpecies = this.inheritSpecies(inheritedElmt);
 
+                //Berikan nama child
+                String nama;
                 Scanner keyboard = new Scanner(System.in);
                 System.out.print("Masukkan nama buat engimon anak ini: ");
                 nama = keyboard.nextLine();
 
-                // Engimon child(nama, getX_pl(), getY_pl(), inheritedSpecies);
                 Engimon child = null;
-                if(inheritedSpecies == "Beckoo") child = new Beckoo(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Geni") child = new Geni(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Teles") child = new Teles(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Wadem") child = new Wadem(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Watoo") child = new Watoo(nama, this.plocation.getX(), this.plocation.getY());
+                if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Geni") child = new Geni(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Gledek") child = new Gledek(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Koobong") child = new Koobong(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Teles") child = new Teles(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Wadem") child = new Wadem(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Watoo") child = new Watoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
 
                 Iterator<Elements> iterate = inheritedElmt.iterator();
 
@@ -225,6 +270,7 @@ public class Player {
                 }
 
                 for(Skill s : inheritedSkill){
+                    if(s == null) continue;
                     child.addSkill(s);
                 }
 
@@ -256,12 +302,19 @@ public class Player {
             combinedSkill[i+4] = momSkill[i];
         }
 
-        Arrays.sort(combinedSkill, Comparator.comparingInt(Skill :: getMasteryLevel));
+        Arrays.sort(combinedSkill, Comparator.nullsFirst(Comparator.comparingInt(Skill::getMasteryLevel)));
         Collections.reverse(Arrays.asList(combinedSkill));
 
+        /*
+        for(Skill s : combinedSkill){
+            if(s == null) System.out.println("null");
+            else System.out.println(s.getName());
+        } */
         int nSkill = 0;
         for(Skill skill : combinedSkill) {
+            //jika skill sekarang termasuk skill unik engimon
             if(nSkill == 4) break;
+            if(skill == null) continue;
             if (dad.hasSkill(skill) && mom.hasSkill(skill)) {
                 retSkill[nSkill] = skill;
                 Skill currDadSkill = dad.getSkillByName(skill.getName());
@@ -382,7 +435,30 @@ public class Player {
 
 
     // ISIAN GUInya BELOM
-    // ...
+    // GUI sudah
+    public void render(RenderHandler renderer, int xzoom, int yzoom){
+        renderer.renderSprite(playerAvatar, xpos, ypos, 2, 2);
+    }
+
+    public void update(Game game){
+        KeyboardListener keyListener = game.getKeyListener();
+        int newX = xpos;
+        int newY = ypos;
+        
+        if(keyListener.up() && (ypos >= BORDER_UP)){
+            ypos -= speed;
+        }
+        if(keyListener.down() && (ypos <= BORDER_DOWN)){
+            ypos += speed;
+        }
+        if(keyListener.left() && (xpos >= BORDER_LEFT)){
+            xpos -= speed;
+        }
+        if(keyListener.right() && (xpos <= BORDER_RIGHT)){
+            xpos += speed;
+        }
+    }
+
     public static void main(String[] args){
 
     }
