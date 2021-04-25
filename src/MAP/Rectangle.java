@@ -15,10 +15,11 @@ public class Rectangle {
         this.height = h;
     }
 
-    public void generatePixels(int color){
+    public void generatePixels(int borderwidth, int bordercolor){
         pixels = new int[width*height];
-        for(int i = 0; i < width*height; i++)
-            pixels[i] = color;
+        // for(int i = 0; i < width*height; i++)
+        //     pixels[i] = color;
+        createBorder(borderwidth, bordercolor);
     }
 
     public int[] getPixels(){

@@ -70,6 +70,14 @@ public class RenderHandler
 		renderArray(s.getPixels(), x, y, s.getWidth(), s.getHeight(), xzoom, yzoom);
 	}
 
+	/*CLEAR*/
+	public void clear(){
+		for(int i = 0; i < pixels.length; i++){
+			pixels[i] = 0;
+		}
+	}
+
+	/*MISC*/
 	public int getPixelsLength(){
 		return pixels.length;
 	}

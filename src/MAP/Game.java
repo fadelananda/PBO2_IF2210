@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import java.lang.Runnable;
 // import java.util.Scanner;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,6 +25,8 @@ public class Game extends JFrame implements Runnable{
     private SpriteSheet mapsprites;
     private Tiles tilesforMap;
     private Map map;
+    private ArrayList<GameObject> objects;
+    private KeyboardListener keyListener = new KeyboardListener();
 
     /*STATICS*/
     //buat transparency
@@ -42,7 +45,7 @@ public class Game extends JFrame implements Runnable{
         //ukuran windownya
         setBounds(0,0, 720, 750);
         //biar ga bisa diresize
-        setResizable(false);
+        // setResizable(false);
         //taroh di tengah
         setLocationRelativeTo(null);
         //biar frame nya keliatan
@@ -51,12 +54,13 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
+        
 
         // create out object for buffer stregy
         canvas.createBufferStrategy(3);
 
         //create render handler of window width and height
-        renderer = new RenderHandler(getWidth(), getHeight());
+        renderer = new RenderHandler(720, 720);
 
         //load tiles buat map
         mapImg = loadImage("assets/rpg_tiles.png"); //load image doang
@@ -65,6 +69,17 @@ public class Game extends JFrame implements Runnable{
         
         tilesforMap = new Tiles(new File("assets/Tiles.txt"), mapsprites); //load tiles yang bisa dipake berd. spritesheet yg tadi
         map = new Map(new File("assets/Map.txt"), tilesforMap); //define map nya
+
+        //create an objects holder 4 the gaem
+        objects = new ArrayList<>();
+
+        //create a player and add it to the list of objects
+        PlayerT joni = new PlayerT();
+        objects.add(joni);
+
+        //Add listener
+        canvas.addKeyListener(keyListener);
+        canvas.addFocusListener(keyListener);
     }
 
     /*LOAD IMAGE AS A BUFFERED IMAGE*/
@@ -83,6 +98,12 @@ public class Game extends JFrame implements Runnable{
         }
     }
 
+    /*getter keylistener*/
+    public KeyboardListener getKeyListener(){
+        return keyListener;
+    }
+
+
     /*RENDER/
     /*RUNS EVERYTIME TO ACTUALLY SHOW STUFF*/
     public void render(){
@@ -93,8 +114,10 @@ public class Game extends JFrame implements Runnable{
         Graphics graphics = buffstrat.getDrawGraphics();
         
         //its like "renderer" is the one doing the drawing, so tells the renderer what to draw
-        // renderer.renderImage(map, xPosition, yPosition, 1, 1);
         map.renderMap(renderer, 3, 3);
+        for(GameObject obj: objects){
+            obj.render(renderer, 3, 3);
+        }
 
         //the renderer knows what to draw, not it only need somewhere to draw, the canvas (has been turned into a graphics)
         renderer.render(graphics);
@@ -106,7 +129,9 @@ public class Game extends JFrame implements Runnable{
 
     /*TO UPDATE WHAT'S GOING TO BE DRAWN*/
     public void update(){
-        //
+        for(GameObject obj: objects){
+            obj.update(this);
+        }
     }
 
     public void run(){
