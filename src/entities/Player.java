@@ -12,6 +12,7 @@ import GUI.KeyboardListener;
 import GUI.RenderHandler;
 import GUI.Sprite;
 import GUI.SpriteSheet;
+import GUI.Tiles;
 
 public class Player implements GameObject {
 
@@ -30,12 +31,14 @@ public class Player implements GameObject {
     static final int BORDER_RIGHT = 950;
     private int xpos = 300;
     private int ypos = 300;
+    private Tiles engiTiles;
 
-    public Player(SpriteSheet avaspritesh) {
+    public Player(SpriteSheet avaspritesh, Tiles engiTiles) {
         this.EngiBag = new InventoryEngimon();
         this.SkillItemBag = new InventorySkillItem();
         this.idxCurrActiveEngimon = 0;
         this.plocation = new Point(0, 0);
+        this.engiTiles = engiTiles;
         initElmtAdvantage();
 
         //GUI
@@ -213,18 +216,21 @@ public class Player implements GameObject {
     public Engimon breed(Engimon dad, Engimon mom){
         try{
             if (dad.getLevel() >= 4 && mom.getLevel() >= 4) {
-                String nama;
+                // list of inherited parent skills
                 Skill[] inheritedSkill = this.inheritSkill(dad, mom);
+                // resulting child element
                 EnumSet<Elements> inheritedElmt = this.inheritElement(dad, mom);
+                // resulting child species
                 String inheritedSpecies = this.inheritSpecies(inheritedElmt);
 
+                //Berikan nama child
+                String nama;
                 Scanner keyboard = new Scanner(System.in);
                 System.out.print("Masukkan nama buat engimon anak ini: ");
                 nama = keyboard.nextLine();
 
-                // Engimon child(nama, getX_pl(), getY_pl(), inheritedSpecies);
                 Engimon child = null;
-                if(inheritedSpecies == "Beckoo") child = new Beckoo(nama, this.plocation.getX(), this.plocation.getY());
+                if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Geni") child = new Geni(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
@@ -241,6 +247,7 @@ public class Player implements GameObject {
                 }
 
                 for(Skill s : inheritedSkill){
+                    if(s == null) continue;
                     child.addSkill(s);
                 }
 
@@ -272,12 +279,19 @@ public class Player implements GameObject {
             combinedSkill[i+4] = momSkill[i];
         }
 
-        Arrays.sort(combinedSkill, Comparator.comparingInt(Skill :: getMasteryLevel));
+        Arrays.sort(combinedSkill, Comparator.nullsFirst(Comparator.comparingInt(Skill::getMasteryLevel)));
         Collections.reverse(Arrays.asList(combinedSkill));
 
+        /*
+        for(Skill s : combinedSkill){
+            if(s == null) System.out.println("null");
+            else System.out.println(s.getName());
+        } */
         int nSkill = 0;
         for(Skill skill : combinedSkill) {
+            //jika skill sekarang termasuk skill unik engimon
             if(nSkill == 4) break;
+            if(skill == null) continue;
             if (dad.hasSkill(skill) && mom.hasSkill(skill)) {
                 retSkill[nSkill] = skill;
                 Skill currDadSkill = dad.getSkillByName(skill.getName());

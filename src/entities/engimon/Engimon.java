@@ -6,7 +6,14 @@ import enums.Elements;
 import interfaces.MoveAction;
 import java.util.EnumSet;
 
-public abstract class Engimon implements MoveAction {
+import GUI.Game;
+import GUI.GameObject;
+import GUI.KeyboardListener;
+import GUI.RenderHandler;
+import GUI.Sprite;
+import GUI.Tiles;
+
+public abstract class Engimon implements MoveAction, GameObject {
     // Attribute entities.engimon.Engimon
     private String name;
     private int life;
@@ -18,6 +25,17 @@ public abstract class Engimon implements MoveAction {
     private boolean hasParent;
     private int exp;
     private int cumulative_exp;
+
+    /*ATTRIBUTE FOR GUI*/
+    protected Sprite engiImg;
+    protected Tiles engiTiles;
+    static final int BORDER_UP = 10;
+    static final int BORDER_DOWN = 720;
+    static final int BORDER_LEFT = 10;
+    static final int BORDER_RIGHT = 950;
+    protected int xpos = 200;
+    protected int ypos = 200;
+    protected int speed = 7;
 
     // Constructor
     public Engimon() {
@@ -41,6 +59,8 @@ public abstract class Engimon implements MoveAction {
         this.exp = 0;
         this.cumulative_exp = 0;
         this.hasParent = false;
+        this.xpos = x;
+        this.ypos = y;
     }
 
     // Abstract Method
@@ -291,5 +311,34 @@ public abstract class Engimon implements MoveAction {
     public String toString()
     {
         return String.format("%s/%s/Lv.%d", this.name, this.getSpeciesName(),this.level);
+    }
+
+    // GUI GUI an gaes
+    public void render(RenderHandler renderer, int xzoom, int yzoom){
+        renderer.renderSprite(engiImg, xpos, ypos, 2, 2);
+    }
+
+    public void update(Game game){
+        KeyboardListener keyListener = game.getKeyListener();
+        if(keyListener.up() && (ypos >= BORDER_UP)){
+            if(ypos > 0){
+                ypos -= speed;
+            }
+        }
+        if(keyListener.down() && (ypos <= BORDER_DOWN)){
+            if(ypos < 665){
+                ypos += speed;
+            }
+        }
+        if(keyListener.left() && (xpos >= BORDER_LEFT)){
+            if(xpos > 0){
+                xpos -= speed;
+            }
+        }
+        if(keyListener.right() && (xpos <= BORDER_RIGHT)){
+            if(xpos < 655){
+                xpos += speed;
+            }
+        }
     }
 }
