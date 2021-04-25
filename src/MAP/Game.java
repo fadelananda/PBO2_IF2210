@@ -45,7 +45,7 @@ public class Game extends JFrame implements Runnable{
         //ukuran windownya
         setBounds(0,0, 720, 750);
         //biar ga bisa diresize
-        // setResizable(false);
+        setResizable(false);
         //taroh di tengah
         setLocationRelativeTo(null);
         //biar frame nya keliatan
