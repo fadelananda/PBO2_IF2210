@@ -1,13 +1,12 @@
 package GUI;
 
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 // import java.awt.image.DataBufferInt;
-import java.awt.Canvas;
 // import java.awt.Color;
-import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
 
@@ -45,17 +44,19 @@ public class Game extends JFrame implements Runnable{
         ImageIcon img = new ImageIcon("assets/engimonIcon.png");
         super.setIconImage(img.getImage());
         //ukuran windownya
-        setBounds(0,0, 720, 750);
+        setBounds(0,0, 1120, 750);
         //biar ga bisa diresize
         setResizable(false);
         //taroh di tengah
         setLocationRelativeTo(null);
         //biar frame nya keliatan
         setVisible(true);
+        //layout manager
 
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
+        add(new StatusPanel(), BorderLayout.EAST);
         
 
         // create out object for buffer stregy
