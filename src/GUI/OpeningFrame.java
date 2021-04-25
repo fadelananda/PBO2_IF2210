@@ -50,8 +50,8 @@ public class OpeningFrame extends JFrame {
 
         newGameBtn.setBorder(BorderFactory.createRaisedBevelBorder());
         loadGameBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-        newGameBtn.setFont(new Font("Roboto", Font.BOLD, 30));
-        loadGameBtn.setFont(new Font("Roboto", Font.BOLD, 30));
+        newGameBtn.setFont(new Font("Papyrus", Font.BOLD, 50));
+        loadGameBtn.setFont(new Font("Papyrus", Font.BOLD, 50));
         newGameBtn.setBackground(Color.GRAY);
         loadGameBtn.setBackground(Color.GRAY);
         newGameBtn.setFocusable(false);
