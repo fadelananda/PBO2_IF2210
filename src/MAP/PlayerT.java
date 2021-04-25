@@ -20,7 +20,7 @@ public class PlayerT implements GameObject {
             }
         }
         if(keyListener.down()){
-            if(playerRect.y < 672){
+            if(playerRect.y < 665){
                 playerRect.y += speed;
             }
         }
@@ -30,7 +30,7 @@ public class PlayerT implements GameObject {
             }
         }
         if(keyListener.right()){
-            if(playerRect.x < 672){
+            if(playerRect.x < 655){
                 playerRect.x += speed;
             }
         }
