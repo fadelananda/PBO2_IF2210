@@ -1,14 +1,16 @@
 package GUI;
 
 import entities.Player;
-import entities.Skill;
 import entities.SkillItem;
-import entities.engimon.Geni;
-import enums.Elements;
+import entities.engimon.Engimon;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.EnumSet;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.List;
 
 public class StatusPanel extends JTabbedPane {
     Player player;
@@ -43,10 +45,10 @@ public class StatusPanel extends JTabbedPane {
         JPanel engimonContainer = new JPanel();
         JLabel title = new JLabel("Engimon Inventory");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
-        engimonContainer.setLayout(new GridLayout(2,1,10,10));
+        engimonContainer.setLayout(new GridLayout(1,2,10,10));
 
-        for (int i = 0; i < 3; i++) {
-            engimonContainer.add(new EngimonButton(new Geni()));
+        for (Engimon engimon : player.getEngiBag().getEngimonList()) {
+            engimonContainer.add(new EngimonButton(engimon));
         }
 
         engimonPanel.add(title);
@@ -60,11 +62,13 @@ public class StatusPanel extends JTabbedPane {
         JPanel skillContainer = new JPanel();
         JLabel title = new JLabel("Skill Item Inventory");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
-        skillContainer.setLayout(new GridLayout(2,1,10,10));
+        skillContainer.setLayout(new GridLayout(1,2,10,10));
 
-        for (int i = 0; i < 3; i++) {
-            Skill skill = new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE));
-            skillContainer.add(new SkillButton(new SkillItem(skill)));
+        List<SkillItem> skillItems = player.getSkillItemBag().getSkillList();
+        List<Integer> countItems = player.getSkillItemBag().getJumlahTiapItem();
+
+        for (int i = 0; i < skillItems.size(); i++) {
+            skillContainer.add(new SkillButton(skillItems.get(i), countItems.get(i)));
         }
 
         skillPanel.add(title);

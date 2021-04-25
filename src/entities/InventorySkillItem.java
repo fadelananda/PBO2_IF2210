@@ -1,4 +1,5 @@
 package entities;
+
 import entities.engimon.Engimon;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,4 +68,11 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             deleteItemByIdx(index,1);
         }
     }
+
+    public List<SkillItem> getSkillList()
+    {
+        return this.listInventory;
+    }
+
+    public List<Integer> getJumlahTiapItem() { return this.jumlahTiapItem;}
 }

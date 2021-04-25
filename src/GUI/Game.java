@@ -1,15 +1,24 @@
 package GUI;
 
 import entities.Player;
+import entities.Skill;
+import entities.SkillItem;
+import entities.engimon.Beckoo;
+import entities.engimon.Geni;
+import enums.Elements;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 // import java.awt.image.DataBufferInt;
 // import java.awt.Color;
@@ -61,7 +70,13 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
-        add(new StatusPanel(new Player()), BorderLayout.EAST);
+
+        // Coba coba status panel
+        Player fabian = new Player();
+        fabian.addEngimon(new Geni());
+        fabian.addEngimon(new Beckoo());
+        fabian.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
+        add(new StatusPanel(fabian), BorderLayout.EAST);
         
 
         // create out object for buffer stregy
