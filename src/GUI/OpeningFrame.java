@@ -8,12 +8,13 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.*;
 
-public class OpeningPanel extends JPanel {
+public class OpeningFrame extends JFrame {
     private JLabel title;
     private JPanel buttonPanel;
 
@@ -38,16 +39,20 @@ public class OpeningPanel extends JPanel {
         loadGameBtn.setBackground(Color.GRAY);
         newGameBtn.setFocusable(false);
         loadGameBtn.setFocusable(false);
+
         newGameBtn.addActionListener(e -> {
-            System.out.println("New Game");
+            this.dispose();
+            JFrame newGame = new NewGameFrame();
+            newGame.setVisible(true);
         });
+
         loadGameBtn.addActionListener(e -> {
-            System.out.println("Load Game");
+            this.dispose();
         });
 
         buttonPanel.setBackground(Color.LIGHT_GRAY);
         buttonPanel.setPreferredSize(new Dimension(100, 300));
-        buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
         buttonPanel.add(newGameBtn);
         buttonPanel.add(loadGameBtn);
@@ -55,10 +60,12 @@ public class OpeningPanel extends JPanel {
         return buttonPanel;
     }
 
-    public OpeningPanel() {
+    public OpeningFrame() {
         // Set Layout Opening Panel
+        this.setTitle("Engimon Mboh Wes");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(0,0));
-        this.setBounds(0,0, 1000, 800);
+        this.setPreferredSize(new Dimension(1000,800));
         this.setBackground(Color.LIGHT_GRAY);
 
         // Get title label and button panel
@@ -68,5 +75,8 @@ public class OpeningPanel extends JPanel {
         // Add label and buttons to panel
         this.add(title, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 }
