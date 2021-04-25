@@ -1,6 +1,6 @@
 package entities;
 
-import entities.engimon.Engimon;
+import entities.engimon.*;
 import enums.Elements;
 import interfaces.MoveAction;
 
@@ -188,45 +188,54 @@ public class Player {
    }
 
 
-    // BREEDING
-//    public Engimon breed(Engimon dad, Engimon mom) {
-//        if (dad.getLevel() >= 4 && mom.getLevel() >= 4) {
-//            String nama;
-//            Skill[] inheritedSkill = this.inheritSkill(dad, mom);
-//            EnumSet<Elements> inheritedElmt = this.inheritElement(dad, mom);
-//            String inheritedSpecies = this.inheritSpecies(inheritedElmt);
-//
-//            Scanner keyboard = new Scanner(System.in);
-//            System.out.print("Masukkan nama buat engimon anak ini: ");
-//            nama = keyboard.nextLine();
-//
-//            // Engimon child(nama, getX_pl(), getY_pl(), inheritedSpecies);
-//
-//            Engimon child(nama, this.plocation.getX(), this.plocation.getY());
-//
-//            Iterator<Elements> iterate = inheritedElmt.iterator();
-//
-//            while (iterate.hasNext()) {
-//                Elements itr = iterate.next();
-//                child.addElement(itr);
-//            }
-//
-//            for (list<Skill>::iterator itr = inheritedSkill.begin(); itr != inheritedSkill.end(); ++itr) {
-//                if (contains(inheritedElmt, itr->getElement()) && !child.hasSkill(*itr) && !child.IsFullSkills()) {
-//                    child.addSkill(*itr);
-//                }
-//            }
-//
-//            dad.setLevel(dad.getLevel() - 3);
-//            mom.setLevel(mom.getLevel() - 3);
-//
-//            child.makeParents(*dad,*mom);
-//
-//            return child;
-//        } else {
-//            throw "Level Orang Tua Kurang Tinggi!";
-//        }
-//    }
+
+    //    // BREEDING
+    public Engimon breed(Engimon dad, Engimon mom){
+        try{
+            if (dad.getLevel() >= 4 && mom.getLevel() >= 4) {
+                String nama;
+                Skill[] inheritedSkill = this.inheritSkill(dad, mom);
+                EnumSet<Elements> inheritedElmt = this.inheritElement(dad, mom);
+                String inheritedSpecies = this.inheritSpecies(inheritedElmt);
+
+                Scanner keyboard = new Scanner(System.in);
+                System.out.print("Masukkan nama buat engimon anak ini: ");
+                nama = keyboard.nextLine();
+
+                // Engimon child(nama, getX_pl(), getY_pl(), inheritedSpecies);
+                Engimon child = null;
+                if(inheritedSpecies == "Beckoo") child = new Beckoo(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Geni") child = new Geni(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Teles") child = new Teles(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Wadem") child = new Wadem(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Watoo") child = new Watoo(nama, this.plocation.getX(), this.plocation.getY());
+
+                Iterator<Elements> iterate = inheritedElmt.iterator();
+
+                while (iterate.hasNext()) {
+                    Elements itr = iterate.next();
+                    child.addElement(itr);
+                }
+
+                for(Skill s : inheritedSkill){
+                    child.addSkill(s);
+                }
+
+                dad.setLevel(dad.getLevel() - 3);
+                mom.setLevel(mom.getLevel() - 3);
+
+                return child;
+            } else {
+                throw new Exception("Level Orang Tua Kurang Tinggi!");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public Skill[] inheritSkill(Engimon dad, Engimon mom) {
         Skill[] retSkill = new Skill[4];
@@ -248,24 +257,24 @@ public class Player {
 
         int nSkill = 0;
         for(Skill skill : combinedSkill) {
+            if(nSkill == 4) break;
             if (dad.hasSkill(skill) && mom.hasSkill(skill)) {
-//                if (dad.getSkillMasteryLevel(*itr) == mom.getSkillMasteryLevel(*itr)) {
-//                    itr->setMasteryLevel(itr->getMasteryLevel() + 1);
-//                    retSkill.push_back(*itr);
-//                } else {
-//                    if (dad.getSkillEngimon(*itr) > mom.getSkillEngi(*itr)) {
-//                        retSkill.push_back(dad.getSkillEngi(*itr));
-//                    } else {
-//                        retSkill.push_back(mom.getSkillEngi(*itr));
-//                    }
-//                }
+                retSkill[nSkill] = skill;
+                Skill currDadSkill = dad.getSkillByName(skill.getName());
+                Skill currMomSkill = mom.getSkillByName(skill.getName());
+                if(currDadSkill.getMasteryLevel() !=
+                        currMomSkill.getMasteryLevel()){
+                    retSkill[nSkill].setMasteryLevel(Math.max(currDadSkill.getMasteryLevel(), currMomSkill.getMasteryLevel()));
+                }
+                else retSkill[nSkill].setMasteryLevel(Math.min(skill.getMasteryLevel()+1, 3));
+                nSkill++;
             } else {
                 retSkill[nSkill] = skill;
                 nSkill++;
             }
         }
 
-          return retSkill;
+        return retSkill;
     }
 
     public boolean compareMasteryLevel(Skill elmt1, Skill elmt2) {
