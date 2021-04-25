@@ -32,9 +32,9 @@ public abstract class Engimon implements MoveAction, GameObject {
     protected Sprite engiImg;
     protected Tiles engiTiles;
     static final int BORDER_UP = 10;
-    static final int BORDER_DOWN = 720;
-    static final int BORDER_LEFT = 10;
-    static final int BORDER_RIGHT = 950;
+    static final int BORDER_DOWN = 645;
+    static final int BORDER_LEFT = 0;
+    static final int BORDER_RIGHT = 645;
     protected int xpos = 200;
     protected int ypos = 200;
     protected int speed = 7;
@@ -327,31 +327,23 @@ public abstract class Engimon implements MoveAction, GameObject {
         KeyboardListener keyListener = game.getKeyListener();
         if(isTame){
             if(keyListener.up() && (ypos >= BORDER_UP)){
-                if(ypos > 0){
-                    ypos -= speed;
-                }
+                ypos -= speed;
             }
             if(keyListener.down() && (ypos <= BORDER_DOWN)){
-                if(ypos < 665){
-                    ypos += speed;
-                }
+                ypos += speed;
             }
             if(keyListener.left() && (xpos >= BORDER_LEFT)){
-                if(xpos > 0){
-                    xpos -= speed;
-                }
+                xpos -= speed;
             }
             if(keyListener.right() && (xpos <= BORDER_RIGHT)){
-                if(xpos < 655){
-                    xpos += speed;
-                }
+                xpos += speed;
             }
         }
         else{
             Random rand = new Random();
             if(nRandoms == 0){
                 whereRandom = rand.nextInt(4);
-                nRandoms = 10;
+                nRandoms = 25;
             }
             if(whereRandom == 0 && (ypos >= BORDER_UP)){
                 ypos -= 4;
