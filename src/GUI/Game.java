@@ -1,21 +1,19 @@
 package GUI;
 
+import entities.Player;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-// import java.awt.image.DataBufferInt;
-// import java.awt.Color;
-
-import javax.imageio.ImageIO;
-
-import java.lang.Runnable;
-// import java.util.Scanner;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+// import java.awt.image.DataBufferInt;
+// import java.awt.Color;
+// import java.util.Scanner;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -63,7 +61,7 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
-        add(new StatusPanel(), BorderLayout.EAST);
+        add(new StatusPanel(new Player()), BorderLayout.EAST);
         
 
         // create out object for buffer stregy
