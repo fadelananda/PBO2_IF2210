@@ -9,6 +9,13 @@
             "name": "Launch Game",
             "request": "launch",
             "mainClass": "Game",
+            "projectName": "MAP_bd3c8daf"
+        },
+        {
+            "type": "java",
+            "name": "Launch Game",
+            "request": "launch",
+            "mainClass": "Game",
             "projectName": "mainMap_bee2904a"
         },
         {
