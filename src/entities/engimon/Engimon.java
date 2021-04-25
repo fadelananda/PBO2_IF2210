@@ -360,23 +360,26 @@ public abstract class Engimon implements MoveAction, GameObject {
         else{
             Random rand = new Random();
             if(nRandoms == 0){
-                whereRandom = rand.nextInt(4);
+                whereRandom = rand.nextInt(6);
                 nRandoms = 25;
             }
             if(whereRandom == 0 && (ypos >= BORDER_UP)){
-                ypos -= 4;
+                ypos -= 1;
                 nRandoms--;
             }
             else if(whereRandom == 1 && (ypos <= BORDER_DOWN)){
-                ypos += 4;
+                ypos += 1;
                 nRandoms--;
             }
             else if(whereRandom == 2 && (xpos >= BORDER_LEFT)){
-                xpos -= 4;
+                xpos -= 1;
                 nRandoms--;
             }
             else if(whereRandom == 3 && (xpos <= BORDER_RIGHT)){
-                xpos += 4;
+                xpos += 1;
+                nRandoms--;
+            }
+            else if(whereRandom == 4 || whereRandom == 5){
                 nRandoms--;
             }
             else{

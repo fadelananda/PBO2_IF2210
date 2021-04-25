@@ -118,7 +118,6 @@ public class Game extends JFrame implements Runnable{
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
-        objects.add(gengens); //tetep add ke objects biar tetep keliatan
         wildEngimons.add(gengens);
 
         //Add listener
@@ -158,7 +157,15 @@ public class Game extends JFrame implements Runnable{
         Graphics graphics = buffstrat.getDrawGraphics();
         
         //its like "renderer" is the one doing the drawing, so tells the renderer what to draw
+        //render map
         map.renderMap(renderer, 3, 3);
+
+        //render wild engimons
+        for(Engimon e: wildEngimons){
+            e.render(renderer, 3, 3);
+        }
+
+        //render player
         for(GameObject obj: objects){
             obj.render(renderer, 3, 3);
         }
@@ -173,16 +180,25 @@ public class Game extends JFrame implements Runnable{
 
     /*TO UPDATE WHAT'S GOING TO BE DRAWN*/
     public void update(){
+        //variabels lol
+        int todelete = -1;
+
+        //update player and pet engimon
         for(GameObject obj: objects){
             obj.update(this);
         }
 
-        //checkcollision
+        //update wild engimons
         for(Engimon e: wildEngimons){
+            e.update(this);
             if(checkCollision(playya, e)){
-                System.out.println("tabrakan di : "+e.getXpos());
+                todelete = wildEngimons.indexOf(e);
             }
         }
+
+        //delete if necesasraraeyu
+        if(todelete != -1)
+            wildEngimons.remove(todelete);
     }
 
     private boolean checkCollision(Player p, Engimon e){
