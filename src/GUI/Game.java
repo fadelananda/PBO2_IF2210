@@ -42,7 +42,7 @@ public class Game extends JFrame implements Runnable{
         //Set title
         setTitle("Engimon Adventure");
         //set image icon
-        ImageIcon img = new ImageIcon("engimonIcon.png");
+        ImageIcon img = new ImageIcon("assets/engimonIcon.png");
         super.setIconImage(img.getImage());
         //ukuran windownya
         setBounds(0,0, 720, 750);

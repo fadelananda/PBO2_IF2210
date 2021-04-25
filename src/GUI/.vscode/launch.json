@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Launch Game",
             "request": "launch",
+            "mainClass": "GUI.Game",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Launch Game",
+            "request": "launch",
             "mainClass": "Game",
             "projectName": "MAP_bd3c8daf"
         },
