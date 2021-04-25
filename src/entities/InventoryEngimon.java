@@ -7,6 +7,7 @@ import java.util.Comparator;
 
 public class InventoryEngimon extends Inventory<Engimon>{
 //  add item ke dalam inventory sebanyak n(kalo engimon n=1)
+
     public void addItem(Engimon item,int n)
     {
         if (jumlahItem < MAX_INVENTORY)
