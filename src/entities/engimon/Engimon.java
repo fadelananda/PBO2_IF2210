@@ -184,6 +184,22 @@ public abstract class Engimon implements MoveAction, GameObject {
         return this.cumulative_exp;
     }
 
+    public int getEngiWidth(){
+        return engiwidth;
+    }
+
+    public int getEngiHeight(){
+        return engiheight;
+    }
+
+    public int getXpos(){
+        return xpos;
+    }
+
+    public int getYpos(){
+        return xpos;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;

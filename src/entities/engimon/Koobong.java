@@ -14,6 +14,8 @@ public class Koobong extends Engimon {
         this.addSkill(new Skill("Setrum Kobongan", 100, 1, EnumSet.of(Elements.ELECTRIC, Elements.FIRE)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Koobong");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     public Koobong(Tiles engiTiles, String name, int x, int y) {
@@ -23,6 +25,8 @@ public class Koobong extends Engimon {
         this.addSkill(new Skill("Setrum Kobongan", 100, 1, EnumSet.of(Elements.ELECTRIC, Elements.FIRE)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Koobong");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     //for testing method

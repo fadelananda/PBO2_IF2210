@@ -13,6 +13,8 @@ public class Teles extends Engimon {
         this.addSkill(new Skill("Jebyur", 100, 1, EnumSet.of(Elements.WATER)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Teles");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     public Teles(Tiles engiTiles, String name, int x, int y) {
@@ -21,6 +23,8 @@ public class Teles extends Engimon {
         this.addSkill(new Skill("Jebyur", 100, 1, EnumSet.of(Elements.WATER)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Teles");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     //for testing method

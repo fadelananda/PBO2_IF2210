@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import GUI.Tiles.Tile;
 import entities.Player;
 import entities.engimon.Beckoo;
+import entities.engimon.Engimon;
 import entities.engimon.Geni;
 
 public class Game extends JFrame implements Runnable{
@@ -46,7 +47,7 @@ public class Game extends JFrame implements Runnable{
 
     //objects
     private ArrayList<GameObject> objects;
-    private ArrayList<GameObject> wildEngimons;
+    private ArrayList<Engimon> wildEngimons;
     private KeyboardListener keyListener = new KeyboardListener();
 
     /*STATICS*/
@@ -105,6 +106,7 @@ public class Game extends JFrame implements Runnable{
 
         //create an objects holder 4 the gaem
         objects = new ArrayList<>();
+        wildEngimons = new ArrayList<>();
 
         //create a player and add it to the list of objects
         playya = new Player(avasprites, engiAvas);
@@ -116,6 +118,7 @@ public class Game extends JFrame implements Runnable{
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
+        objects.add(gengens); //tetep add ke objects biar tetep keliatan
         wildEngimons.add(gengens);
 
         //Add listener
@@ -175,9 +178,19 @@ public class Game extends JFrame implements Runnable{
         }
 
         //checkcollision
-        for(GameObject go: wildEngimons){
-            
+        for(Engimon e: wildEngimons){
+            if(checkCollision(playya, e)){
+                System.out.println("tabrakan di : "+e.getXpos());
+            }
         }
+    }
+
+    private boolean checkCollision(Player p, Engimon e){
+        if(p.getXpos() < e.getXpos() + e.getEngiWidth() &&
+        p.getXpos() + p.getPlayerWidth() > e.getXpos() &&
+        p.getYpos() < e.getYpos() + e.getEngiHeight() &&
+        p.getYpos() + p.getPlayerHeight() > e.getYpos()) return true;
+        else return false;
     }
 
     public void run(){

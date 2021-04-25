@@ -14,6 +14,8 @@ public class Lapindoo extends Engimon{
         this.addSkill(new Skill("Tanah Tenggelam", 100, 1, EnumSet.of(Elements.WATER, Elements.GROUND)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Lapindoo");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     public Lapindoo(Tiles engiTiles, String name, int x, int y) {
@@ -23,6 +25,8 @@ public class Lapindoo extends Engimon{
         this.addSkill(new Skill("Tanah Tenggelam", 100, 1, EnumSet.of(Elements.WATER, Elements.GROUND)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Lapindoo");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     //for testing method

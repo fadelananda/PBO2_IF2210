@@ -13,6 +13,8 @@ public class Gledek extends Engimon {
         this.addSkill(new Skill("Jedor", 100, 1, EnumSet.of(Elements.ELECTRIC)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Gledek");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     public Gledek(Tiles engiTiles, String name, int x, int y) {
@@ -21,6 +23,8 @@ public class Gledek extends Engimon {
         this.addSkill(new Skill("Jedor", 100, 1, EnumSet.of(Elements.ELECTRIC)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Gledek");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     //for testing method

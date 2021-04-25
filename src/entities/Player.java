@@ -103,6 +103,21 @@ public class Player implements GameObject {
         return this.plocation.getY();
     }
 
+    public int getPlayerWidth(){
+        return playerwidth;
+    }
+
+    public int getPlayerHeight(){
+        return playerheight;
+    }
+
+    public int getXpos(){
+        return xpos;
+    }
+
+    public int getYpos(){
+        return ypos;
+    }
 
     // Add item
     public void addEngimon(Engimon engimon) {
@@ -438,14 +453,6 @@ public class Player implements GameObject {
         if(keyListener.right() && (xpos <= BORDER_RIGHT)){
             xpos += speed;
         }
-    }
-
-    public int getPlayerWidth(){
-        return playerwidth;
-    }
-
-    public int getPlayerHeight(){
-        return playerheight;
     }
 
     public static void main(String[] args){
