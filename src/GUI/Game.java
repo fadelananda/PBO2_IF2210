@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import entities.Player;
+
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
     private Canvas canvas = new Canvas();
@@ -88,7 +90,7 @@ public class Game extends JFrame implements Runnable{
         objects = new ArrayList<>();
 
         //create a player and add it to the list of objects
-        PlayerT joni = new PlayerT(avasprites);
+        Player joni = new Player(avasprites);
         objects.add(joni);
 
         //Add listener
