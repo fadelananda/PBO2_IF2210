@@ -10,6 +10,9 @@ public class PlayerT implements GameObject {
     static final int BORDER_LEFT = 10;
     static final int BORDER_RIGHT = 950;
 
+    private int xpos = 300;
+    private int ypos = 300;
+
 
     /*METHODS*/
     public PlayerT(SpriteSheet avaspritesh){
@@ -19,29 +22,29 @@ public class PlayerT implements GameObject {
     }
 
     public void render(RenderHandler renderer, int xzoom, int yzoom){
-        renderer.renderSprite(playerAvatar, 300, 300, 2, 2);
+        renderer.renderSprite(playerAvatar, xpos, ypos, 2, 2);
     }
 
     public void update(Game game){
         KeyboardListener keyListener = game.getKeyListener();
         if(keyListener.up() && (playerRect.y >= BORDER_UP)){
-            if(playerRect.y > 0){
-                playerRect.y -= speed;
+            if(ypos > 0){
+                ypos -= speed;
             }
         }
         if(keyListener.down() && (playerRect.y <= BORDER_DOWN)){
-            if(playerRect.y < 665){
-                playerRect.y += speed;
+            if(ypos < 665){
+                ypos += speed;
             }
         }
         if(keyListener.left() && (playerRect.x >= BORDER_LEFT)){
-            if(playerRect.x > 0){
-                playerRect.x -= speed;
+            if(xpos > 0){
+                xpos -= speed;
             }
         }
         if(keyListener.right() && (playerRect.x <= BORDER_RIGHT)){
-            if(playerRect.x < 655){
-                playerRect.x += speed;
+            if(xpos < 655){
+                xpos += speed;
             }
         }
     }
