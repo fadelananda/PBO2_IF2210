@@ -21,8 +21,8 @@ public class Lapindoo extends Engimon{
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Glugluglug!!!!");
+    public String interact() {
+        return this.getName() + " : Glugluglug!!!!";
     }
 
     @Override

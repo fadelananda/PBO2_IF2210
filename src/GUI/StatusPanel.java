@@ -4,9 +4,7 @@ import entities.Player;
 import entities.SkillItem;
 import entities.engimon.Engimon;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -48,7 +46,12 @@ public class StatusPanel extends JTabbedPane {
         engimonContainer.setLayout(new GridLayout(1,2,10,10));
 
         for (Engimon engimon : player.getEngiBag().getEngimonList()) {
-            engimonContainer.add(new EngimonButton(engimon));
+            JButton engimonBtn = new EngimonButton(engimon);
+            engimonBtn.addActionListener(e -> {
+                JFrame engiFrame = new EngimonInfo(engimon);
+                engiFrame.setVisible(true);
+            });
+            engimonContainer.add(engimonBtn);
         }
 
         engimonPanel.add(title);

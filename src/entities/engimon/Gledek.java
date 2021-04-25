@@ -19,8 +19,8 @@ public class Gledek extends Engimon {
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Jedorrrrr!!!!");
+    public String interact() {
+        return this.getName() + " : Jedorrrrr!!!!";
     }
 
     @Override

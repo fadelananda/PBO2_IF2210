@@ -21,8 +21,8 @@ public class Beckoo extends Engimon {
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Beckooooo!!!");
+    public String interact() {
+        return this.getName() + " : Beckooooo!!!";
     }
 
     @Override

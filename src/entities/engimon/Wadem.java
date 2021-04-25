@@ -19,8 +19,8 @@ public class Wadem extends Engimon{
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Wushhhhh!!!!");
+    public String interact() {
+        return this.getName() + " : Wushhhhh!!!!";
     }
 
     @Override

@@ -19,8 +19,8 @@ public class Geni extends Engimon {
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Geniiiii!!!");
+    public String interact() {
+        return this.getName() + " : Geniiiii!!!";
     }
 
     @Override
