@@ -4,15 +4,13 @@ import entities.Player;
 import entities.Skill;
 import entities.SkillItem;
 import entities.engimon.Beckoo;
+import entities.engimon.Engimon;
 import entities.engimon.Geni;
 import enums.Elements;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.Canvas;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,12 +21,6 @@ import java.util.EnumSet;
 // import java.awt.image.DataBufferInt;
 // import java.awt.Color;
 // import java.util.Scanner;
-
-import GUI.Tiles.Tile;
-import entities.Player;
-import entities.engimon.Beckoo;
-import entities.engimon.Engimon;
-import entities.engimon.Geni;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -85,16 +77,6 @@ public class Game extends JFrame implements Runnable{
         //add graphics component
         add(canvas);
 
-        // Coba coba status panel
-        Player fabian = new Player();
-        fabian.addEngimon(new Geni());
-        fabian.addEngimon(new Beckoo());
-        fabian.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
-        fabian.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.FIRE))), 10);
-        System.out.println(fabian.countBag());
-        add(new StatusPanel(fabian), BorderLayout.EAST);
-        
-
         // create out object for buffer stregy
         canvas.createBufferStrategy(3);
 
@@ -139,6 +121,14 @@ public class Game extends JFrame implements Runnable{
         //Add listener
         canvas.addKeyListener(keyListener);
         canvas.addFocusListener(keyListener);
+
+        // Coba coba status panel
+        bebeckqo.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.WATER)));
+        bebeckqo.addSkill(new Skill("Test1", 100, 1, EnumSet.of(Elements.WATER)));
+        playya.addEngimon(bebeckqo);
+        playya.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
+        playya.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.FIRE))), 10);
+        add(new StatusPanel(playya), BorderLayout.EAST);
     }
 
     /*LOAD IMAGE AS A BUFFERED IMAGE*/

@@ -37,6 +37,7 @@ public class SkillItem {
     {
         return String.format("%s/Pow:%d", this.skill.getName(),this.skill.getBasePower());
     }
+
     public boolean learn(Engimon engi){
         if (engi.isElementValid(this.skill.getElements()))
         {

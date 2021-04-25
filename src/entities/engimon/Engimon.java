@@ -1,5 +1,6 @@
 package entities.engimon;
 
+import GUI.*;
 import entities.Point;
 import entities.Skill;
 import enums.Elements;
@@ -10,13 +11,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.EnumSet;
 import java.util.Random;
-
-import GUI.Game;
-import GUI.GameObject;
-import GUI.KeyboardListener;
-import GUI.RenderHandler;
-import GUI.Sprite;
-import GUI.Tiles;
 
 public abstract class Engimon implements MoveAction, GameObject {
     // Attribute entities.engimon.Engimon
@@ -162,7 +156,7 @@ public abstract class Engimon implements MoveAction, GameObject {
 
     public JPanel printAllSkills() {
         JPanel skillPanel = new JPanel();
-        skillPanel.setLayout(new GridLayout(1, 2, 0,0));
+        skillPanel.setLayout(new GridLayout(2, 2, 0,0));
         TitledBorder title = BorderFactory.createTitledBorder("Daftar Skill");
         title.setTitleFont(new Font("Roboto", Font.BOLD, 15));
         skillPanel.setBorder(title);

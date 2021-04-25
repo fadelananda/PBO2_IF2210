@@ -5,9 +5,7 @@ import entities.SkillItem;
 import entities.engimon.Engimon;
 
 import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.util.List;
 
 public class StatusPanel extends JTabbedPane {
@@ -71,7 +69,13 @@ public class StatusPanel extends JTabbedPane {
         List<Integer> countItems = player.getSkillItemBag().getJumlahTiapItem();
 
         for (int i = 0; i < skillItems.size(); i++) {
-            skillContainer.add(new SkillButton(skillItems.get(i), countItems.get(i)));
+            SkillItem skillItem = skillItems.get(i);
+            SkillButton skillBtn = new SkillButton(skillItem, countItems.get(i));
+            skillBtn.addActionListener(e -> {
+                JFrame skillFrame = new SkillItemInfo(skillItem);
+                skillFrame.setVisible(true);
+            });
+            skillContainer.add(skillBtn);
         }
 
         skillPanel.add(title);
