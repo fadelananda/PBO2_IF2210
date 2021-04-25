@@ -1,3 +1,5 @@
+package GUI;
+
 public interface IState {
     public void update();
     public void render();
