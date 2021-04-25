@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import GUI.Tiles.Tile;
 import entities.Player;
+import entities.engimon.Beckoo;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -25,14 +27,20 @@ public class Game extends JFrame implements Runnable{
     private BufferStrategy buffstrat;
     private RenderHandler renderer;
 
-    //textures and avatars
+    //texture
     private BufferedImage mapImg;
-    private BufferedImage avaImg;
     private SpriteSheet mapsprites;
-    private SpriteSheet avasprites;
     private Tiles tilesforMap;
     private Map map;
-    private PlayerT player;
+
+    //player avatar
+    private BufferedImage avaImg;
+    private SpriteSheet avasprites;
+
+    //engimon avatar
+    private BufferedImage engiImg;
+    private SpriteSheet engisprites;
+    private Tiles engiAvas;
 
     //objects
     private ArrayList<GameObject> objects;
@@ -86,12 +94,22 @@ public class Game extends JFrame implements Runnable{
         avasprites = new SpriteSheet(avaImg);
         avasprites.loadsprites(32, 32);
 
+        //load engimons
+        engiImg = loadImage("assets/engimons.png");
+        engisprites = new SpriteSheet(engiImg);
+        engisprites.loadsprites(16, 16);
+        engiAvas = new Tiles(new File("assets/Engimon.txt"), engisprites);
+
         //create an objects holder 4 the gaem
         objects = new ArrayList<>();
 
         //create a player and add it to the list of objects
-        Player joni = new Player(avasprites);
+        Player joni = new Player(avasprites, engiAvas);
         objects.add(joni);
+
+        //create an engimon, beckoo and add it to the list of objects
+        Beckoo bebeckqo = new Beckoo(engiAvas, "wkwkwk", 200, 200);
+        objects.add(bebeckqo);
 
         //Add listener
         canvas.addKeyListener(keyListener);

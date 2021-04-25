@@ -12,6 +12,7 @@ import GUI.KeyboardListener;
 import GUI.RenderHandler;
 import GUI.Sprite;
 import GUI.SpriteSheet;
+import GUI.Tiles;
 
 public class Player implements GameObject {
 
@@ -30,12 +31,14 @@ public class Player implements GameObject {
     static final int BORDER_RIGHT = 950;
     private int xpos = 300;
     private int ypos = 300;
+    private Tiles engiTiles;
 
-    public Player(SpriteSheet avaspritesh) {
+    public Player(SpriteSheet avaspritesh, Tiles engiTiles) {
         this.EngiBag = new InventoryEngimon();
         this.SkillItemBag = new InventorySkillItem();
         this.idxCurrActiveEngimon = 0;
         this.plocation = new Point(0, 0);
+        this.engiTiles = engiTiles;
         initElmtAdvantage();
 
         //GUI
@@ -224,7 +227,7 @@ public class Player implements GameObject {
 
                 // Engimon child(nama, getX_pl(), getY_pl(), inheritedSpecies);
                 Engimon child = null;
-                if(inheritedSpecies == "Beckoo") child = new Beckoo(nama, this.plocation.getX(), this.plocation.getY());
+                if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Geni") child = new Geni(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
