@@ -129,5 +129,7 @@ public class ReadWriteGameState {
 
         g.writeGameState(tang);
         Player p = g.loadGameState();
+
+        p.tampilkanListSkillItem();
     }
 }

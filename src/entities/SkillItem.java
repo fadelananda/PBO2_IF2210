@@ -9,6 +9,8 @@ public class SkillItem {
     private Skill skill;
 
     //ctor
+    public SkillItem(){}
+
     public SkillItem(Skill skill)
     {
         this.skill = skill;

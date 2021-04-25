@@ -9,6 +9,8 @@ public final class Skill {
     private int masteryLevel;
     private EnumSet<Elements> elements;
 
+    public Skill(){}
+
     public Skill(String name, int basePower, int masteryLevel, EnumSet<Elements> elements) {
         this.name = name;
         this.basePower = basePower;
