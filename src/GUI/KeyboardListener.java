@@ -1,3 +1,5 @@
+package GUI;
+
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;

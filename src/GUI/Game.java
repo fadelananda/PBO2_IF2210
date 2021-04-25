@@ -1,199 +1,165 @@
 package GUI;
 
-import java.awt.Canvas;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+// import java.awt.image.DataBufferInt;
+import java.awt.Canvas;
+// import java.awt.Color;
 import java.awt.Graphics;
-
-import java.lang.Runnable;
-import java.lang.Thread;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import javax.imageio.ImageIO;
 
-import java.io.IOException;
-import java.io.File;
+import java.lang.Runnable;
+// import java.util.Scanner;
+import java.util.ArrayList;
 
-public class Game extends JFrame implements Runnable
-{
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
-	public static int alpha = 0xFFFF00DC;
+public class Game extends JFrame implements Runnable{
+    /*FIELDS*/
+    private Canvas canvas = new Canvas();
+    private BufferStrategy buffstrat;
+    private RenderHandler renderer;
+    private BufferedImage mapImg;
+    private SpriteSheet mapsprites;
+    private Tiles tilesforMap;
+    private Map map;
+    private ArrayList<GameObject> objects;
+    private KeyboardListener keyListener = new KeyboardListener();
 
-	private Canvas canvas = new Canvas();
-	private RenderHandler renderer;
+    /*STATICS*/
+    //buat transparency
+    public static int alpha = 0xFF00DC;
 
-	private SpriteSheet sheet;
+    /*METHODS*/
+    public Game(){
+        /**WINDOW PROPERTIES**/
+        //exit program waktu diclose
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Set title
+        setTitle("Engimon Adventure");
+        //set image icon
+        ImageIcon img = new ImageIcon("engimonIcon.png");
+        super.setIconImage(img.getImage());
+        //ukuran windownya
+        setBounds(0,0, 720, 750);
+        //biar ga bisa diresize
+        setResizable(false);
+        //taroh di tengah
+        setLocationRelativeTo(null);
+        //biar frame nya keliatan
+        setVisible(true);
 
-	private Rectangle testRectangle = new Rectangle(30, 30, 100, 100);
+        /**RANAH ITEMS**/
+        //add graphics component
+        add(canvas);
+        
 
-	private Tiles tiles;
-	private Map map;
+        // create out object for buffer stregy
+        canvas.createBufferStrategy(3);
 
-	private GameObject[] objects;
-	private KeyBoardListener keyListener = new KeyBoardListener(this);
-	private MouseEventListener mouseListener = new MouseEventListener(this);
+        //create render handler of window width and height
+        renderer = new RenderHandler(720, 720);
 
-	private Player player;
+        //load tiles buat map
+        mapImg = loadImage("assets/rpg_tiles.png"); //load image doang
+        mapsprites = new SpriteSheet(mapImg); //masukin img ke spritesheetnya
+        mapsprites.loadsprites(16, 16); //mecah mecah jadi 16x16 biar bisa dipake
+        
+        tilesforMap = new Tiles(new File("assets/Tiles.txt"), mapsprites); //load tiles yang bisa dipake berd. spritesheet yg tadi
+        map = new Map(new File("assets/Map.txt"), tilesforMap); //define map nya
 
-	private int xZoom = 3;
-	private int yZoom = 3;
+        //create an objects holder 4 the gaem
+        objects = new ArrayList<>();
 
-	public Game() 
-	{
-		//Make our program shutdown when we exit out.
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //create a player and add it to the list of objects
+        PlayerT joni = new PlayerT();
+        objects.add(joni);
 
-		//Set the position and size of our frame.
-		setBounds(0,0, 1000, 800);
+        //Add listener
+        canvas.addKeyListener(keyListener);
+        canvas.addFocusListener(keyListener);
+    }
 
-		//Put our frame in the center of the screen.
-		setLocationRelativeTo(null);
+    /*LOAD IMAGE AS A BUFFERED IMAGE*/
+    public BufferedImage loadImage(String path){
+        try{
+            BufferedImage loadedImage = ImageIO.read(Game.class.getResource(path));
+            BufferedImage formatted = new BufferedImage(loadedImage.getWidth(),
+                                                        loadedImage.getHeight(),
+                                                        BufferedImage.TYPE_INT_RGB);
+            formatted.getGraphics().drawImage(loadedImage, 0, 0, null);
+            return formatted;
+        }
+        catch(IOException a){
+            a.printStackTrace();
+            return null;
+        }
+    }
 
-		//Add our graphics component
-		add(canvas);
-
-		//Make our frame visible.
-		setVisible(true);
-
-		//Create our object for buffer strategy.
-		canvas.createBufferStrategy(3);
-
-		renderer = new RenderHandler(getWidth(), getHeight());
-
-		//Load Assets
-		BufferedImage sheetImage = loadImage("Tiles1.png");
-		sheet = new SpriteSheet(sheetImage);
-		sheet.loadSprites(16, 16);
-
-		//Load Tiles
-		tiles = new Tiles(new File("Tiles.txt"),sheet);
-
-		//Load Map
-		map = new Map(new File("Map.txt"), tiles);
-
-		//testImage = loadImage("GrassTile.png");
-		//testSprite = sheet.getSprite(4,1);
-
-		testRectangle.generateGraphics(2, 12234);
-
-
-		//Load Objects
-		objects = new GameObject[1];
-		player = new Player();
-		objects[0] = player;
-
-		//Add Listeners
-		canvas.addKeyListener(keyListener);
-		canvas.addFocusListener(keyListener);
-		canvas.addMouseListener(mouseListener);
-		canvas.addMouseMotionListener(mouseListener);
-	}
-
-	
-	public void update() 
-	{
-		for(int i = 0; i < objects.length; i++) 
-			objects[i].update(this);
-	}
-
-
-	private BufferedImage loadImage(String path)
-	{
-		try 
-		{
-			BufferedImage loadedImage = ImageIO.read(Game.class.getResource(path));
-			BufferedImage formattedImage = new BufferedImage(loadedImage.getWidth(), loadedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-			formattedImage.getGraphics().drawImage(loadedImage, 0, 0, null);
-
-			return formattedImage;
-		}
-		catch(IOException exception) 
-		{
-			exception.printStackTrace();
-			return null;
-		}
-	}
-
-	public void handleCTRL(boolean[] keys) 
-	{
-		if(keys[KeyEvent.VK_S])
-			map.saveMap();
-	}
-
-	public void leftClick(int x, int y)
-	{
-		x = (int) Math.floor((x + renderer.getCamera().x)/(16.0 * xZoom));
-		y = (int) Math.floor((y + renderer.getCamera().y)/(16.0 * yZoom));
-		map.setTile(x, y, 2);
-	}
-
-	public void rightClick(int x, int y)
-	{
-		x = (int) Math.floor((x + renderer.getCamera().x)/(16.0 * xZoom));
-		y = (int) Math.floor((y + renderer.getCamera().y)/(16.0 * yZoom));
-		map.removeTile(x, y);
-	}
+    /*getter keylistener*/
+    public KeyboardListener getKeyListener(){
+        return keyListener;
+    }
 
 
-	public void render() 
-	{
-			BufferStrategy bufferStrategy = canvas.getBufferStrategy();
-			Graphics graphics = bufferStrategy.getDrawGraphics();
-			super.paint(graphics);
+    /*RENDER/
+    /*RUNS EVERYTIME TO ACTUALLY SHOW STUFF*/
+    public void render(){
+        //get the buffer strategy from the canvas
+        buffstrat = canvas.getBufferStrategy();
+        
+        //get the graphics from said buffer strategy because graphics is the one being rendered
+        Graphics graphics = buffstrat.getDrawGraphics();
+        
+        //its like "renderer" is the one doing the drawing, so tells the renderer what to draw
+        map.renderMap(renderer, 3, 3);
+        for(GameObject obj: objects){
+            obj.render(renderer, 3, 3);
+        }
 
-			map.render(renderer, xZoom, yZoom);
+        //the renderer knows what to draw, not it only need somewhere to draw, the canvas (has been turned into a graphics)
+        renderer.render(graphics);
+        graphics.dispose();
 
-			for(int i = 0; i < objects.length; i++) 
-				objects[i].render(renderer, xZoom, yZoom);
+        //show the graphics to the world through bufferstrategy, the graphics component has been drawn into
+        buffstrat.show();
+    }
 
-			renderer.render(graphics);
+    /*TO UPDATE WHAT'S GOING TO BE DRAWN*/
+    public void update(){
+        for(GameObject obj: objects){
+            obj.update(this);
+        }
+    }
 
-			graphics.dispose();
-			bufferStrategy.show();
-			renderer.clear();
-	}
+    public void run(){
+        //set frames per second
+        Long lastTime = System.nanoTime();
+        double nanoSecConversion = 1000000000.0/60; //60 frames per second
+        double deltaSec = 0;
 
-	public void run() 
-	{
-		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
-		int i = 0;
-		int x = 0;
+        while(true){
+            Long now = System.nanoTime();
+            deltaSec += (now-lastTime)/nanoSecConversion;
 
-		long lastTime = System.nanoTime(); //long 2^63
-		double nanoSecondConversion = 1000000000.0 / 60; //60 frames per second
-		double changeInSeconds = 0;
+            if(deltaSec >= 1){
+                update();
+                deltaSec=0;
+            }
 
-		while(true) 
-		{
-			long now = System.nanoTime();
+            render();
+            lastTime = now;
+        }
+    }
 
-			changeInSeconds += (now - lastTime) / nanoSecondConversion;
-			while(changeInSeconds >= 1) {
-				update();
-				changeInSeconds--;
-			}
-
-			render();
-			lastTime = now;
-		}
-
-	}
-
-	public KeyBoardListener getKeyListener() 
-	{
-		return keyListener;
-	}
-
-	public MouseEventListener getMouseListener() 
-	{
-		return mouseListener;
-	}
-
-	public RenderHandler getRenderer()
-	{
-		return renderer;
-	}
+    //MAIN
+    public static void main(String[] args) {
+        Game game = new Game();
+        Thread gameThread = new Thread(game);
+        gameThread.start();
+    }
 }

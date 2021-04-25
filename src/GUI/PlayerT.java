@@ -1,3 +1,5 @@
+package GUI;
+
 public class PlayerT implements GameObject {
     /*FIELDS*/
     private Rectangle playerRect;
