@@ -23,16 +23,23 @@ public class Game extends JFrame implements Runnable{
     private Canvas canvas = new Canvas();
     private BufferStrategy buffstrat;
     private RenderHandler renderer;
+
+    //textures and avatars
     private BufferedImage mapImg;
+    private BufferedImage avaImg;
     private SpriteSheet mapsprites;
+    private SpriteSheet avasprites;
     private Tiles tilesforMap;
     private Map map;
+    private PlayerT player;
+
+    //objects
     private ArrayList<GameObject> objects;
     private KeyboardListener keyListener = new KeyboardListener();
 
     /*STATICS*/
     //buat transparency
-    public static int alpha = 0xFF00DC;
+    public static int alpha = 0xFFFF00DC;
 
     /*METHODS*/
     public Game(){
@@ -68,15 +75,19 @@ public class Game extends JFrame implements Runnable{
         mapImg = loadImage("assets/rpg_tiles.png"); //load image doang
         mapsprites = new SpriteSheet(mapImg); //masukin img ke spritesheetnya
         mapsprites.loadsprites(16, 16); //mecah mecah jadi 16x16 biar bisa dipake
-        
         tilesforMap = new Tiles(new File("assets/Tiles.txt"), mapsprites); //load tiles yang bisa dipake berd. spritesheet yg tadi
         map = new Map(new File("assets/Map.txt"), tilesforMap); //define map nya
+
+        //load avatar
+        avaImg = loadImage("assets/bard.png");
+        avasprites = new SpriteSheet(avaImg);
+        avasprites.loadsprites(32, 32);
 
         //create an objects holder 4 the gaem
         objects = new ArrayList<>();
 
         //create a player and add it to the list of objects
-        PlayerT joni = new PlayerT();
+        PlayerT joni = new PlayerT(avasprites);
         objects.add(joni);
 
         //Add listener
