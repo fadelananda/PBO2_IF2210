@@ -49,6 +49,15 @@ public class Player implements GameObject {
         playerheight = playerAvatar.getHeight();
     }
 
+    //for testing method
+    public Player(){
+        this.EngiBag = new InventoryEngimon();
+        this.SkillItemBag = new InventorySkillItem();
+        this.idxCurrActiveEngimon = 0;
+        this.plocation = new Point(0, 0);
+        initElmtAdvantage();
+    }
+
     public void initElmtAdvantage() {
         this.elementAdvantage = new float[5][5];
         this.elementAdvantage[Elements.FIRE.ordinal()][Elements.FIRE.ordinal()] = 1.0f;
