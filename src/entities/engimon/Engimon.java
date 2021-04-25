@@ -5,6 +5,7 @@ import entities.Skill;
 import enums.Elements;
 import interfaces.MoveAction;
 import java.util.EnumSet;
+import java.util.Random;
 
 import GUI.Game;
 import GUI.GameObject;
@@ -25,6 +26,7 @@ public abstract class Engimon implements MoveAction, GameObject {
     private boolean hasParent;
     private int exp;
     private int cumulative_exp;
+    private boolean isTame = false;
 
     /*ATTRIBUTE FOR GUI*/
     protected Sprite engiImg;
@@ -36,6 +38,8 @@ public abstract class Engimon implements MoveAction, GameObject {
     protected int xpos = 200;
     protected int ypos = 200;
     protected int speed = 7;
+    private int nRandoms = 0;
+    private int whereRandom = -1;
 
     // Constructor
     public Engimon() {
@@ -61,6 +65,7 @@ public abstract class Engimon implements MoveAction, GameObject {
         this.hasParent = false;
         this.xpos = x;
         this.ypos = y;
+        this.isTame= true;
     }
 
     // Abstract Method
@@ -315,29 +320,57 @@ public abstract class Engimon implements MoveAction, GameObject {
 
     // GUI GUI an gaes
     public void render(RenderHandler renderer, int xzoom, int yzoom){
-        renderer.renderSprite(engiImg, xpos, ypos, 2, 2);
+        renderer.renderSprite(engiImg, xpos, ypos, 3, 3);
     }
 
     public void update(Game game){
         KeyboardListener keyListener = game.getKeyListener();
-        if(keyListener.up() && (ypos >= BORDER_UP)){
-            if(ypos > 0){
-                ypos -= speed;
+        if(isTame){
+            if(keyListener.up() && (ypos >= BORDER_UP)){
+                if(ypos > 0){
+                    ypos -= speed;
+                }
+            }
+            if(keyListener.down() && (ypos <= BORDER_DOWN)){
+                if(ypos < 665){
+                    ypos += speed;
+                }
+            }
+            if(keyListener.left() && (xpos >= BORDER_LEFT)){
+                if(xpos > 0){
+                    xpos -= speed;
+                }
+            }
+            if(keyListener.right() && (xpos <= BORDER_RIGHT)){
+                if(xpos < 655){
+                    xpos += speed;
+                }
             }
         }
-        if(keyListener.down() && (ypos <= BORDER_DOWN)){
-            if(ypos < 665){
-                ypos += speed;
+        else{
+            Random rand = new Random();
+            if(nRandoms == 0){
+                whereRandom = rand.nextInt(4);
+                nRandoms = 10;
             }
-        }
-        if(keyListener.left() && (xpos >= BORDER_LEFT)){
-            if(xpos > 0){
-                xpos -= speed;
+            if(whereRandom == 0 && (ypos >= BORDER_UP)){
+                ypos -= 4;
+                nRandoms--;
             }
-        }
-        if(keyListener.right() && (xpos <= BORDER_RIGHT)){
-            if(xpos < 655){
-                xpos += speed;
+            else if(whereRandom == 1 && (ypos <= BORDER_DOWN)){
+                ypos += 4;
+                nRandoms--;
+            }
+            else if(whereRandom == 2 && (xpos >= BORDER_LEFT)){
+                xpos -= 4;
+                nRandoms--;
+            }
+            else if(whereRandom == 3 && (xpos <= BORDER_RIGHT)){
+                xpos += 4;
+                nRandoms--;
+            }
+            else{
+                nRandoms--;
             }
         }
     }

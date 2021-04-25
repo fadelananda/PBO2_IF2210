@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import GUI.Tiles.Tile;
 import entities.Player;
 import entities.engimon.Beckoo;
+import entities.engimon.Geni;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -110,6 +111,10 @@ public class Game extends JFrame implements Runnable{
         //create an engimon, beckoo and add it to the list of objects
         Beckoo bebeckqo = new Beckoo(engiAvas, "wkwkwk", 200, 200);
         objects.add(bebeckqo);
+
+        //same thing but geni to spice things up a bit lol wkwkwkwk
+        Geni gengens = new Geni(engiAvas);
+        objects.add(gengens);
 
         //Add listener
         canvas.addKeyListener(keyListener);

@@ -5,17 +5,23 @@ import enums.Elements;
 
 import java.util.EnumSet;
 
+import GUI.Tiles;
+
 public class Geni extends Engimon {
-    public Geni() {
+    public Geni(Tiles engiTiles) {
         this.setName("Wild Geni");
         this.addElement(Elements.FIRE);
         this.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE)));
+        this.engiTiles = engiTiles;
+        this.engiImg = engiTiles.getTileSprite("Geni");
     }
 
-    public Geni(String name, int x, int y) {
+    public Geni(Tiles engiTiles, String name, int x, int y) {
         super(name, x, y);
         this.addElement(Elements.FIRE);
         this.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE)));
+        this.engiTiles = engiTiles;
+        this.engiImg = engiTiles.getTileSprite("Geni");
     }
 
     @Override

@@ -231,7 +231,7 @@ public class Player implements GameObject {
 
                 Engimon child = null;
                 if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Geni") child = new Geni(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Geni") child = new Geni(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(nama, this.plocation.getX(), this.plocation.getY());
