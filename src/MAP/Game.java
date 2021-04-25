@@ -40,7 +40,7 @@ public class Game extends JFrame implements Runnable{
         ImageIcon img = new ImageIcon("engimonIcon.png");
         super.setIconImage(img.getImage());
         //ukuran windownya
-        setBounds(0,0, 800, 800);
+        setBounds(0,0, 720, 750);
         //biar ga bisa diresize
         setResizable(false);
         //taroh di tengah
