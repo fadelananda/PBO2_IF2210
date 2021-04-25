@@ -10,7 +10,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
     //  add item ke dalam inventory sebanyak n
     public void addItem(SkillItem item, int n)
     {
-        if (jumlahItem < MAX_INVENTORY)
+        if (jumlahItem + n <= MAX_INVENTORY)
         {
             int indexElement = listInventory.indexOf(item);
             if (indexElement == -1)

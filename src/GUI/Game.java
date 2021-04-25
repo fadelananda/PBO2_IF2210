@@ -76,6 +76,8 @@ public class Game extends JFrame implements Runnable{
         fabian.addEngimon(new Geni());
         fabian.addEngimon(new Beckoo());
         fabian.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
+        fabian.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.FIRE))), 10);
+        System.out.println(fabian.countBag());
         add(new StatusPanel(fabian), BorderLayout.EAST);
         
 
