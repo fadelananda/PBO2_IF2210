@@ -1,15 +1,6 @@
 package GUI;
 
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
@@ -26,6 +17,8 @@ public class NewGameFrame extends JFrame {
     private String engimonChoice;
 
     public NewGameFrame() {
+        ImageIcon img = new ImageIcon("assets/engimonIcon.png");
+        this.setIconImage(img.getImage());
         this.setTitle("Create New Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(0,0));
