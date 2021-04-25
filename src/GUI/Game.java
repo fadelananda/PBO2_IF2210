@@ -37,6 +37,7 @@ public class Game extends JFrame implements Runnable{
     //player avatar
     private BufferedImage avaImg;
     private SpriteSheet avasprites;
+    private Player playya;
 
     //engimon avatar
     private BufferedImage engiImg;
@@ -45,6 +46,7 @@ public class Game extends JFrame implements Runnable{
 
     //objects
     private ArrayList<GameObject> objects;
+    private ArrayList<GameObject> wildEngimons;
     private KeyboardListener keyListener = new KeyboardListener();
 
     /*STATICS*/
@@ -105,8 +107,8 @@ public class Game extends JFrame implements Runnable{
         objects = new ArrayList<>();
 
         //create a player and add it to the list of objects
-        Player joni = new Player(avasprites, engiAvas);
-        objects.add(joni);
+        playya = new Player(avasprites, engiAvas);
+        objects.add(playya);
 
         //create an engimon, beckoo and add it to the list of objects
         Beckoo bebeckqo = new Beckoo(engiAvas, "wkwkwk", 200, 200);
@@ -114,7 +116,7 @@ public class Game extends JFrame implements Runnable{
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
-        objects.add(gengens);
+        wildEngimons.add(gengens);
 
         //Add listener
         canvas.addKeyListener(keyListener);
@@ -170,6 +172,11 @@ public class Game extends JFrame implements Runnable{
     public void update(){
         for(GameObject obj: objects){
             obj.update(this);
+        }
+
+        //checkcollision
+        for(GameObject go: wildEngimons){
+            
         }
     }
 

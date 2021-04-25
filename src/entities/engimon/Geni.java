@@ -14,6 +14,8 @@ public class Geni extends Engimon {
         this.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Geni");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     public Geni(Tiles engiTiles, String name, int x, int y) {
@@ -22,6 +24,8 @@ public class Geni extends Engimon {
         this.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Geni");
+        this.engiwidth = engiImg.getWidth();
+        this.engiheight = engiImg.getHeight();
     }
 
     //for testing method

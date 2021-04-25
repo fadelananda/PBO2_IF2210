@@ -29,9 +29,11 @@ public class Player implements GameObject {
     static final int BORDER_DOWN = 645;
     static final int BORDER_LEFT = 0;
     static final int BORDER_RIGHT = 645;
-    private int xpos = 300;
-    private int ypos = 300;
     private Tiles engiTiles;
+    private int xpos = 300; //spawn position
+    private int ypos = 300; //spawn position
+    private int playerwidth;
+    private int playerheight;
 
     public Player(SpriteSheet avaspritesh, Tiles engiTiles) {
         this.EngiBag = new InventoryEngimon();
@@ -43,6 +45,8 @@ public class Player implements GameObject {
 
         //GUI
         playerAvatar = avaspritesh.getSprite(1, 0);
+        playerwidth = playerAvatar.getWidth();
+        playerheight = playerAvatar.getHeight();
     }
 
     public void initElmtAdvantage() {
@@ -434,6 +438,14 @@ public class Player implements GameObject {
         if(keyListener.right() && (xpos <= BORDER_RIGHT)){
             xpos += speed;
         }
+    }
+
+    public int getPlayerWidth(){
+        return playerwidth;
+    }
+
+    public int getPlayerHeight(){
+        return playerheight;
     }
 
     public static void main(String[] args){

@@ -40,6 +40,8 @@ public abstract class Engimon implements MoveAction, GameObject {
     protected int speed = 7;
     private int nRandoms = 0;
     private int whereRandom = -1;
+    protected int engiwidth;
+    protected int engiheight;
 
     // Constructor
     public Engimon() {
