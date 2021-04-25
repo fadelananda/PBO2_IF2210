@@ -24,6 +24,13 @@ public class Geni extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Geni");
     }
 
+    //for testing method
+    public Geni(String name, int x, int y) {
+        super(name, x, y);
+        this.addElement(Elements.FIRE);
+        this.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE)));
+    }
+
     @Override
     public void interact() {
         System.out.println(this.getName() + " : Geniiiii!!!");

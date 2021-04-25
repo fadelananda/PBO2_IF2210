@@ -26,6 +26,14 @@ public class Beckoo extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Beckoo");
     }
 
+    //for testing method
+    public Beckoo(String name, int x, int y) {
+        super(name, x, y);
+        this.addElement(Elements.ICE);
+        this.addElement(Elements.WATER);
+        this.addSkill(new Skill("Beku Dingin", 100, 1, EnumSet.of(Elements.ICE, Elements.WATER)));
+    }
+
     @Override
     public void interact() {
         System.out.println(this.getName() + " : Beckooooo!!!");

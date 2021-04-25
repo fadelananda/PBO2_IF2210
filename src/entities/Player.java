@@ -232,12 +232,12 @@ public class Player implements GameObject {
                 Engimon child = null;
                 if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Geni") child = new Geni(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Teles") child = new Teles(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Wadem") child = new Wadem(nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Watoo") child = new Watoo(nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Gledek") child = new Gledek(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Koobong") child = new Koobong(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Teles") child = new Teles(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Wadem") child = new Wadem(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+                else if(inheritedSpecies == "Watoo") child = new Watoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
 
                 Iterator<Elements> iterate = inheritedElmt.iterator();
 

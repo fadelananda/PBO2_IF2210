@@ -1,17 +1,29 @@
 package entities.engimon;
 
+import GUI.Tiles;
 import entities.Skill;
 import enums.Elements;
 
 import java.util.EnumSet;
 
 public class Watoo extends Engimon{
-    public Watoo() {
+    public Watoo(Tiles engiTiles) {
         this.setName("Wild Watoo");
         this.addElement(Elements.GROUND);
         this.addSkill(new Skill("Lempar Batu", 100, 1, EnumSet.of(Elements.GROUND)));
+        this.engiTiles = engiTiles;
+        this.engiImg = engiTiles.getTileSprite("Watoo");
     }
 
+    public Watoo(Tiles engiTiles, String name, int x, int y) {
+        super(name, x, y);
+        this.addElement(Elements.GROUND);
+        this.addSkill(new Skill("Lempar Batu", 100, 1, EnumSet.of(Elements.GROUND)));
+        this.engiTiles = engiTiles;
+        this.engiImg = engiTiles.getTileSprite("Watoo");
+    }
+
+    //for testing method
     public Watoo(String name, int x, int y) {
         super(name, x, y);
         this.addElement(Elements.GROUND);

@@ -122,7 +122,7 @@ public class Game extends JFrame implements Runnable{
     }
 
     /*LOAD IMAGE AS A BUFFERED IMAGE*/
-    public BufferedImage loadImage(String path){
+    public static BufferedImage loadImage(String path){
         try{
             BufferedImage loadedImage = ImageIO.read(Game.class.getResource(path));
             BufferedImage formatted = new BufferedImage(loadedImage.getWidth(),
