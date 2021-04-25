@@ -6,7 +6,15 @@ import interfaces.MoveAction;
 
 import java.util.*;
 
-public class Player {
+import GUI.Game;
+import GUI.GameObject;
+import GUI.KeyboardListener;
+import GUI.RenderHandler;
+import GUI.Sprite;
+import GUI.SpriteSheet;
+import GUI.Tiles;
+
+public class Player implements GameObject {
 
     private InventoryEngimon EngiBag;
     private InventorySkillItem SkillItemBag;
@@ -14,12 +22,27 @@ public class Player {
     private int idxCurrActiveEngimon;
     private Point plocation;
 
-    public Player() {
+    /*FIELDS FOR GUI*/
+    private Sprite playerAvatar;
+    int speed = 10;
+    static final int BORDER_UP = 10;
+    static final int BORDER_DOWN = 720;
+    static final int BORDER_LEFT = 10;
+    static final int BORDER_RIGHT = 950;
+    private int xpos = 300;
+    private int ypos = 300;
+    private Tiles engiTiles;
+
+    public Player(SpriteSheet avaspritesh, Tiles engiTiles) {
         this.EngiBag = new InventoryEngimon();
         this.SkillItemBag = new InventorySkillItem();
         this.idxCurrActiveEngimon = 0;
         this.plocation = new Point(0, 0);
+        this.engiTiles = engiTiles;
         initElmtAdvantage();
+
+        //GUI
+        playerAvatar = avaspritesh.getSprite(1, 0);
     }
 
     public void initElmtAdvantage() {
@@ -207,7 +230,7 @@ public class Player {
                 nama = keyboard.nextLine();
 
                 Engimon child = null;
-                if(inheritedSpecies == "Beckoo") child = new Beckoo(nama, this.plocation.getX(), this.plocation.getY());
+                if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Geni") child = new Geni(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Gledek") child = new Gledek(nama, this.plocation.getX(), this.plocation.getY());
                 else if(inheritedSpecies == "Koobong") child = new Koobong(nama, this.plocation.getX(), this.plocation.getY());
@@ -389,7 +412,35 @@ public class Player {
 
 
     // ISIAN GUInya BELOM
-    // ...
+    // GUI sudah
+    public void render(RenderHandler renderer, int xzoom, int yzoom){
+        renderer.renderSprite(playerAvatar, xpos, ypos, 2, 2);
+    }
+
+    public void update(Game game){
+        KeyboardListener keyListener = game.getKeyListener();
+        if(keyListener.up() && (ypos >= BORDER_UP)){
+            if(ypos > 0){
+                ypos -= speed;
+            }
+        }
+        if(keyListener.down() && (ypos <= BORDER_DOWN)){
+            if(ypos < 665){
+                ypos += speed;
+            }
+        }
+        if(keyListener.left() && (xpos >= BORDER_LEFT)){
+            if(xpos > 0){
+                xpos -= speed;
+            }
+        }
+        if(keyListener.right() && (xpos <= BORDER_RIGHT)){
+            if(xpos < 655){
+                xpos += speed;
+            }
+        }
+    }
+
     public static void main(String[] args){
 
     }

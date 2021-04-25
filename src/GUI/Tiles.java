@@ -34,6 +34,14 @@ public class Tiles {
         // }
     }
 
+    public Sprite getTileSprite(String namaTile){
+        for(Tile t: tiles){
+            if(namaTile.equals(t.tilename))
+            return t.sprite;
+        }
+        return null;
+    }
+
     class Tile{
         public Sprite sprite;
         public String tilename;
