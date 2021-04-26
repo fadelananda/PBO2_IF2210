@@ -11,6 +11,10 @@ import java.util.Random;
 
 public class Wadem extends Engimon{
     public Wadem(Tiles engiTiles) {
+        Random rand = new Random();
+        int rand1 = rand.nextInt(5);
+        rand1 += 1;
+        this.setLevel(rand1);
         this.setName("Wild Wadem");
         this.addElement(Elements.ICE);
         this.addSkill(new Skill("Es Puter", 100, 1, EnumSet.of(Elements.ICE)));

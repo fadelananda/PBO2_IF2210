@@ -5,9 +5,14 @@ import entities.Skill;
 import enums.Elements;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class Watoo extends Engimon{
     public Watoo(Tiles engiTiles) {
+        Random rand = new Random();
+        int rand1 = rand.nextInt(5);
+        rand1 += 1;
+        this.setLevel(rand1);
         this.setName("Wild Watoo");
         this.addElement(Elements.GROUND);
         this.addSkill(new Skill("Lempar Batu", 100, 1, EnumSet.of(Elements.GROUND)));

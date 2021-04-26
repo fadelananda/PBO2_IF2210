@@ -5,9 +5,14 @@ import entities.Skill;
 import enums.Elements;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class Teles extends Engimon {
     public Teles(Tiles engiTiles) {
+        Random rand = new Random();
+        int rand1 = rand.nextInt(5);
+        rand1 += 1;
+        this.setLevel(rand1);
         this.setName("Wild Teles");
         this.addElement(Elements.WATER);
         this.addSkill(new Skill("Jebyur", 100, 1, EnumSet.of(Elements.WATER)));
