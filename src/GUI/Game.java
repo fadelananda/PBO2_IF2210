@@ -207,7 +207,7 @@ public class Game extends JFrame implements Runnable{
         int random = rand.nextInt(8);
         counter--;
         if(counter==0){
-            if(wildEngimons.size() < 15){
+            if(wildEngimons.size() < 15){ //limit wild engimon aktif
                 if(random == 1)
                     wildEngimons.add(new Beckoo(engiAvas));
                 if(random == 2)
@@ -247,11 +247,7 @@ public class Game extends JFrame implements Runnable{
         //delete if necesasraraeyu
         if(todelete != -1) {
             boolean isBattle = false;
-//            playya.battle(wildEngimons.get(todelete), isBattle);
-            Engimon battleEng = wildEngimons.get(todelete);
-            System.out.println(battleEng.getName());
-            playya.battle(battleEng, isBattle);
-            playya.tampilkanListEngimon();
+            playya.battle(wildEngimons.get(todelete), isBattle);
             wildEngimons.remove(todelete);
         }
     }

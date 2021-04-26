@@ -52,4 +52,7 @@ public class KeyboardListener implements KeyListener, FocusListener {
     public boolean right(){
         return keys[KeyEvent.VK_D];
     }
+    public boolean q(){
+        return keys[KeyEvent.VK_Q];
+    }
 }

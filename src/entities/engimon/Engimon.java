@@ -333,7 +333,7 @@ public abstract class Engimon implements MoveAction, GameObject {
 
     public String toString()
     {
-        return String.format("%s/%s/Lv.%d", this.name, this.getSpeciesName(),this.level);
+        return String.format("%s/%s/Lv.%d/HP: %d", this.name, this.getSpeciesName(), this.level, this.life);
     }
 
     // GUI GUI an gaes
