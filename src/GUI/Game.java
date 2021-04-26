@@ -330,6 +330,7 @@ public class Game extends JFrame implements Runnable{
         //delete if necesasraraeyu
         if(todelete != -1) {
             boolean isBattle = false;
+//            System.out.println(wildEngimons.get(todelete).getName());
             playya.battle(wildEngimons.get(todelete), isBattle);
             wildEngimons.remove(todelete);
         }

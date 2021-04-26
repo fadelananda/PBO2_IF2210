@@ -165,7 +165,6 @@ public class Player implements GameObject {
           float oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
 
           //tampilkan status lengkap engimon musuh
-          Opponent.printInfo();
           System.out.println("Total power level " +  Opponent.getName() + " : " + oppPower + " (OPPONENT)");
           System.out.println("Total power level " +  playerEngimon.getName() + " : " + playerPower + " (PLAYER)");
 
