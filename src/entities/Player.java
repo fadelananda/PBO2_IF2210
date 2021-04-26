@@ -1,22 +1,10 @@
 package entities;
 
+import GUI.*;
 import entities.engimon.*;
 import enums.Elements;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.Scanner;
-
-import GUI.Game;
-import GUI.GameObject;
-import GUI.KeyboardListener;
-import GUI.RenderHandler;
-import GUI.Sprite;
-import GUI.SpriteSheet;
-import GUI.Tiles;
+import java.util.*;
 
 public class Player implements GameObject {
 
@@ -427,20 +415,20 @@ public class Player implements GameObject {
         this.idxCurrActiveEngimon = newActive;
     }
 
-    public void interactActiveEngimon() {
-        getActiveEngimon().interact();
-    }
-
-    public void useSkillItem(Engimon engimon) {
-        Scanner keyboard = new Scanner(System.in);
-        SkillItemBag.showInventory();
-        System.out.println("=======================================================================");
-        System.out.println("input indeks skill yang ingin di pelajari");
-        System.out.print(">> ");
-        int idx = keyboard.nextInt();
-
-        SkillItemBag.learnSkillItem(idx, engimon);
-    }
+//    public void interactActiveEngimon() {
+//        getActiveEngimon().interact();
+//    }
+//
+//    public void useSkillItem(Engimon engimon) {
+////        Scanner keyboard = new Scanner(System.in);
+////        SkillItemBag.showInventory();
+////        System.out.println("=======================================================================");
+////        System.out.println("input indeks skill yang ingin di pelajari");
+////        System.out.print(">> ");
+////        int idx = keyboard.nextInt();
+////
+////        SkillItemBag.learnSkillItem(idx, engimon);
+//    }
 
 
     // ISIAN GUInya BELOM

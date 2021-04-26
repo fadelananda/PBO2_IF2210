@@ -3,9 +3,7 @@ package GUI;
 import entities.Player;
 import entities.Skill;
 import entities.SkillItem;
-import entities.engimon.Beckoo;
-import entities.engimon.Engimon;
-import entities.engimon.Geni;
+import entities.engimon.*;
 import enums.Elements;
 
 import javax.imageio.ImageIO;
@@ -17,19 +15,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Random;
 
 // import java.awt.image.DataBufferInt;
 // import java.awt.Color;
 // import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import GUI.Tiles.Tile;
-import entities.Player;
-import entities.engimon.*;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -86,7 +76,6 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
-        add(new StatusPanel(), BorderLayout.EAST);
 
         counter = 370;
         
@@ -145,8 +134,9 @@ public class Game extends JFrame implements Runnable{
         bebeckqo.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.WATER)));
         bebeckqo.addSkill(new Skill("Test1", 100, 1, EnumSet.of(Elements.WATER)));
         playya.addEngimon(bebeckqo);
+        playya.addEngimon(wademe);
         playya.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
-        playya.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.FIRE))), 10);
+        playya.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.WATER))), 1);
         add(new StatusPanel(playya), BorderLayout.EAST);
     }
 

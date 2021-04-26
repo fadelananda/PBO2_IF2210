@@ -1,16 +1,21 @@
 package GUI;
 
+import entities.Player;
 import entities.SkillItem;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 public class SkillItemInfo extends JFrame {
-    private SkillItem skillItem;
-    public SkillItemInfo(SkillItem skillItem) {
+
+    public SkillItemInfo(Player player, SkillItem skillItem, JPanel skillPanel) {
         JButton learnBtn = new JButton("Learn");
         JPanel infoPanel = new JPanel();
-        this.skillItem = skillItem;
         ImageIcon img = new ImageIcon("assets/engimonIcon.png");
         this.setIconImage(img.getImage());
         this.setTitle("Skill Item Info");
@@ -21,7 +26,10 @@ public class SkillItemInfo extends JFrame {
         infoPanel.add(new JLabel(skillItem.toString()));
         infoPanel.add(new JLabel("Mastery Level: "+ Integer.toString(skillItem.getSkill().getBasePower())));
         infoPanel.add(skillItem.getSkill().printAllElements());
-        learnBtn.addActionListener(e -> JOptionPane.showMessageDialog(null, "Hi", "Learn", JOptionPane.PLAIN_MESSAGE));
+        learnBtn.addActionListener(e -> {
+            JFrame learnFrame = new learnSkillFrame(player, skillItem, skillPanel);
+            learnFrame.setVisible(true);
+        });
 
         this.add(infoPanel, BorderLayout.CENTER);
         this.add(learnBtn, BorderLayout.SOUTH);

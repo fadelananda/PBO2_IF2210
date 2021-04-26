@@ -61,12 +61,23 @@ public class InventorySkillItem extends Inventory<SkillItem> {
         }
     }
 // learn skill item berdasarkan index setelah memanggil method showInventory
-    void learnSkillItem(int index, Engimon engi){
-        boolean learn =listInventory.get(index -1).learn(engi);
+    public void learnSkillItem(SkillItem skillItem, Engimon engi){
+        int index = getIndex(skillItem);
+        boolean learn =listInventory.get(index).learn(engi);
         if (learn)
         {
-            deleteItemByIdx(index,1);
+            deleteItemByIdx(index + 1,1);
         }
+    }
+
+    private int getIndex(SkillItem skillItem) {
+        for (int i = 0; i < listInventory.size(); i++) {
+            if (listInventory.get(i).getSkill().getName().equals(skillItem.getSkill().getName())) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     public List<SkillItem> getSkillList()
