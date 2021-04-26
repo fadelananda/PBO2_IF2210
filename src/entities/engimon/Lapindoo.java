@@ -16,6 +16,7 @@ public class Lapindoo extends Engimon{
         this.engiImg = engiTiles.getTileSprite("Lapindoo");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 1;
     }
 
     public Lapindoo(Tiles engiTiles, String name, int x, int y) {
@@ -27,6 +28,7 @@ public class Lapindoo extends Engimon{
         this.engiImg = engiTiles.getTileSprite("Lapindoo");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 1;
     }
 
     //for testing method

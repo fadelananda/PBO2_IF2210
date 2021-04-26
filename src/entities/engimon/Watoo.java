@@ -13,6 +13,7 @@ public class Watoo extends Engimon{
         this.addSkill(new Skill("Lempar Batu", 100, 1, EnumSet.of(Elements.GROUND)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Watoo");
+        this.engiEnv = 0;
     }
 
     public Watoo(Tiles engiTiles, String name, int x, int y) {
@@ -21,6 +22,7 @@ public class Watoo extends Engimon{
         this.addSkill(new Skill("Lempar Batu", 100, 1, EnumSet.of(Elements.GROUND)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Watoo");
+        this.engiEnv = 0;
     }
 
     //for testing method

@@ -16,6 +16,7 @@ public class Koobong extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Koobong");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 2;
     }
 
     public Koobong(Tiles engiTiles, String name, int x, int y) {
@@ -27,6 +28,7 @@ public class Koobong extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Koobong");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 2;
     }
 
     //for testing method

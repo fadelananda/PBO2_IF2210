@@ -40,6 +40,7 @@ public abstract class Engimon implements MoveAction, GameObject {
     protected int whereRandom = -1;
     protected int engiwidth;
     protected int engiheight;
+    protected int engiEnv;
 
     // Constructor
     public Engimon() {
@@ -407,19 +408,19 @@ public abstract class Engimon implements MoveAction, GameObject {
                 whereRandom = rand.nextInt(6);
                 nRandoms = 25;
             }
-            if(whereRandom == 0 && (ypos >= BORDER_UP)){
+            if(whereRandom == 0 && (ypos >= BORDER_UP) && engiEnv == Map.whatTileId(xpos, ypos-1)){
                 ypos -= 1;
                 nRandoms--;
             }
-            else if(whereRandom == 1 && (ypos <= BORDER_DOWN)){
+            else if(whereRandom == 1 && (ypos <= BORDER_DOWN) && engiEnv == Map.whatTileId(xpos, ypos+1)){
                 ypos += 1;
                 nRandoms--;
             }
-            else if(whereRandom == 2 && (xpos >= BORDER_LEFT)){
+            else if(whereRandom == 2 && (xpos >= BORDER_LEFT) && engiEnv == Map.whatTileId(xpos-1, ypos)){
                 xpos -= 1;
                 nRandoms--;
             }
-            else if(whereRandom == 3 && (xpos <= BORDER_RIGHT)){
+            else if(whereRandom == 3 && (xpos <= BORDER_RIGHT) && engiEnv == Map.whatTileId(xpos+1, ypos)){
                 xpos += 1;
                 nRandoms--;
             }

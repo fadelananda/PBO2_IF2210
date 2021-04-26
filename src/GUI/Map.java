@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Map {
     /*FIELDS*/
-    private ArrayList<MapTile> maptiles = new ArrayList<MapTile>();
+    private static ArrayList<MapTile> maptiles = new ArrayList<MapTile>();
     private Tiles tiles;
     private int filler;
     
@@ -63,6 +63,18 @@ public class Map {
         for(MapTile m : maptiles){
             tiles.renderTile(m.tileid, renderer, xinc*m.x, yinc*m.y, xzoom, yzoom);
         }
+    }
+
+    public static int whatTileId(int xpos, int ypos){
+        for(MapTile m : maptiles){ 
+            if(
+                (m.x-1)*48 <= xpos && xpos <= (m.x-1)*48+48
+                && (m.y)*48 <= ypos && ypos <= (m.y)*48+48
+            ){
+                return m.tileid;
+            }
+        }
+        return -1;
     }
 
     /*SUBCLASS INSIDE MAP*/
