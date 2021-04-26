@@ -57,7 +57,8 @@ public class StatusPanel extends JTabbedPane {
         JPanel skillContainer = new JPanel();
         JLabel title = new JLabel("Skill Item Inventory");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
-        skillContainer.setLayout(new GridLayout(1,2,10,10));
+        skillContainer.setPreferredSize(new Dimension(450,750));
+        skillContainer.setLayout(new FlowLayout());
 
         java.util.List<SkillItem> skillItems = player.getSkillItemBag().getSkillList();
         List<Integer> countItems = player.getSkillItemBag().getJumlahTiapItem();
@@ -220,7 +221,8 @@ public class StatusPanel extends JTabbedPane {
         JPanel skillContainer = new JPanel();
         JLabel title = new JLabel("Skill Item Inventory");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
-        skillContainer.setLayout(new GridLayout(1,2,10,10));
+        skillContainer.setPreferredSize(new Dimension(450,750));
+        skillContainer.setLayout(new FlowLayout());
 
         List<SkillItem> skillItems = player.getSkillItemBag().getSkillList();
         List<Integer> countItems = player.getSkillItemBag().getJumlahTiapItem();
