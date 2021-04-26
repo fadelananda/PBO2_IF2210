@@ -233,8 +233,8 @@ public class Player implements GameObject {
 
 
     //    // BREEDING
-    public Engimon breed(Engimon dad, Engimon mom) throws Exception{
-        if (dad.getLevel() >= 4 && mom.getLevel() >= 4) {
+    public Engimon breed(Engimon dad, Engimon mom, String nama) throws Exception{
+        if (dad.getLevel() >= 4 && mom.getLevel() >= 4 && !nama.equals(null)) {
             // list of inherited parent skills
             Skill[] inheritedSkill = this.inheritSkill(dad, mom);
             // resulting child element
@@ -242,11 +242,6 @@ public class Player implements GameObject {
             // resulting child species
             String inheritedSpecies = this.inheritSpecies(inheritedElmt);
 
-            //Berikan nama child
-            String nama;
-            Scanner keyboard = new Scanner(System.in);
-            System.out.print("Masukkan nama buat engimon anak ini: ");
-            nama = keyboard.nextLine();
 
             Engimon child = null;
             if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
@@ -274,8 +269,10 @@ public class Player implements GameObject {
             mom.setLevel(mom.getLevel() - 3);
 
             return child;
+        } else if (nama.equals(null)) {
+            throw new Exception("Nama Kosong!");
         } else {
-            throw new Exception("Level Orang Tua Kurang Tinggi!");
+            throw new Exception("Level Orangtua Kurang Tinggi!");
         }
     }
 
