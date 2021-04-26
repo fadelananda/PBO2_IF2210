@@ -142,7 +142,7 @@ public class Player implements GameObject {
 
 
     // BATTLE
-    public void battlePrepare(Engimon Opponent, boolean isBattleHasFinished) {
+    public void battlePrepare(StatusPanel panel, Engimon Opponent, boolean isBattleHasFinished) {
         // anggaplah kalau tidak ada engimon yang aktif
         // idxCurrActiveEngimo = -1
         if(this.idxCurrActiveEngimon == -1){
@@ -152,77 +152,36 @@ public class Player implements GameObject {
         }
         else {
             Engimon playerEngimon = this.getActiveEngimon();
-            new BattleFrame(this, Opponent, playerEngimon);
+            new BattleFrame(panel, this, Opponent, playerEngimon);
         }
     }
 
-    public void battle(Engimon Opponent, boolean isBattleHasFinished) {
-      // anggaplah kalau tidak ada engimon yang aktif
-      // idxCurrActiveEngimo = -1
-      if(this.idxCurrActiveEngimon == -1){
-          JOptionPane.showMessageDialog(null, "Anda tidak memiliki Engimon yang aktif!", "Battle Error", JOptionPane.ERROR_MESSAGE);
-          isBattleHasFinished = true;
-          return;
-      }
-      else{
-          Engimon playerEngimon = this.getActiveEngimon();
-
-          // Hitung power
-          int playerLevel = playerEngimon.getLevel();
-          int oppLevel = Opponent.getLevel();
-          float playerElmtAdvantage = this.getAdvantage(playerEngimon.getElements(), Opponent.getElements());
-          float oppElmtAdvantage = this.getAdvantage(Opponent.getElements(), playerEngimon.getElements());
-          //sum every skill base power * mastery_level
-          float playerSkillPoint = calSkillPoint(playerEngimon);
-          float oppSkillPoint = calSkillPoint(Opponent);
-
-          float playerPower = playerLevel*playerElmtAdvantage + playerSkillPoint;
-          float oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
-
-//          new BattleFrame();
-          //tampilkan status lengkap engimon musuh
-          System.out.println("Total power level " +  Opponent.getName() + " : " + oppPower + " (OPPONENT)");
-          System.out.println("Total power level " +  playerEngimon.getName() + " : " + playerPower + " (PLAYER)");
-
-          //berikan opsi proceed battle/not
-          Scanner sc = new Scanner(System.in);
-
-          // Character input
-          System.out.print("Proceed the battle (Y/N) : ");
-          char opt = sc.next().charAt(0);
-          if(opt == 'Y') {
-              System.out.println("Memulai Battle...");
-              if(playerPower >= oppPower){
-                  System.out.println("Engimon Anda memenangkan battle ini!");
-                  // Engimon lawan menjadi milik player, jika inventory cukup
-                  if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
-                      System.out.println("Anda mendapatkan Engimon musuh!");
-                      this.addEngimon(Opponent);
-                      System.out.println("Jumlah items dalam inventory Anda sekarang: " + Inventory.jumlahItem);
-                  }
-                  //mendapatkan exp sebesar 20 satuan exp
-                  playerEngimon.addExp(20);
-                  //mendapatkan skill item pada slot pertama musuh
-                  System.out.println("Anda mendapatkan skill : " + Opponent.getSkills()[0].getName());
-                  //tambahkan ke skill item
-                  this.SkillItemBag.addItem(new SkillItem(Opponent.getSkills()[0]), 1);
+    public void battle(float playerPower, float oppPower, Engimon opp, Engimon engiPlayer) {
+          if(playerPower >= oppPower){
+              System.out.println("Engimon Anda memenangkan battle ini!");
+              // Engimon lawan menjadi milik player, jika inventory cukup
+              if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
+                  System.out.println("Anda mendapatkan Engimon musuh!");
+                  this.addEngimon(opp);
+                  System.out.println("Jumlah items dalam inventory Anda sekarang: " + Inventory.jumlahItem);
               }
-              else{
-                  System.out.println("Engimon Anda kalah");
-                  playerEngimon.reduceLife();
-                  if(playerEngimon.getLife() == 0){
-                      System.out.println("Engimon yang aktif sudah mati");
-                      System.out.println("Silahkan memilih Engimon pada inventory Anda");
-                      this.idxCurrActiveEngimon = -1;
-                  }
-                  sc.next();
-                  return;
+              //mendapatkan exp sebesar 20 satuan exp
+              engiPlayer.addExp(20);
+              //mendapatkan skill item pada slot pertama musuh
+              System.out.println("Anda mendapatkan skill : " + opp.getSkills()[0].getName());
+              //tambahkan ke skill item
+              this.SkillItemBag.addItem(new SkillItem(opp.getSkills()[0]), 1);
+          }
+          else{
+              System.out.println("Engimon Anda kalah");
+              engiPlayer.reduceLife();
+              if(engiPlayer.getLife() == 0){
+                  System.out.println("Engimon yang aktif sudah mati");
+                  System.out.println("Silahkan memilih Engimon pada inventory Anda");
+                  this.idxCurrActiveEngimon = -1;
               }
-          } else{
-              isBattleHasFinished = true;
               return;
           }
-      }
    }
 
    public float calSkillPoint(Engimon e){

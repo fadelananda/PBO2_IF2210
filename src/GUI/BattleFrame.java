@@ -12,15 +12,18 @@ public class BattleFrame extends JFrame {
     private JPanel vsPanel;
     private JPanel buttonPanel;
     private Player player;
+    private StatusPanel panel;
+    private float playerPower;
+    private float oppPower;
     private Engimon opponent;
     private Engimon activeEngimon;
 
-    public BattleFrame(Player player, Engimon Opponent, Engimon ActiveEngimon) {
+    public BattleFrame(StatusPanel panel, Player player, Engimon Opponent, Engimon ActiveEngimon) {
         // Set Layout Opening Panel
         ImageIcon img = new ImageIcon("assets/engimonIcon.png");
         this.setIconImage(img.getImage());
         this.setTitle("Battle");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(new BorderLayout(0,0));
         this.setPreferredSize(new Dimension(500,500));
         this.setBackground(Color.LIGHT_GRAY);
@@ -29,6 +32,7 @@ public class BattleFrame extends JFrame {
         this.opponent = Opponent;
         this.activeEngimon = ActiveEngimon;
         this.player = player;
+        this.panel = panel;
         title = this.getTitleLabel();
         vsPanel = this.powerLevelPanel();
         buttonPanel = this.getButtonPanel();
@@ -54,8 +58,9 @@ public class BattleFrame extends JFrame {
         float playerSkillPoint = player.calSkillPoint(activeEngimon);
         float oppSkillPoint = player.calSkillPoint(opponent);
 
-        float playerPower = playerLevel*playerElmtAdvantage + playerSkillPoint;
-        float oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
+        playerPower = playerLevel*playerElmtAdvantage + playerSkillPoint;
+        oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
+
 
         JLabel oppLabel = new JLabel(opponent.getName() + " : " + Float.toString(oppPower) + " (OPPONENT)", SwingConstants.CENTER);
         JLabel vs = new JLabel("VS", SwingConstants.CENTER);
@@ -95,13 +100,18 @@ public class BattleFrame extends JFrame {
         battleBtn.setFocusable(false);
         fleeBtn.setFocusable(false);
 
-//        battleBtn.addActionListener(e -> {
-//
-//        });
-//
-//        fleeBtn.addActionListener(e -> {
-//
-//        });
+        battleBtn.addActionListener(e -> {
+            player.battle(playerPower, oppPower, opponent, activeEngimon);
+            panel.updateBreedPanel();
+            panel.updateSkillPanel();
+            panel.updateEngimonPanel();
+            this.dispose();
+        });
+
+        fleeBtn.addActionListener(e -> {
+            this.dispose();
+            JOptionPane.showMessageDialog(null, "Anda melarikan diri!", "Battle Report", JOptionPane.PLAIN_MESSAGE);
+        });
 
         buttonPanel.setBackground(Color.LIGHT_GRAY);
         buttonPanel.setPreferredSize(new Dimension(100, 200));

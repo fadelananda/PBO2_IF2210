@@ -13,7 +13,6 @@ public class NewGameFrame extends JFrame {
     private JLabel title;
     private JPanel buttonPanel;
     private JPanel playerInfoPanel;
-    private JTextField playerName;
     private String engimonChoice;
 
     public NewGameFrame() {
@@ -38,13 +37,11 @@ public class NewGameFrame extends JFrame {
 
     private JPanel getPlayerInfoPanel() {
         JPanel playerInfo = new JPanel();
-        JPanel textFieldPanel = getTextFieldPanel();
         JPanel engimonChoicePanel = getEngimonChoicePanel();
 
         playerInfo.setLayout(new GridLayout(2,1,20,10));
         playerInfo.setBorder(new EmptyBorder(100, 50, 100, 50));
         playerInfo.setPreferredSize(new Dimension(500,500));
-        playerInfo.add(textFieldPanel);
         playerInfo.add(engimonChoicePanel);
 
         return playerInfo;
@@ -61,7 +58,7 @@ public class NewGameFrame extends JFrame {
         startBtn.setFocusable(false);
 
         startBtn.addActionListener(e -> {
-            if (!this.playerName.getText().equals("") && this.engimonChoice != null) {
+            if (this.engimonChoice != null) {
                 this.dispose();
                 GUI.Game game = new Game(this.engimonChoice);
                 Thread gameThread = new Thread(game);
@@ -86,20 +83,6 @@ public class NewGameFrame extends JFrame {
         label.setFont(new Font("Segoe UI", Font.BOLD, 50));
 
         return label;
-    }
-
-    private JPanel getTextFieldPanel() {
-        this.playerName = new JTextField();
-        this.playerName.setPreferredSize(new Dimension(240,30));
-
-        JLabel playerLabel = new JLabel("Player Name:");
-        playerLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
-
-        JPanel textFieldPanel = new JPanel();
-        textFieldPanel.add(playerLabel);
-        textFieldPanel.add(this.playerName);
-
-        return textFieldPanel;
     }
 
     private JPanel getEngimonChoicePanel() {
