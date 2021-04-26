@@ -396,9 +396,7 @@ public class Player implements GameObject {
     public void update(Game game){
         KeyboardListener keyListener = game.getKeyListener();
         ArrayList<GameObject> objc = game.getObjects();
-        int newX = xpos;
-        int newY = ypos;
-        
+
         if(keyListener.up() && (ypos >= BORDER_UP)){
             ypos -= speed;
         }

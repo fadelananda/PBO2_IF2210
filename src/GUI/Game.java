@@ -140,6 +140,10 @@ public class Game extends JFrame implements Runnable{
         wildEngimons.add(genius);
         Gledek gluedek = new Gledek(engiAvas);
         wildEngimons.add(gluedek);
+        Koobong kobong = new Koobong(engiAvas);
+        wildEngimons.add(kobong);
+        Watoo watoe = new Watoo(engiAvas);
+        wildEngimons.add(watoe);
 
         this.statusPanel = new StatusPanel(playya);
         add(this.statusPanel, BorderLayout.EAST);
@@ -327,6 +331,14 @@ public class Game extends JFrame implements Runnable{
         //update player and pet engimon
         for(GameObject obj: objects){
             obj.update(this);
+        }
+
+        if(checkCollision(playya, (Engimon) objects.get(1))){
+            JOptionPane.showMessageDialog(null,
+                    ((Engimon) objects.get(1)).interact(), "Battle Report", JOptionPane.PLAIN_MESSAGE);
+            Engimon e = (Engimon) objects.get(1);
+            e.setXpos(playya.getXpos()+50);
+            e.setYpos(playya.getYpos()+50);
         }
 
         //update wild engimons
