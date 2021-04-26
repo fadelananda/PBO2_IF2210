@@ -18,6 +18,7 @@ public class Teles extends Engimon {
         this.BORDER_LEFT = 540;
         this.xpos = 550;
         this.ypos = 200;
+        this.engiEnv = 1;
     }
 
     public Teles(Tiles engiTiles, String name, int x, int y) { //no need to set boundary becoz tame engimon
@@ -30,6 +31,7 @@ public class Teles extends Engimon {
         this.engiheight = engiImg.getHeight();
         this.xpos = x;
         this.ypos = y;
+        this.engiEnv = 1;
     }
 
     //for testing method

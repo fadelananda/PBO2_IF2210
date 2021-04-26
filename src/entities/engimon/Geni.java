@@ -16,6 +16,7 @@ public class Geni extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Geni");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 2;
     }
 
     public Geni(Tiles engiTiles, String name, int x, int y) {
@@ -26,6 +27,7 @@ public class Geni extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Geni");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 2;
     }
 
     //for testing method

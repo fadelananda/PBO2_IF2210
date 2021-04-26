@@ -20,6 +20,7 @@ public class Wadem extends Engimon{
         this.ypos = 600;
         this.BORDER_UP = 430;
         this.BORDER_RIGHT = 300;
+        this.engiEnv = 3;
     }
 
     public Wadem(Tiles engiTiles, String name, int x, int y) {
@@ -32,6 +33,7 @@ public class Wadem extends Engimon{
         this.ypos = y;
         this.BORDER_UP = 430;
         this.BORDER_RIGHT = 300;
+        this.engiEnv = 3;
     }
 
     //for testing method
@@ -55,52 +57,4 @@ public class Wadem extends Engimon{
     public void showDescription() {
         System.out.println("Engimon AC alami.");
     }
-
-    // @Override
-    // public void update(Game game){
-    //     KeyboardListener keyListener = game.getKeyListener();
-    //     if(isTame){
-    //         if(keyListener.up() && (xpos <= ypos)){
-    //             ypos -= speed;
-    //         }
-    //         if(keyListener.down() && (ypos <= BORDER_DOWN)){
-    //             ypos += speed;
-    //         }
-    //         if(keyListener.left() && (xpos >= BORDER_LEFT)){
-    //             xpos -= speed;
-    //         }
-    //         if(keyListener.right() && (xpos <= BORDER_RIGHT) && (ypos >= BORDER_UP)){
-    //             xpos += speed;
-    //         }
-    //     }
-    //     else{
-    //         Random rand = new Random();
-    //         if(nRandoms == 0){
-    //             whereRandom = rand.nextInt(6);
-    //             nRandoms = 25;
-    //         }
-    //         if(whereRandom == 0 && (ypos >= BORDER_UP)){
-    //             ypos -= 1;
-    //             nRandoms--;
-    //         }
-    //         else if(whereRandom == 1 && (ypos <= BORDER_DOWN)){
-    //             ypos += 1;
-    //             nRandoms--;
-    //         }
-    //         else if(whereRandom == 2 && (xpos >= BORDER_LEFT)){
-    //             xpos -= 1;
-    //             nRandoms--;
-    //         }
-    //         else if(whereRandom == 3 && (xpos <= BORDER_RIGHT)){
-    //             xpos += 1;
-    //             nRandoms--;
-    //         }
-    //         else if(whereRandom == 4 || whereRandom == 5){
-    //             nRandoms--;
-    //         }
-    //         else{
-    //             nRandoms--;
-    //         }
-    //     }
-    // }
 }
