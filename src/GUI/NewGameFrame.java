@@ -63,7 +63,7 @@ public class NewGameFrame extends JFrame {
         startBtn.addActionListener(e -> {
             if (!this.playerName.getText().equals("") && this.engimonChoice != null) {
                 this.dispose();
-                GUI.Game game = new Game();
+                GUI.Game game = new Game(this.engimonChoice);
                 Thread gameThread = new Thread(game);
                 gameThread.start();
             } else {

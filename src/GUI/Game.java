@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import GUI.Tiles.Tile;
 import entities.Player;
 import entities.engimon.*;
+import org.junit.jupiter.api.Test;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -55,7 +56,7 @@ public class Game extends JFrame implements Runnable{
     private int counter;
 
     /*METHODS*/
-    public Game(){
+    public Game(String engichoice){
         /**WINDOW PROPERTIES**/
         //exit program waktu diclose
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,9 +115,23 @@ public class Game extends JFrame implements Runnable{
         playya = new Player(avasprites, engiAvas);
         objects.add(playya);
 
-        //create an engimon, beckoo and add it to the list of objects
-        Beckoo bebeckqo = new Beckoo(engiAvas, "wkwkwk", 200, 200);
-        objects.add(bebeckqo);
+        //setup player Engimon
+        if(engichoice.equals("Geni")){
+            Geni choice1 = new Geni(engiAvas, "Gwenii", 200, 200);
+            objects.add(choice1);
+            playya.addEngimon(choice1);
+        }
+        if(engichoice.equals("Gledek")){
+            Gledek choice2 = new Gledek(engiAvas, "Gluedekk", 200, 200);
+            objects.add(choice2);
+            playya.addEngimon(choice2);
+        }
+        if(engichoice.equals("Teles")){
+            Teles choice3 = new Teles(engiAvas, "Twelesee", 200, 200);
+            objects.add(choice3);
+            playya.addEngimon(choice3);
+        }
+        playya.setIdxCurrActiveEngimon(1);
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
@@ -309,8 +324,15 @@ public class Game extends JFrame implements Runnable{
         }
 
         //delete if necesasraraeyu
-        if(todelete != -1)
+        if(todelete != -1) {
+            boolean isBattle = false;
+//            playya.battle(wildEngimons.get(todelete), isBattle);
+            Engimon battleEng = wildEngimons.get(todelete);
+            System.out.println(battleEng.getName());
+            playya.battle(battleEng, isBattle);
+            playya.tampilkanListEngimon();
             wildEngimons.remove(todelete);
+        }
     }
 
     private boolean checkCollision(Player p, Engimon e){
@@ -342,9 +364,9 @@ public class Game extends JFrame implements Runnable{
     }
 
     //MAIN
-    public static void main(String[] args) {
-        Game game = new Game();
-        Thread gameThread = new Thread(game);
-        gameThread.start();
-    }
+//    public static void main(String[] args) {
+//        Game game = new Game();
+//        Thread gameThread = new Thread(game);
+//        gameThread.start();
+//    }
 }
