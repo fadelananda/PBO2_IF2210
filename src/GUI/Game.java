@@ -129,7 +129,6 @@ public class Game extends JFrame implements Runnable{
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Lapindoo gengens = new Lapindoo(engiAvas);
-        playya.addEngimon(gengens);
         wildEngimons.add(gengens);
         Teles telessss = new Teles(engiAvas);
         wildEngimons.add(telessss);
