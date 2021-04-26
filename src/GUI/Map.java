@@ -69,7 +69,7 @@ public class Map {
         for(MapTile m : maptiles){ 
             if(
                 (m.x-1)*48 <= xpos && xpos <= (m.x-1)*48+48
-                && (m.y)*48 <= ypos && ypos <= (m.y)*48+48
+                && (m.y-1)*48 <= ypos && ypos <= (m.y-1)*48+48
             ){
                 return m.tileid;
             }

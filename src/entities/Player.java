@@ -24,7 +24,7 @@ public class Player implements GameObject {
     static final int BORDER_RIGHT = 645;
     private Tiles engiTiles;
     private int xpos = 300; //spawn position
-    private int ypos = 300; //spawn position
+    private int ypos = 450; //spawn position
     private int playerwidth;
     private int playerheight;
 

@@ -16,6 +16,8 @@ public class Gledek extends Engimon {
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
         this.engiEnv = 0;
+        this.xpos = 300;
+        this.ypos = 300;
     }
 
     public Gledek(Tiles engiTiles, String name, int x, int y) {
@@ -27,6 +29,8 @@ public class Gledek extends Engimon {
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
         this.engiEnv = 0;
+        this.xpos = 300;
+        this.ypos = 300;
     }
 
     //for testing method

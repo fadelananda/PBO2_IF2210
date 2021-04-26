@@ -17,6 +17,7 @@ public class Beckoo extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Beckoo");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 1;
         this.xpos = 600;
         this.ypos = 450;
     }
@@ -30,6 +31,7 @@ public class Beckoo extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Beckoo");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.engiEnv = 1;
     }
 
     //for testing method
