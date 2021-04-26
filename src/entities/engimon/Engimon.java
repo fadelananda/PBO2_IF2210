@@ -341,6 +341,9 @@ public abstract class Engimon implements MoveAction, GameObject {
         if(isTame){
             engiImg.createBorder(1, 9873);
         }
+        else{
+            engiImg.createBorder(1, Game.alpha);
+        }
         renderer.renderSprite(engiImg, xpos, ypos, 3, 3);
     }
 
