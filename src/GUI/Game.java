@@ -17,14 +17,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import GUI.Tiles.Tile;
-import entities.Player;
-import entities.engimon.*;
-import org.junit.jupiter.api.Test;
-
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
     private Canvas canvas = new Canvas();
@@ -144,6 +136,7 @@ public class Game extends JFrame implements Runnable{
         // objects.add(wademe);
         wildEngimons.add(wademe);
 
+        add(new StatusPanel(playya), BorderLayout.EAST);
         //Add listener
         canvas.addKeyListener(keyListener);
         canvas.addFocusListener(keyListener);
@@ -171,7 +164,6 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
-        add(new StatusPanel(), BorderLayout.EAST);
 
         counter = 370;
 
