@@ -4,6 +4,7 @@ import GUI.*;
 import entities.engimon.*;
 import enums.Elements;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Player implements GameObject {
@@ -141,12 +142,25 @@ public class Player implements GameObject {
 
 
     // BATTLE
-   public void battle(Engimon Opponent, boolean isBattleHasFinished) {
+    public void battlePrepare(Engimon Opponent, boolean isBattleHasFinished) {
+        // anggaplah kalau tidak ada engimon yang aktif
+        // idxCurrActiveEngimo = -1
+        if(this.idxCurrActiveEngimon == -1){
+            JOptionPane.showMessageDialog(null, "Anda tidak memiliki Engimon yang aktif!", "Battle Error", JOptionPane.ERROR_MESSAGE);
+            isBattleHasFinished = true;
+            return;
+        }
+        else {
+            Engimon playerEngimon = this.getActiveEngimon();
+            new BattleFrame(this, Opponent, playerEngimon);
+        }
+    }
+
+    public void battle(Engimon Opponent, boolean isBattleHasFinished) {
       // anggaplah kalau tidak ada engimon yang aktif
       // idxCurrActiveEngimo = -1
       if(this.idxCurrActiveEngimon == -1){
-          System.out.println("Anda tidak memiliki Engimon yang aktif!");
-          System.out.println("Silahkan memilih Engimon terlebih dahulu...");
+          JOptionPane.showMessageDialog(null, "Anda tidak memiliki Engimon yang aktif!", "Battle Error", JOptionPane.ERROR_MESSAGE);
           isBattleHasFinished = true;
           return;
       }
@@ -165,6 +179,7 @@ public class Player implements GameObject {
           float playerPower = playerLevel*playerElmtAdvantage + playerSkillPoint;
           float oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
 
+//          new BattleFrame();
           //tampilkan status lengkap engimon musuh
           System.out.println("Total power level " +  Opponent.getName() + " : " + oppPower + " (OPPONENT)");
           System.out.println("Total power level " +  playerEngimon.getName() + " : " + playerPower + " (PLAYER)");
@@ -210,7 +225,7 @@ public class Player implements GameObject {
       }
    }
 
-   private float calSkillPoint(Engimon e){
+   public float calSkillPoint(Engimon e){
         float skillPoint = 0.0f;
         for(Skill s : e.getSkills()){
             if(s != null){
@@ -220,7 +235,7 @@ public class Player implements GameObject {
         return skillPoint;
    }
 
-   private float getAdvantage(EnumSet<Elements> e1, EnumSet<Elements> e2){
+   public float getAdvantage(EnumSet<Elements> e1, EnumSet<Elements> e2){
         float mxAdvantage = 0.0f;
         for(Elements e_1 : e1){
             for(Elements e_2 : e2){
@@ -232,7 +247,7 @@ public class Player implements GameObject {
 
 
 
-    //    // BREEDING
+    // BREEDING
     public Engimon breed(Engimon dad, Engimon mom, String nama) throws Exception{
         if (dad.getLevel() >= 4 && mom.getLevel() >= 4 && !nama.equals(null)) {
             // list of inherited parent skills
