@@ -21,6 +21,15 @@ import java.util.EnumSet;
 // import java.awt.image.DataBufferInt;
 // import java.awt.Color;
 // import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
+import GUI.Tiles.Tile;
+import entities.Player;
+import entities.engimon.*;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -52,6 +61,7 @@ public class Game extends JFrame implements Runnable{
     /*STATICS*/
     //buat transparency
     public static int alpha = 0xFFFF00DC;
+    private int counter;
 
     /*METHODS*/
     public Game(){
@@ -76,6 +86,10 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
+        add(new StatusPanel(), BorderLayout.EAST);
+
+        counter = 370;
+        
 
         // create out object for buffer stregy
         canvas.createBufferStrategy(3);
@@ -115,8 +129,13 @@ public class Game extends JFrame implements Runnable{
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
-        objects.add(gengens); //tetep add ke objects biar tetep keliatan
         wildEngimons.add(gengens);
+        Teles telessss = new Teles(engiAvas);
+        wildEngimons.add(telessss);
+        // objects.add(telessss);
+        Wadem wademe = new Wadem(engiAvas);
+        // objects.add(wademe);
+        wildEngimons.add(wademe);
 
         //Add listener
         canvas.addKeyListener(keyListener);
@@ -163,7 +182,15 @@ public class Game extends JFrame implements Runnable{
         Graphics graphics = buffstrat.getDrawGraphics();
         
         //its like "renderer" is the one doing the drawing, so tells the renderer what to draw
+        //render map
         map.renderMap(renderer, 3, 3);
+
+        //render wild engimons
+        for(Engimon e: wildEngimons){
+            e.render(renderer, 3, 3);
+        }
+
+        //render player
         for(GameObject obj: objects){
             obj.render(renderer, 3, 3);
         }
@@ -178,16 +205,50 @@ public class Game extends JFrame implements Runnable{
 
     /*TO UPDATE WHAT'S GOING TO BE DRAWN*/
     public void update(){
+        Random rand = new Random();
+        int random = rand.nextInt(8);
+        counter--;
+        if(counter==0){
+            if(wildEngimons.size() < 15){
+                if(random == 1)
+                    wildEngimons.add(new Beckoo(engiAvas));
+                if(random == 2)
+                    wildEngimons.add(new Wadem(engiAvas));
+                if(random == 3)
+                    wildEngimons.add(new Geni(engiAvas));
+                if(random == 4)
+                    wildEngimons.add(new Teles(engiAvas));
+                if(random == 5)
+                    wildEngimons.add(new Gledek(engiAvas));
+                if(random == 6)
+                    wildEngimons.add(new Watoo(engiAvas));
+                if(random == 7)
+                    wildEngimons.add(new Koobong(engiAvas));
+                if(random == 0)
+                    wildEngimons.add(new Lapindoo(engiAvas));
+            }
+            counter = 370;
+        }
+
+        //variabels lol
+        int todelete = -1;
+
+        //update player and pet engimon
         for(GameObject obj: objects){
             obj.update(this);
         }
 
-        //checkcollision
+        //update wild engimons
         for(Engimon e: wildEngimons){
+            e.update(this);
             if(checkCollision(playya, e)){
-                System.out.println("tabrakan di : "+e.getXpos());
+                todelete = wildEngimons.indexOf(e);
             }
         }
+
+        //delete if necesasraraeyu
+        if(todelete != -1)
+            wildEngimons.remove(todelete);
     }
 
     private boolean checkCollision(Player p, Engimon e){

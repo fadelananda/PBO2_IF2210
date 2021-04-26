@@ -24,20 +24,20 @@ public abstract class Engimon implements MoveAction, GameObject {
     private boolean hasParent;
     private int exp;
     private int cumulative_exp;
-    private boolean isTame = false;
+    protected boolean isTame = false;
 
     /*ATTRIBUTE FOR GUI*/
     protected Sprite engiImg;
     protected Tiles engiTiles;
-    static final int BORDER_UP = 10;
-    static final int BORDER_DOWN = 645;
-    static final int BORDER_LEFT = 0;
-    static final int BORDER_RIGHT = 645;
+    protected int BORDER_UP = 10;
+    protected int BORDER_DOWN = 645;
+    protected int BORDER_LEFT = 0;
+    protected int BORDER_RIGHT = 645;
     protected int xpos = 200;
     protected int ypos = 200;
     protected int speed = 7;
-    private int nRandoms = 0;
-    private int whereRandom = -1;
+    protected int nRandoms = 0;
+    protected int whereRandom = -1;
     protected int engiwidth;
     protected int engiheight;
 
@@ -222,7 +222,7 @@ public abstract class Engimon implements MoveAction, GameObject {
     }
 
     public int getYpos(){
-        return xpos;
+        return ypos;
     }
 
     // Setter
@@ -363,6 +363,9 @@ public abstract class Engimon implements MoveAction, GameObject {
 
     // GUI GUI an gaes
     public void render(RenderHandler renderer, int xzoom, int yzoom){
+        if(isTame){
+            engiImg.createBorder(1, 9873);
+        }
         renderer.renderSprite(engiImg, xpos, ypos, 3, 3);
     }
 
@@ -385,23 +388,26 @@ public abstract class Engimon implements MoveAction, GameObject {
         else{
             Random rand = new Random();
             if(nRandoms == 0){
-                whereRandom = rand.nextInt(4);
+                whereRandom = rand.nextInt(6);
                 nRandoms = 25;
             }
             if(whereRandom == 0 && (ypos >= BORDER_UP)){
-                ypos -= 4;
+                ypos -= 1;
                 nRandoms--;
             }
             else if(whereRandom == 1 && (ypos <= BORDER_DOWN)){
-                ypos += 4;
+                ypos += 1;
                 nRandoms--;
             }
             else if(whereRandom == 2 && (xpos >= BORDER_LEFT)){
-                xpos -= 4;
+                xpos -= 1;
                 nRandoms--;
             }
             else if(whereRandom == 3 && (xpos <= BORDER_RIGHT)){
-                xpos += 4;
+                xpos += 1;
+                nRandoms--;
+            }
+            else if(whereRandom == 4 || whereRandom == 5){
                 nRandoms--;
             }
             else{

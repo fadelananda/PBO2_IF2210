@@ -15,6 +15,9 @@ public class Teles extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Teles");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.BORDER_LEFT = 540;
+        this.xpos = 550;
+        this.ypos = 200;
     }
 
     public Teles(Tiles engiTiles, String name, int x, int y) {
@@ -25,6 +28,9 @@ public class Teles extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Teles");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.BORDER_LEFT = 540;
+        this.xpos = x;
+        this.ypos = y;
     }
 
     //for testing method
