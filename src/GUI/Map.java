@@ -50,10 +50,10 @@ public class Map {
         int xinc = 16*xzoom;
         int yinc = 16*yzoom;
 
-        Rectangle camera = renderer.getCamera();
-        for(int y = camera.y - yinc - (camera.y % yzoom); y < camera.y + camera.height; y+= yinc)
-            for(int x = camera.x - xinc - (camera.x % xinc); x < camera.x + camera.width; x+= xinc)
-                tiles.renderTile(filler, renderer, x, y, xzoom, yzoom);
+        // Rectangle camera = renderer.getCamera();
+        // for(int y = camera.y - yinc - (camera.y % yzoom); y < camera.y + camera.height; y+= yinc)
+        //     for(int x = camera.x - xinc - (camera.x % xinc); x < camera.x + camera.width; x+= xinc)
+        //         tiles.renderTile(filler, renderer, x, y, xzoom, yzoom);
 
 
         // for(int i = 0; i < renderer.getCamera().width; i++)
