@@ -163,26 +163,21 @@ public class Player implements GameObject {
 
     public void battle(float playerPower, float oppPower, Engimon opp, Engimon engiPlayer) {
           if(playerPower >= oppPower){
-              System.out.println("Engimon Anda memenangkan battle ini!");
+              JOptionPane.showMessageDialog(null, "Engimon Anda memenangkan battle ini!", "Battle Win", JOptionPane.PLAIN_MESSAGE);
               // Engimon lawan menjadi milik player, jika inventory cukup
               if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
-                  System.out.println("Anda mendapatkan Engimon musuh!");
                   this.addEngimon(opp);
-                  System.out.println("Jumlah items dalam inventory Anda sekarang: " + Inventory.jumlahItem);
               }
               //mendapatkan exp sebesar 20 satuan exp
               engiPlayer.addExp(20);
-              //mendapatkan skill item pada slot pertama musuh
-              System.out.println("Anda mendapatkan skill : " + opp.getSkills()[0].getName());
               //tambahkan ke skill item
               this.SkillItemBag.addItem(new SkillItem(opp.getSkills()[0]), 1);
           }
           else{
-              System.out.println("Engimon Anda kalah");
+              JOptionPane.showMessageDialog(null, "Engimon Anda Kalah!", "Battle Loss", JOptionPane.ERROR_MESSAGE);
               engiPlayer.reduceLife();
               if(engiPlayer.getLife() == 0){
-                  System.out.println("Engimon yang aktif sudah mati");
-                  System.out.println("Silahkan memilih Engimon pada inventory Anda");
+                  JOptionPane.showMessageDialog(null, "Engimon Yang Aktif Sudah Mati!", "Battle Loss", JOptionPane.WARNING_MESSAGE);
                   this.idxCurrActiveEngimon = -1;
               }
               return;
