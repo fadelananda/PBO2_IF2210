@@ -1,6 +1,7 @@
 package GUI;
 
 import entities.Player;
+import entities.ReadWriteGameState;
 import entities.Skill;
 import entities.SkillItem;
 import entities.engimon.*;
@@ -8,6 +9,9 @@ import enums.Elements;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -145,8 +149,31 @@ public class Game extends JFrame implements Runnable{
         Watoo watoe = new Watoo(engiAvas);
         wildEngimons.add(watoe);
 
+        JMenuBar mb = new JMenuBar();
+        JMenu menu = new JMenu("Save");
+        menu.setFocusable(false);
+
+        menu.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                ReadWriteGameState g = new ReadWriteGameState();
+                g.writeGameState(playya, "save");
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {}
+
+            @Override
+            public void menuCanceled(MenuEvent e) {}
+
+        });
+
+        mb.add(menu);
+        setJMenuBar(mb);
+
         this.statusPanel = new StatusPanel(playya);
         add(this.statusPanel, BorderLayout.EAST);
+
         //Add listener
         canvas.addKeyListener(keyListener);
         canvas.addFocusListener(keyListener);

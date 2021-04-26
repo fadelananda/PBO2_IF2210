@@ -1,6 +1,8 @@
 package entities;
 
 import entities.engimon.Engimon;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +31,20 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             System.out.println("Inventory sudah penuh");
         }
     }
+
+    public int getIdxByName(String name) {
+        int idx = 1;
+        for (SkillItem skillItem : listInventory) {
+            if (skillItem.getSkill().getName().equals(name)) {
+                return idx;
+            }
+
+            idx++;
+        }
+
+        return idx;
+    }
+
     //      del item berdasarkan index setelah memanggil method showInventory sebanyak n
     public void deleteItemByIdx(int index, int n)
     {
@@ -42,6 +58,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
             jumlahTiapItem.remove(index - 1);
             listInventory.remove(index -1);
         }
+        JOptionPane.showMessageDialog(null, "Item berhasil dihapus dari inventory", "Delete Success", JOptionPane.PLAIN_MESSAGE);
         System.out.println("Item berhasil dihapus dari inventory");
     }
 
@@ -67,6 +84,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
         if (learn)
         {
             deleteItemByIdx(index + 1,1);
+            JOptionPane.showMessageDialog(null, "Berhasil dipelajari skill " + skillItem.getSkill().getName(), "Learn Success", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
