@@ -164,6 +164,14 @@ public class Player implements GameObject {
               }
               //mendapatkan exp sebesar 20 satuan exp
               engiPlayer.addExp(20);
+
+              // Cek cumulative exp melebihi batas maka mati
+              if (engiPlayer.getCumExp() >= 80) {
+                this.getEngiBag().getEngimonList().remove(engiPlayer);
+                this.idxCurrActiveEngimon = -1;
+                JOptionPane.showMessageDialog(null, "Engimon Yang Aktif Sudah Mati!", "Pemakaman", JOptionPane.WARNING_MESSAGE);
+              }
+
               //tambahkan ke skill item
               this.SkillItemBag.addItem(new SkillItem(opp.getSkills()[0]), 1);
           }
@@ -172,6 +180,7 @@ public class Player implements GameObject {
               engiPlayer.reduceLife();
               if(engiPlayer.getLife() == 0){
                   JOptionPane.showMessageDialog(null, "Engimon Yang Aktif Sudah Mati!", "Battle Loss", JOptionPane.WARNING_MESSAGE);
+                  this.getEngiBag().getEngimonList().remove(engiPlayer);
                   this.idxCurrActiveEngimon = -1;
               }
               return;
