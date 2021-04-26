@@ -1,18 +1,16 @@
 package entities.engimon;
 
+import GUI.*;
 import entities.Point;
 import entities.Skill;
 import enums.Elements;
 import interfaces.MoveAction;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.util.EnumSet;
 import java.util.Random;
-
-import GUI.Game;
-import GUI.GameObject;
-import GUI.KeyboardListener;
-import GUI.RenderHandler;
-import GUI.Sprite;
-import GUI.Tiles;
 
 public abstract class Engimon implements MoveAction, GameObject {
     // Attribute entities.engimon.Engimon
@@ -71,7 +69,7 @@ public abstract class Engimon implements MoveAction, GameObject {
     }
 
     // Abstract Method
-    public abstract void interact();
+    public abstract String interact();
     public abstract String getSpeciesName();
     public abstract void showDescription();
 
@@ -96,55 +94,83 @@ public abstract class Engimon implements MoveAction, GameObject {
         this.location.setX(this.location.getX() - 1);
     }
 
-    // Print Methods
+//     Print Methods
     public void printInfo() {
         System.out.println("Nama: " + this.name);
         System.out.println("Species: " + this.getSpeciesName());
         System.out.println("Level: " + this.level);
         System.out.print("Elemen: ");
-        for (Elements element: this.elements) {
-            printElement(element);
-            System.out.print(" ");
-        }
+
         System.out.println();
         System.out.print("Deskripsi Engimon: ");
         showDescription();
-        printParents();
-        printAllSkills();
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println(this.parents[0].getName());
+            System.out.println(this.parents[1].getName());
+        }
+
         System.out.println();
     }
 
-    public void printParents() {
-        System.out.print("Induk: ");
+    public JPanel printParents() {
+        JPanel parents = new JPanel();
+
         if (this.hasParent) {
-            System.out.println();
-            System.out.println("1. " + this.parents[0].getName() + " (" + this.parents[0].getSpeciesName() + ")");
-            System.out.println("2. " + this.parents[1].getName() + " (" + this.parents[1].getSpeciesName() + ")");
+            parents.setLayout(new GridLayout(2,0,0,0));
+            JLabel induk = new JLabel("Induk: ");
+            JLabel bapak = new JLabel("1. " + this.parents[0].getName() + " (" + this.parents[0].getSpeciesName() + ")");
+            JLabel ibu = new JLabel("2. " + this.parents[1].getName() + " (" + this.parents[1].getSpeciesName() + ")");
+            parents.add(induk);
+            parents.add(bapak);
+            parents.add(ibu);
         } else {
-            System.out.println("Tidak punya orang tua.");
+            JLabel induk = new JLabel("Induk: Tidak punya orang tua!");
+            parents.add(induk, SwingConstants.CENTER);
         }
+
+        return parents;
     }
 
-    public void printElement(Elements element) {
-        if (element == Elements.FIRE) System.out.print("Fire");
-        if (element == Elements.WATER) System.out.print("Water");
-        if (element == Elements.ELECTRIC) System.out.print("Electric");
-        if (element == Elements.GROUND) System.out.print("Ground");
-        if (element == Elements.ICE) System.out.print("Ice");
+    public String printElement(Elements element) {
+        if (element == Elements.FIRE) return "Fire";
+        if (element == Elements.WATER) return "Water";
+        if (element == Elements.ELECTRIC) return "Electric";
+        if (element == Elements.GROUND) return "Ground";
+        if (element == Elements.ICE) return "Ice";
+
+        return null;
     }
 
-    public void printAllSkills() {
-        System.out.println("Daftar Skill: ");
+    public JPanel printAllElements() {
+        JPanel elements = new JPanel();
+        elements.setLayout(new FlowLayout());
+        elements.add(new JLabel("Element: "));
+
+        for (Elements element : this.getElements()) {
+            JLabel elementName = new JLabel(this.printElement(element));
+            elements.add(elementName);
+        }
+
+        return elements;
+    }
+
+    public JPanel printAllSkills() {
+        JPanel skillPanel = new JPanel();
+        skillPanel.setLayout(new GridLayout(2, 2, 0,0));
+        TitledBorder title = BorderFactory.createTitledBorder("Daftar Skill");
+        title.setTitleFont(new Font("Roboto", Font.BOLD, 15));
+        skillPanel.setBorder(title);
         for (int i = 0; i < getJumlahSkill(); i++) {
-            System.out.println((i+1) + ". " + this.skills[i].getName());
-            System.out.println("   Mastery Level :" + this.skills[i].getMasteryLevel());
-            System.out.print("   Element: ");
-            for (Elements element: this.elements) {
-                printElement(element);
-                System.out.print(" ");
-            }
-            System.out.println();
+            JPanel skillInfo = new JPanel();
+            skillInfo.setLayout(new GridLayout(3,1,0,0));
+            skillInfo.add(new JLabel(Integer.toString(i+1) + ". " + this.skills[i].getName()));
+            skillInfo.add(new JLabel("   Mastery Level :" + this.skills[i].getMasteryLevel()));
+            skillInfo.add(printAllElements());
+            skillPanel.add(skillInfo);
         }
+
+        return skillPanel;
     }
 
     // Getter

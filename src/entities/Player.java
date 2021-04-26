@@ -1,18 +1,10 @@
 package entities;
 
+import GUI.*;
 import entities.engimon.*;
 import enums.Elements;
-import interfaces.MoveAction;
 
 import java.util.*;
-
-import GUI.Game;
-import GUI.GameObject;
-import GUI.KeyboardListener;
-import GUI.RenderHandler;
-import GUI.Sprite;
-import GUI.SpriteSheet;
-import GUI.Tiles;
 
 public class Player implements GameObject {
 
@@ -241,55 +233,47 @@ public class Player implements GameObject {
 
 
     //    // BREEDING
-    public Engimon breed(Engimon dad, Engimon mom){
-        try{
-            if (dad.getLevel() >= 4 && mom.getLevel() >= 4) {
-                // list of inherited parent skills
-                Skill[] inheritedSkill = this.inheritSkill(dad, mom);
-                // resulting child element
-                EnumSet<Elements> inheritedElmt = this.inheritElement(dad, mom);
-                // resulting child species
-                String inheritedSpecies = this.inheritSpecies(inheritedElmt);
+    public Engimon breed(Engimon dad, Engimon mom, String nama) throws Exception{
+        if (dad.getLevel() >= 4 && mom.getLevel() >= 4 && !nama.equals(null)) {
+            // list of inherited parent skills
+            Skill[] inheritedSkill = this.inheritSkill(dad, mom);
+            // resulting child element
+            EnumSet<Elements> inheritedElmt = this.inheritElement(dad, mom);
+            // resulting child species
+            String inheritedSpecies = this.inheritSpecies(inheritedElmt);
 
-                //Berikan nama child
-                String nama;
-                Scanner keyboard = new Scanner(System.in);
-                System.out.print("Masukkan nama buat engimon anak ini: ");
-                nama = keyboard.nextLine();
 
-                Engimon child = null;
-                if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Geni") child = new Geni(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Gledek") child = new Gledek(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Koobong") child = new Koobong(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Teles") child = new Teles(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Wadem") child = new Wadem(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
-                else if(inheritedSpecies == "Watoo") child = new Watoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            Engimon child = null;
+            if(inheritedSpecies == "Beckoo") child = new Beckoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Geni") child = new Geni(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Gledek") child = new Gledek(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Koobong") child = new Koobong(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Lapindoo") child = new Lapindoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Teles") child = new Teles(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Wadem") child = new Wadem(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
+            else if(inheritedSpecies == "Watoo") child = new Watoo(this.engiTiles, nama, this.plocation.getX(), this.plocation.getY());
 
-                Iterator<Elements> iterate = inheritedElmt.iterator();
+            Iterator<Elements> iterate = inheritedElmt.iterator();
 
-                while (iterate.hasNext()) {
-                    Elements itr = iterate.next();
-                    child.addElement(itr);
-                }
-
-                for(Skill s : inheritedSkill){
-                    if(s == null) continue;
-                    child.addSkill(s);
-                }
-
-                dad.setLevel(dad.getLevel() - 3);
-                mom.setLevel(mom.getLevel() - 3);
-
-                return child;
-            } else {
-                throw new Exception("Level Orang Tua Kurang Tinggi!");
+            while (iterate.hasNext()) {
+                Elements itr = iterate.next();
+                child.addElement(itr);
             }
-        } catch (Exception e){
-            e.printStackTrace();
+
+            for(Skill s : inheritedSkill){
+                if(s == null) continue;
+                child.addSkill(s);
+            }
+
+            dad.setLevel(dad.getLevel() - 3);
+            mom.setLevel(mom.getLevel() - 3);
+
+            return child;
+        } else if (nama.equals(null)) {
+            throw new Exception("Nama Kosong!");
+        } else {
+            throw new Exception("Level Orangtua Kurang Tinggi!");
         }
-        return null;
     }
 
     public Skill[] inheritSkill(Engimon dad, Engimon mom) {
@@ -423,20 +407,20 @@ public class Player implements GameObject {
         this.idxCurrActiveEngimon = newActive;
     }
 
-    public void interactActiveEngimon() {
-        getActiveEngimon().interact();
-    }
-
-    public void useSkillItem(Engimon engimon) {
-        Scanner keyboard = new Scanner(System.in);
-        SkillItemBag.showInventory();
-        System.out.println("=======================================================================");
-        System.out.println("input indeks skill yang ingin di pelajari");
-        System.out.print(">> ");
-        int idx = keyboard.nextInt();
-
-        SkillItemBag.learnSkillItem(idx, engimon);
-    }
+//    public void interactActiveEngimon() {
+//        getActiveEngimon().interact();
+//    }
+//
+//    public void useSkillItem(Engimon engimon) {
+////        Scanner keyboard = new Scanner(System.in);
+////        SkillItemBag.showInventory();
+////        System.out.println("=======================================================================");
+////        System.out.println("input indeks skill yang ingin di pelajari");
+////        System.out.print(">> ");
+////        int idx = keyboard.nextInt();
+////
+////        SkillItemBag.learnSkillItem(idx, engimon);
+//    }
 
 
     // ISIAN GUInya BELOM

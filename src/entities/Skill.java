@@ -1,6 +1,9 @@
 package entities;
 
 import enums.Elements;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.EnumSet;
 
 public final class Skill {
@@ -16,6 +19,29 @@ public final class Skill {
         this.basePower = basePower;
         this.masteryLevel = masteryLevel;
         this.elements = elements;
+    }
+
+    public String printElement(Elements element) {
+        if (element == Elements.FIRE) return "Fire";
+        if (element == Elements.WATER) return "Water";
+        if (element == Elements.ELECTRIC) return "Electric";
+        if (element == Elements.GROUND) return "Ground";
+        if (element == Elements.ICE) return "Ice";
+
+        return null;
+    }
+
+    public JPanel printAllElements() {
+        JPanel elements = new JPanel();
+        elements.setLayout(new FlowLayout());
+        elements.add(new JLabel("Element: "));
+
+        for (Elements element : this.getElements()) {
+            JLabel elementName = new JLabel(this.printElement(element));
+            elements.add(elementName);
+        }
+
+        return elements;
     }
 
     public void addElement(Elements element) {

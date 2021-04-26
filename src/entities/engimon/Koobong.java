@@ -38,8 +38,8 @@ public class Koobong extends Engimon {
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Bongobongobong!!!");
+    public String interact() {
+        return this.getName() + " : Bongobongobong!!!";
     }
 
     @Override

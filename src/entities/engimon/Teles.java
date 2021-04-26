@@ -40,8 +40,8 @@ public class Teles extends Engimon {
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Tuelesssss!!!!");
+    public String interact() {
+        return this.getName() + " : Tuelesssss!!!!";
     }
 
     @Override

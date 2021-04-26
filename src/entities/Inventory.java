@@ -18,4 +18,4 @@ public abstract class  Inventory<T> {
     public abstract void deleteItemByIdx(int index, int n);
     public abstract T getItemByIdxShowInventory(int index);
     public abstract void showInventory();
-    }
+}

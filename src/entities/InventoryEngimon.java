@@ -4,6 +4,7 @@ import entities.engimon.Engimon;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class InventoryEngimon extends Inventory<Engimon>{
 //  add item ke dalam inventory sebanyak n(kalo engimon n=1)
@@ -44,5 +45,10 @@ public class InventoryEngimon extends Inventory<Engimon>{
         {
             System.out.println(Integer.toString(i + 1) +". "+ listInventory.get(i));
         }
+    }
+
+    public List<Engimon> getEngimonList()
+    {
+        return this.listInventory;
     }
 }

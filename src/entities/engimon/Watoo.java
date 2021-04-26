@@ -31,8 +31,8 @@ public class Watoo extends Engimon{
     }
 
     @Override
-    public void interact() {
-        System.out.println(this.getName() + " : Watossssss!!!");
+    public String interact() {
+        return this.getName() + " : Watossssss!!!";
     }
 
     @Override

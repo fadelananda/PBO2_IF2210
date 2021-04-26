@@ -1,27 +1,21 @@
 package GUI;
 
+import entities.Player;
+import entities.Skill;
+import entities.SkillItem;
+import entities.engimon.*;
+import enums.Elements;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-// import java.awt.image.DataBufferInt;
-// import java.awt.Color;
-
-import javax.imageio.ImageIO;
-
-import java.lang.Runnable;
-// import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-import GUI.Tiles.Tile;
-import entities.Player;
-import entities.engimon.*;
-import org.junit.jupiter.api.Test;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -78,7 +72,6 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
-        add(new StatusPanel(), BorderLayout.EAST);
 
         counter = 370;
         
@@ -143,6 +136,7 @@ public class Game extends JFrame implements Runnable{
         // objects.add(wademe);
         wildEngimons.add(wademe);
 
+        add(new StatusPanel(playya), BorderLayout.EAST);
         //Add listener
         canvas.addKeyListener(keyListener);
         canvas.addFocusListener(keyListener);
@@ -170,7 +164,6 @@ public class Game extends JFrame implements Runnable{
         /**RANAH ITEMS**/
         //add graphics component
         add(canvas);
-        add(new StatusPanel(), BorderLayout.EAST);
 
         counter = 370;
 
@@ -224,6 +217,17 @@ public class Game extends JFrame implements Runnable{
         //Add listener
         canvas.addKeyListener(keyListener);
         canvas.addFocusListener(keyListener);
+
+        // Coba coba status panel
+        bebeckqo.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.WATER)));
+        bebeckqo.addSkill(new Skill("Test1", 100, 1, EnumSet.of(Elements.WATER)));
+        bebeckqo.setLevel(31);
+        wademe.setLevel(31);
+        playya.addEngimon(bebeckqo);
+        playya.addEngimon(wademe);
+        playya.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
+        playya.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.WATER))), 1);
+        add(new StatusPanel(playya), BorderLayout.EAST);
     }
 
 
