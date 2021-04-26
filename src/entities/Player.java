@@ -449,7 +449,11 @@ public class Player implements GameObject {
         }
         if(keyListener.q()){
             setActiveEngimon();
-            objc.set(1, getActiveEngimon());
+            Engimon temp = getActiveEngimon();
+            Engimon temp1 = (Engimon) objc.get(1);
+            temp.setXpos(temp1.getXpos());
+            temp.setYpos(temp1.getYpos());
+            objc.set(1, temp);
         }
     }
 

@@ -366,6 +366,14 @@ public abstract class Engimon implements MoveAction, GameObject {
         return String.format("%s/%s/Lv.%d/HP: %d", this.name, this.getSpeciesName(), this.level, this.life);
     }
 
+    public void setXpos(int xpos) {
+        this.xpos = xpos;
+    }
+
+    public void setYpos(int ypos) {
+        this.ypos = ypos;
+    }
+
     // GUI GUI an gaes
     public void render(RenderHandler renderer, int xzoom, int yzoom){
         if(isTame){
