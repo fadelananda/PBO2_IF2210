@@ -65,6 +65,8 @@ public class OpeningFrame extends JFrame {
 
         loadGameBtn.addActionListener(e -> {
             this.dispose();
+            JFrame loadState = new LoadStateFrame();
+            loadState.setVisible(true);
         });
 
         buttonPanel.setBackground(Color.LIGHT_GRAY);

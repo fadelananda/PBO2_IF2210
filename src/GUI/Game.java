@@ -17,9 +17,13 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
 
-// import java.awt.image.DataBufferInt;
-// import java.awt.Color;
-// import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
+import GUI.Tiles.Tile;
+import entities.Player;
+import entities.engimon.*;
+import org.junit.jupiter.api.Test;
 
 public class Game extends JFrame implements Runnable{
     /*FIELDS*/
@@ -54,7 +58,7 @@ public class Game extends JFrame implements Runnable{
     private int counter;
 
     /*METHODS*/
-    public Game(){
+    public Game(String engichoice){
         /**WINDOW PROPERTIES**/
         //exit program waktu diclose
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,6 +116,98 @@ public class Game extends JFrame implements Runnable{
         playya = new Player(avasprites, engiAvas);
         objects.add(playya);
 
+        //setup player Engimon
+        if(engichoice.equals("Geni")){
+            Geni choice1 = new Geni(engiAvas, "Gwenii", 200, 200);
+            objects.add(choice1);
+            playya.addEngimon(choice1);
+        }
+        if(engichoice.equals("Gledek")){
+            Gledek choice2 = new Gledek(engiAvas, "Gluedekk", 200, 200);
+            objects.add(choice2);
+            playya.addEngimon(choice2);
+        }
+        if(engichoice.equals("Teles")){
+            Teles choice3 = new Teles(engiAvas, "Twelesee", 200, 200);
+            objects.add(choice3);
+            playya.addEngimon(choice3);
+        }
+        playya.setIdxCurrActiveEngimon(1);
+
+        //same thing but geni to spice things up a bit lol wkwkwkwk
+        Geni gengens = new Geni(engiAvas);
+        wildEngimons.add(gengens);
+        Teles telessss = new Teles(engiAvas);
+        wildEngimons.add(telessss);
+        // objects.add(telessss);
+        Wadem wademe = new Wadem(engiAvas);
+        // objects.add(wademe);
+        wildEngimons.add(wademe);
+
+        //Add listener
+        canvas.addKeyListener(keyListener);
+        canvas.addFocusListener(keyListener);
+    }
+
+    public Game(Player p){
+        /**WINDOW PROPERTIES**/
+        //exit program waktu diclose
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Set title
+        setTitle("Engimon Adventure");
+        //set image icon
+        ImageIcon img = new ImageIcon("assets/engimonIcon.png");
+        super.setIconImage(img.getImage());
+        //ukuran windownya
+        setBounds(0,0, 1120, 750);
+        //biar ga bisa diresize
+        setResizable(false);
+        //taroh di tengah
+        setLocationRelativeTo(null);
+        //biar frame nya keliatan
+        setVisible(true);
+        //layout manager
+
+        /**RANAH ITEMS**/
+        //add graphics component
+        add(canvas);
+        add(new StatusPanel(), BorderLayout.EAST);
+
+        counter = 370;
+
+
+        // create out object for buffer stregy
+        canvas.createBufferStrategy(3);
+
+        //create render handler of window width and height
+        renderer = new RenderHandler(720, 720);
+
+        //load tiles buat map
+        mapImg = loadImage("assets/rpg_tiles.png"); //load image doang
+        mapsprites = new SpriteSheet(mapImg); //masukin img ke spritesheetnya
+        mapsprites.loadsprites(16, 16); //mecah mecah jadi 16x16 biar bisa dipake
+        tilesforMap = new Tiles(new File("assets/Tiles.txt"), mapsprites); //load tiles yang bisa dipake berd. spritesheet yg tadi
+        map = new Map(new File("assets/Map.txt"), tilesforMap); //define map nya
+
+        //load avatar
+        avaImg = loadImage("assets/bard.png");
+        avasprites = new SpriteSheet(avaImg);
+        avasprites.loadsprites(32, 32);
+
+        //load engimons
+        engiImg = loadImage("assets/engimons.png");
+        engisprites = new SpriteSheet(engiImg);
+        engisprites.loadsprites(16, 16);
+        engiAvas = new Tiles(new File("assets/Engimon.txt"), engisprites);
+
+        //create an objects holder 4 the gaem
+        objects = new ArrayList<>();
+        wildEngimons = new ArrayList<>();
+
+        //create a player and add it to the list of objects
+        playya = p;
+        objects.add(playya);
+
         //create an engimon, beckoo and add it to the list of objects
         Beckoo bebeckqo = new Beckoo(engiAvas, "wkwkwk", 200, 200);
         objects.add(bebeckqo);
@@ -141,6 +237,7 @@ public class Game extends JFrame implements Runnable{
         playya.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.WATER))), 1);
         add(new StatusPanel(playya), BorderLayout.EAST);
     }
+
 
     /*LOAD IMAGE AS A BUFFERED IMAGE*/
     public static BufferedImage loadImage(String path){
@@ -201,7 +298,7 @@ public class Game extends JFrame implements Runnable{
         int random = rand.nextInt(8);
         counter--;
         if(counter==0){
-            if(wildEngimons.size() < 15){
+            if(wildEngimons.size() < 15){ //limit wild engimon aktif
                 if(random == 1)
                     wildEngimons.add(new Beckoo(engiAvas));
                 if(random == 2)
@@ -239,8 +336,11 @@ public class Game extends JFrame implements Runnable{
         }
 
         //delete if necesasraraeyu
-        if(todelete != -1)
+        if(todelete != -1) {
+            boolean isBattle = false;
+            playya.battle(wildEngimons.get(todelete), isBattle);
             wildEngimons.remove(todelete);
+        }
     }
 
     private boolean checkCollision(Player p, Engimon e){
@@ -272,9 +372,9 @@ public class Game extends JFrame implements Runnable{
     }
 
     //MAIN
-    public static void main(String[] args) {
-        Game game = new Game();
-        Thread gameThread = new Thread(game);
-        gameThread.start();
-    }
+//    public static void main(String[] args) {
+//        Game game = new Game();
+//        Thread gameThread = new Thread(game);
+//        gameThread.start();
+//    }
 }

@@ -446,6 +446,13 @@ public class Player implements GameObject {
         if(keyListener.right() && (xpos <= BORDER_RIGHT)){
             xpos += speed;
         }
+        if(keyListener.q()){
+            setActiveEngimon();
+        }
+    }
+
+    public void setIdxCurrActiveEngimon(int idxCurrActiveEngimon) {
+        this.idxCurrActiveEngimon = idxCurrActiveEngimon;
     }
 
     public static void main(String[] args){

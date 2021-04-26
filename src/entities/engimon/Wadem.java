@@ -16,6 +16,8 @@ public class Wadem extends Engimon{
         this.addSkill(new Skill("Es Puter", 100, 1, EnumSet.of(Elements.ICE)));
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Wadem");
+        this.xpos = 50;
+        this.ypos = 600;
         this.BORDER_UP = 430;
         this.BORDER_RIGHT = 300;
     }
