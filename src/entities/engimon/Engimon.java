@@ -251,6 +251,10 @@ public abstract class Engimon implements MoveAction, GameObject {
         this.hasParent = true;
     }
 
+    public void setTame(boolean tame) {
+        isTame = tame;
+    }
+
     // Functions for parent
     public void addParent(Engimon mom, Engimon dad) {
         if (!hasParent) {

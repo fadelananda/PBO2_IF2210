@@ -252,6 +252,10 @@ public class Game extends JFrame implements Runnable{
         return keyListener;
     }
 
+    public ArrayList<GameObject> getObjects(){
+        return objects;
+    }
+
 
     /*RENDER/
     /*RUNS EVERYTIME TO ACTUALLY SHOW STUFF*/

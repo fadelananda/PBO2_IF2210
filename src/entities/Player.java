@@ -122,6 +122,7 @@ public class Player implements GameObject {
 
     // Add item
     public void addEngimon(Engimon engimon) {
+        engimon.setTame(true);
         this.EngiBag.addItem(engimon,1);
     }
 
@@ -430,6 +431,7 @@ public class Player implements GameObject {
 
     public void update(Game game){
         KeyboardListener keyListener = game.getKeyListener();
+        ArrayList<GameObject> objc = game.getObjects();
         int newX = xpos;
         int newY = ypos;
         
@@ -447,6 +449,7 @@ public class Player implements GameObject {
         }
         if(keyListener.q()){
             setActiveEngimon();
+            objc.set(1, getActiveEngimon());
         }
     }
 
