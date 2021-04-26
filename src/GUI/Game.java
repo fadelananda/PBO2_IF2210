@@ -131,6 +131,7 @@ public class Game extends JFrame implements Runnable{
             objects.add(choice3);
             playya.addEngimon(choice3);
         }
+        playya.setIdxCurrActiveEngimon(1);
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
         Geni gengens = new Geni(engiAvas);
@@ -245,11 +246,11 @@ public class Game extends JFrame implements Runnable{
 
         //delete if necesasraraeyu
         if(todelete != -1) {
-//            boolean isBattle = false;
+            boolean isBattle = false;
 //            playya.battle(wildEngimons.get(todelete), isBattle);
             Engimon battleEng = wildEngimons.get(todelete);
             System.out.println(battleEng.getName());
-//            playya.battle(battleEng, false);
+            playya.battle(battleEng, isBattle);
             playya.tampilkanListEngimon();
             wildEngimons.remove(todelete);
         }

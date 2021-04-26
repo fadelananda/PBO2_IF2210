@@ -464,6 +464,10 @@ public class Player implements GameObject {
         }
     }
 
+    public void setIdxCurrActiveEngimon(int idxCurrActiveEngimon) {
+        this.idxCurrActiveEngimon = idxCurrActiveEngimon;
+    }
+
     public static void main(String[] args){
 
     }
