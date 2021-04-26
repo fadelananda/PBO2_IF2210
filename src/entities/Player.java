@@ -4,14 +4,8 @@ import GUI.*;
 import entities.engimon.*;
 import enums.Elements;
 
-import javax.swing.JOptionPane;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.Scanner;
+import javax.swing.*;
+import java.util.*;
 
 public class Player implements GameObject {
 
@@ -372,13 +366,9 @@ public class Player implements GameObject {
         return this.EngiBag.getItemByIdxShowInventory(this.idxCurrActiveEngimon);
     }
 
-    public void setActiveEngimon() {
-        int newActive;
-        tampilkanListEngimon();
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Masukkan nomor engimon untuk diaktifkan : ");
-        newActive = keyboard.nextInt();
-        this.idxCurrActiveEngimon = newActive;
+    public void setActiveEngimon(ArrayList<GameObject> objc) {
+        JDialog selectEngi = new selectActiveFrame(this, objc);
+        selectEngi.setVisible(true);
     }
 
 //    public void interactActiveEngimon() {
@@ -422,12 +412,7 @@ public class Player implements GameObject {
             xpos += speed;
         }
         if(keyListener.q()){
-            setActiveEngimon();
-            Engimon temp = getActiveEngimon();
-            Engimon temp1 = (Engimon) objc.get(1);
-            temp.setXpos(temp1.getXpos());
-            temp.setYpos(temp1.getYpos());
-            objc.set(1, temp);
+            setActiveEngimon(objc);
         }
     }
 
