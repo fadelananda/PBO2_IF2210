@@ -17,6 +17,8 @@ public class Koobong extends Engimon {
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
         this.engiEnv = 2;
+        this.xpos = 30;
+        this.ypos = 100;
     }
 
     public Koobong(Tiles engiTiles, String name, int x, int y) {

@@ -21,6 +21,8 @@ public class Wadem extends Engimon{
         this.BORDER_UP = 430;
         this.BORDER_RIGHT = 300;
         this.engiEnv = 3;
+        this.xpos = 20;
+        this.ypos = 500;
     }
 
     public Wadem(Tiles engiTiles, String name, int x, int y) {

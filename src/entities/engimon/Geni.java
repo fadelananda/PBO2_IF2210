@@ -17,6 +17,8 @@ public class Geni extends Engimon {
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
         this.engiEnv = 2;
+        this.xpos = 10;
+        this.ypos = 50;
     }
 
     public Geni(Tiles engiTiles, String name, int x, int y) {

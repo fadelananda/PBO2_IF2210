@@ -14,6 +14,8 @@ public class Watoo extends Engimon{
         this.engiTiles = engiTiles;
         this.engiImg = engiTiles.getTileSprite("Watoo");
         this.engiEnv = 0;
+        this.xpos = 300;
+        this.ypos = 300;
     }
 
     public Watoo(Tiles engiTiles, String name, int x, int y) {

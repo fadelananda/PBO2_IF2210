@@ -17,6 +17,8 @@ public class Beckoo extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Beckoo");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
+        this.xpos = 600;
+        this.ypos = 450;
     }
 
     public Beckoo(Tiles engiTiles, String name, int x, int y) {

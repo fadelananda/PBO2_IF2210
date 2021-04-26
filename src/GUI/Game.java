@@ -127,14 +127,18 @@ public class Game extends JFrame implements Runnable{
         playya.setIdxCurrActiveEngimon(1);
 
         //same thing but geni to spice things up a bit lol wkwkwkwk
-        Geni gengens = new Geni(engiAvas);
+        Lapindoo gengens = new Lapindoo(engiAvas);
         wildEngimons.add(gengens);
         Teles telessss = new Teles(engiAvas);
         wildEngimons.add(telessss);
-        // objects.add(telessss);
         Wadem wademe = new Wadem(engiAvas);
-        // objects.add(wademe);
         wildEngimons.add(wademe);
+        Beckoo beckoo = new Beckoo(engiAvas);
+        wildEngimons.add(beckoo);
+        Geni genius = new Geni(engiAvas);
+        wildEngimons.add(genius);
+        Gledek gluedek = new Gledek(engiAvas);
+        wildEngimons.add(gluedek);
 
         add(new StatusPanel(playya), BorderLayout.EAST);
         //Add listener

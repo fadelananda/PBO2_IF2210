@@ -29,6 +29,8 @@ public class Lapindoo extends Engimon{
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
         this.engiEnv = 1;
+        this.xpos = 600;
+        this.ypos = 400;
     }
 
     //for testing method
