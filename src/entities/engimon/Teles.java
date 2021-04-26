@@ -20,7 +20,7 @@ public class Teles extends Engimon {
         this.ypos = 200;
     }
 
-    public Teles(Tiles engiTiles, String name, int x, int y) {
+    public Teles(Tiles engiTiles, String name, int x, int y) { //no need to set boundary becoz tame engimon
         super(name, x, y);
         this.addElement(Elements.WATER);
         this.addSkill(new Skill("Jebyur", 100, 1, EnumSet.of(Elements.WATER)));
@@ -28,7 +28,6 @@ public class Teles extends Engimon {
         this.engiImg = engiTiles.getTileSprite("Teles");
         this.engiwidth = engiImg.getWidth();
         this.engiheight = engiImg.getHeight();
-        this.BORDER_LEFT = 540;
         this.xpos = x;
         this.ypos = y;
     }
