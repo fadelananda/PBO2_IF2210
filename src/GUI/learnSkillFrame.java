@@ -35,6 +35,7 @@ public class learnSkillFrame extends JFrame {
             int index = comboBox.getSelectedIndex();
             player.getSkillItemBag().learnSkillItem(skillItem, player.getEngiBag().getEngimonList().get(index));
             panel.updateSkillPanel();
+            panel.updateEngimonPanel();
             this.dispose();
         });
 

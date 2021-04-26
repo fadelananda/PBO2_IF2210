@@ -9,6 +9,7 @@ import enums.Elements;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
@@ -155,7 +156,6 @@ public class Game extends JFrame implements Runnable{
         menu.addMenuListener(new MenuListener() {
             @Override
             public void menuSelected(MenuEvent e) {
-                System.out.println("Jancok");
                 ReadWriteGameState g = new ReadWriteGameState();
                 g.writeGameState(playya, "save");
             }

@@ -1,6 +1,8 @@
 package entities;
 
 import entities.engimon.Engimon;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,6 +69,7 @@ public class InventorySkillItem extends Inventory<SkillItem> {
         if (learn)
         {
             deleteItemByIdx(index + 1,1);
+            JOptionPane.showMessageDialog(null, "Berhasil dipelajari skill " + skillItem.getSkill().getName(), "Learn Success", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
