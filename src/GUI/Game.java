@@ -22,6 +22,7 @@ public class Game extends JFrame implements Runnable{
     private Canvas canvas = new Canvas();
     private BufferStrategy buffstrat;
     private RenderHandler renderer;
+    private StatusPanel statusPanel;
 
     //texture
     private BufferedImage mapImg;
@@ -140,7 +141,8 @@ public class Game extends JFrame implements Runnable{
         Gledek gluedek = new Gledek(engiAvas);
         wildEngimons.add(gluedek);
 
-        add(new StatusPanel(playya), BorderLayout.EAST);
+        this.statusPanel = new StatusPanel(playya);
+        add(this.statusPanel, BorderLayout.EAST);
         //Add listener
         canvas.addKeyListener(keyListener);
         canvas.addFocusListener(keyListener);
@@ -170,7 +172,6 @@ public class Game extends JFrame implements Runnable{
         add(canvas);
 
         counter = 370;
-
 
         // create out object for buffer stregy
         canvas.createBufferStrategy(3);
@@ -231,7 +232,8 @@ public class Game extends JFrame implements Runnable{
         playya.addEngimon(wademe);
         playya.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);
         playya.addSkillItem(new SkillItem(new Skill("Halo", 100, 1, EnumSet.of(Elements.WATER))), 1);
-        add(new StatusPanel(playya), BorderLayout.EAST);
+        this.statusPanel = new StatusPanel(playya);
+        add(this.statusPanel, BorderLayout.EAST);
     }
 
 
@@ -337,9 +339,7 @@ public class Game extends JFrame implements Runnable{
 
         //delete if necesasraraeyu
         if(todelete != -1) {
-            boolean isBattle = false;
-//            System.out.println(wildEngimons.get(todelete).getName());
-            playya.battle(wildEngimons.get(todelete), isBattle);
+            playya.battlePrepare(this.statusPanel, wildEngimons.get(todelete));
             wildEngimons.remove(todelete);
         }
     }
@@ -371,11 +371,4 @@ public class Game extends JFrame implements Runnable{
             lastTime = now;
         }
     }
-
-    //MAIN
-//    public static void main(String[] args) {
-//        Game game = new Game();
-//        Thread gameThread = new Thread(game);
-//        gameThread.start();
-//    }
 }

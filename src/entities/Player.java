@@ -4,7 +4,14 @@ import GUI.*;
 import entities.engimon.*;
 import enums.Elements;
 
-import java.util.*;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class Player implements GameObject {
 
@@ -141,76 +148,43 @@ public class Player implements GameObject {
 
 
     // BATTLE
-   public void battle(Engimon Opponent, boolean isBattleHasFinished) {
-      // anggaplah kalau tidak ada engimon yang aktif
-      // idxCurrActiveEngimo = -1
-      if(this.idxCurrActiveEngimon == -1){
-          System.out.println("Anda tidak memiliki Engimon yang aktif!");
-          System.out.println("Silahkan memilih Engimon terlebih dahulu...");
-          isBattleHasFinished = true;
-          return;
-      }
-      else{
-          Engimon playerEngimon = this.getActiveEngimon();
+    public void battlePrepare(StatusPanel panel, Engimon Opponent) {
+        // anggaplah kalau tidak ada engimon yang aktif
+        // idxCurrActiveEngimo = -1
+        if(this.idxCurrActiveEngimon == -1){
+            JOptionPane.showMessageDialog(null, "Anda tidak memiliki Engimon yang aktif!", "Battle Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        else {
+            Engimon playerEngimon = this.getActiveEngimon();
+            new BattleFrame(panel, this, Opponent, playerEngimon);
+        }
+    }
 
-          // Hitung power
-          int playerLevel = playerEngimon.getLevel();
-          int oppLevel = Opponent.getLevel();
-          float playerElmtAdvantage = this.getAdvantage(playerEngimon.getElements(), Opponent.getElements());
-          float oppElmtAdvantage = this.getAdvantage(Opponent.getElements(), playerEngimon.getElements());
-          //sum every skill base power * mastery_level
-          float playerSkillPoint = calSkillPoint(playerEngimon);
-          float oppSkillPoint = calSkillPoint(Opponent);
-
-          float playerPower = playerLevel*playerElmtAdvantage + playerSkillPoint;
-          float oppPower = oppLevel*oppElmtAdvantage + oppSkillPoint;
-
-          //tampilkan status lengkap engimon musuh
-          System.out.println("Total power level " +  Opponent.getName() + " : " + oppPower + " (OPPONENT)");
-          System.out.println("Total power level " +  playerEngimon.getName() + " : " + playerPower + " (PLAYER)");
-
-          //berikan opsi proceed battle/not
-          Scanner sc = new Scanner(System.in);
-
-          // Character input
-          System.out.print("Proceed the battle (Y/N) : ");
-          char opt = sc.next().charAt(0);
-          if(opt == 'Y') {
-              System.out.println("Memulai Battle...");
-              if(playerPower >= oppPower){
-                  System.out.println("Engimon Anda memenangkan battle ini!");
-                  // Engimon lawan menjadi milik player, jika inventory cukup
-                  if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
-                      System.out.println("Anda mendapatkan Engimon musuh!");
-                      this.addEngimon(Opponent);
-                      System.out.println("Jumlah items dalam inventory Anda sekarang: " + Inventory.jumlahItem);
-                  }
-                  //mendapatkan exp sebesar 20 satuan exp
-                  playerEngimon.addExp(20);
-                  //mendapatkan skill item pada slot pertama musuh
-                  System.out.println("Anda mendapatkan skill : " + Opponent.getSkills()[0].getName());
-                  //tambahkan ke skill item
-                  this.SkillItemBag.addItem(new SkillItem(Opponent.getSkills()[0]), 1);
+    public void battle(float playerPower, float oppPower, Engimon opp, Engimon engiPlayer) {
+          if(playerPower >= oppPower){
+              JOptionPane.showMessageDialog(null, "Engimon Anda memenangkan battle ini!", "Battle Win", JOptionPane.PLAIN_MESSAGE);
+              // Engimon lawan menjadi milik player, jika inventory cukup
+              if(this.EngiBag.listInventory.size() < Inventory.MAX_INVENTORY){
+                  this.addEngimon(opp);
               }
-              else{
-                  System.out.println("Engimon Anda kalah");
-                  playerEngimon.reduceLife();
-                  if(playerEngimon.getLife() == 0){
-                      System.out.println("Engimon yang aktif sudah mati");
-                      System.out.println("Silahkan memilih Engimon pada inventory Anda");
-                      this.idxCurrActiveEngimon = -1;
-                  }
-                  sc.next();
-                  return;
+              //mendapatkan exp sebesar 20 satuan exp
+              engiPlayer.addExp(20);
+              //tambahkan ke skill item
+              this.SkillItemBag.addItem(new SkillItem(opp.getSkills()[0]), 1);
+          }
+          else{
+              JOptionPane.showMessageDialog(null, "Engimon Anda Kalah!", "Battle Loss", JOptionPane.ERROR_MESSAGE);
+              engiPlayer.reduceLife();
+              if(engiPlayer.getLife() == 0){
+                  JOptionPane.showMessageDialog(null, "Engimon Yang Aktif Sudah Mati!", "Battle Loss", JOptionPane.WARNING_MESSAGE);
+                  this.idxCurrActiveEngimon = -1;
               }
-          } else{
-              isBattleHasFinished = true;
               return;
           }
-      }
    }
 
-   private float calSkillPoint(Engimon e){
+   public float calSkillPoint(Engimon e){
         float skillPoint = 0.0f;
         for(Skill s : e.getSkills()){
             if(s != null){
@@ -220,7 +194,7 @@ public class Player implements GameObject {
         return skillPoint;
    }
 
-   private float getAdvantage(EnumSet<Elements> e1, EnumSet<Elements> e2){
+   public float getAdvantage(EnumSet<Elements> e1, EnumSet<Elements> e2){
         float mxAdvantage = 0.0f;
         for(Elements e_1 : e1){
             for(Elements e_2 : e2){
@@ -232,7 +206,7 @@ public class Player implements GameObject {
 
 
 
-    //    // BREEDING
+    // BREEDING
     public Engimon breed(Engimon dad, Engimon mom, String nama) throws Exception{
         if (dad.getLevel() >= 4 && mom.getLevel() >= 4 && !nama.equals(null)) {
             // list of inherited parent skills
