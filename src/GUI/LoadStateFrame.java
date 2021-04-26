@@ -4,16 +4,10 @@ package GUI;
 import entities.Player;
 import entities.ReadWriteGameState;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.io.File;
-
-
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.io.File;
 
 public class LoadStateFrame extends JFrame {
     private JLabel title;
@@ -32,7 +26,7 @@ public class LoadStateFrame extends JFrame {
         this.setTitle("Load Save File");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout(0,0));
-       // this.setPreferredSize(new Dimension(1000,800));
+        this.setPreferredSize(new Dimension(1000,800));
         this.setBackground(Color.LIGHT_GRAY);
 
         // Get title label and button panel
@@ -63,8 +57,6 @@ public class LoadStateFrame extends JFrame {
         buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
 
-        //JButton[] saveFileButton = new JButton[0];
-
         File[] listSaveFiles = loadSaveFiles();
         int it = 0;
         for(File f: listSaveFiles){
@@ -85,8 +77,9 @@ public class LoadStateFrame extends JFrame {
                 this.dispose();
                 ReadWriteGameState rw = new ReadWriteGameState();
                 Player loadedPlayer = rw.loadGameState(f.getName());
-                JFrame game = new Game(loadedPlayer);
-                game.setVisible(true);
+                GUI.Game game = new Game(loadedPlayer);
+                Thread gameThread = new Thread(game);
+                gameThread.start();
             });
 
             buttonPanel.add(saveFileButton);
