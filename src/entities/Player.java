@@ -4,8 +4,14 @@ import GUI.*;
 import entities.engimon.*;
 import enums.Elements;
 
-import javax.swing.*;
-import java.util.*;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class Player implements GameObject {
 
@@ -142,12 +148,11 @@ public class Player implements GameObject {
 
 
     // BATTLE
-    public void battlePrepare(StatusPanel panel, Engimon Opponent, boolean isBattleHasFinished) {
+    public void battlePrepare(StatusPanel panel, Engimon Opponent) {
         // anggaplah kalau tidak ada engimon yang aktif
         // idxCurrActiveEngimo = -1
         if(this.idxCurrActiveEngimon == -1){
             JOptionPane.showMessageDialog(null, "Anda tidak memiliki Engimon yang aktif!", "Battle Error", JOptionPane.ERROR_MESSAGE);
-            isBattleHasFinished = true;
             return;
         }
         else {
