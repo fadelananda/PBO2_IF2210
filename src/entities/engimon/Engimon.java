@@ -96,20 +96,21 @@ public abstract class Engimon implements MoveAction, GameObject {
 
 //     Print Methods
     public void printInfo() {
-//        System.out.println("Nama: " + this.name);
-//        System.out.println("Species: " + this.getSpeciesName());
-//        System.out.println("Level: " + this.level);
-//        System.out.print("Elemen: ");
-//        for (Elements element: this.elements) {
-//            printElement(element);
-//            System.out.print(" ");
-//        }
-//        System.out.println();
-//        System.out.print("Deskripsi Engimon: ");
-//        showDescription();
-//        printParents();
-//        printAllSkills();
-//        System.out.println();
+        System.out.println("Nama: " + this.name);
+        System.out.println("Species: " + this.getSpeciesName());
+        System.out.println("Level: " + this.level);
+        System.out.print("Elemen: ");
+
+        System.out.println();
+        System.out.print("Deskripsi Engimon: ");
+        showDescription();
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println(this.parents[0].getName());
+            System.out.println(this.parents[1].getName());
+        }
+
+        System.out.println();
     }
 
     public JPanel printParents() {

@@ -34,7 +34,7 @@ public class StatusPanel extends JTabbedPane {
         JPanel engimonContainer = new JPanel();
         JLabel title = new JLabel("Engimon Inventory");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
-        engimonContainer.setLayout(new GridLayout(1,2,10,10));
+        engimonContainer.setLayout(new FlowLayout());
 
         for (Engimon engimon : player.getEngiBag().getEngimonList()) {
             JButton engimonBtn = new EngimonButton(engimon);
@@ -75,8 +75,10 @@ public class StatusPanel extends JTabbedPane {
         this.skillItemPanel.add(skillContainer);
     }
 
-    private JPanel getBreedPanel() {
-        JPanel breedPanel = new JPanel();
+    public void updateBreedPanel() {
+        this.breedPanel.removeAll();
+
+        // Update Panel
         JPanel choicePanel = new JPanel(new GridLayout(2,1,0,0));
         JComboBox dad = new JComboBox();
         JComboBox mom = new JComboBox();
@@ -106,6 +108,57 @@ public class StatusPanel extends JTabbedPane {
         choicePanel.add(dad);
         choicePanel.add(mom);
 
+        this.breedPanel.add(title, BorderLayout.NORTH);
+        this.breedPanel.add(choicePanel, BorderLayout.CENTER);
+        this.breedPanel.add(breedBtn, BorderLayout.SOUTH);
+
+    }
+
+    private JPanel getBreedPanel() {
+        JPanel breedPanel = new JPanel();
+        JPanel choicePanel = new JPanel(new GridLayout(2,1,0,0));
+        JComboBox dad = new JComboBox();
+        JComboBox mom = new JComboBox();
+        JLabel title = new JLabel("Breeding", SwingConstants.CENTER);
+        JButton breedBtn = new JButton("Breed");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 35));
+        breedPanel.setLayout(new BorderLayout());
+        breedBtn.setBorder(BorderFactory.createRaisedBevelBorder());
+        breedBtn.setFont(new Font("Roboto", Font.BOLD, 30));
+        breedBtn.setForeground(Color.WHITE);
+        breedBtn.setBackground(Color.GRAY);
+        breedBtn.setFocusable(false);
+        TitledBorder dadBorder = BorderFactory.createTitledBorder("Dad");
+        TitledBorder momBorder = BorderFactory.createTitledBorder("Mom");
+        dadBorder.setTitleFont(new Font("Roboto", Font.BOLD, 15));
+        momBorder.setTitleFont(new Font("Roboto", Font.BOLD, 15));
+        dad.setBorder(dadBorder);
+        mom.setBorder(momBorder);
+
+        breedBtn.addActionListener(e -> {
+            int indexDad = dad.getSelectedIndex();
+            int indexMom = mom.getSelectedIndex();
+            Engimon dadEngi = player.getEngiBag().getEngimonList().get(indexDad);
+            Engimon momEngi = player.getEngiBag().getEngimonList().get(indexMom);
+
+            try {
+                Engimon child = player.breed(dadEngi, momEngi);
+                this.player.addEngimon(child);
+                this.updateEngimonPanel();
+                JOptionPane.showMessageDialog(null, "Breed!", "Breeding Success", JOptionPane.PLAIN_MESSAGE);
+            } catch (Exception errorBreed) {
+                errorBreed.printStackTrace();
+            }
+        });
+
+        for (Engimon engimon : this.player.getEngiBag().getEngimonList()) {
+            dad.addItem(engimon);
+            mom.addItem(engimon);
+        }
+
+        choicePanel.add(dad);
+        choicePanel.add(mom);
+
         breedPanel.add(title, BorderLayout.NORTH);
         breedPanel.add(choicePanel, BorderLayout.CENTER);
         breedPanel.add(breedBtn, BorderLayout.SOUTH);
@@ -117,7 +170,7 @@ public class StatusPanel extends JTabbedPane {
         JPanel engimonContainer = new JPanel();
         JLabel title = new JLabel("Engimon Inventory");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
-        engimonContainer.setLayout(new GridLayout(1,2,10,10));
+        engimonContainer.setLayout(new FlowLayout());
 
         for (Engimon engimon : player.getEngiBag().getEngimonList()) {
             JButton engimonBtn = new EngimonButton(engimon);
