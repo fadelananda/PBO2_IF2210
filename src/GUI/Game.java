@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import java.lang.Runnable;
 // import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -51,6 +52,7 @@ public class Game extends JFrame implements Runnable{
     /*STATICS*/
     //buat transparency
     public static int alpha = 0xFFFF00DC;
+    private int counter;
 
     /*METHODS*/
     public Game(){
@@ -76,6 +78,8 @@ public class Game extends JFrame implements Runnable{
         //add graphics component
         add(canvas);
         add(new StatusPanel(), BorderLayout.EAST);
+
+        counter = 370;
         
 
         // create out object for buffer stregy
@@ -184,6 +188,31 @@ public class Game extends JFrame implements Runnable{
 
     /*TO UPDATE WHAT'S GOING TO BE DRAWN*/
     public void update(){
+        Random rand = new Random();
+        int random = rand.nextInt(8);
+        counter--;
+        if(counter==0){
+            if(wildEngimons.size() < 15){
+                if(random == 1)
+                    wildEngimons.add(new Beckoo(engiAvas));
+                if(random == 2)
+                    wildEngimons.add(new Wadem(engiAvas));
+                if(random == 3)
+                    wildEngimons.add(new Geni(engiAvas));
+                if(random == 4)
+                    wildEngimons.add(new Teles(engiAvas));
+                if(random == 5)
+                    wildEngimons.add(new Gledek(engiAvas));
+                if(random == 6)
+                    wildEngimons.add(new Watoo(engiAvas));
+                if(random == 7)
+                    wildEngimons.add(new Koobong(engiAvas));
+                if(random == 0)
+                    wildEngimons.add(new Lapindoo(engiAvas));
+            }
+            counter = 370;
+        }
+
         //variabels lol
         int todelete = -1;
 
