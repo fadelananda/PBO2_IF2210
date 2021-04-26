@@ -133,6 +133,8 @@ public class Game extends JFrame implements Runnable{
         // Coba coba status panel
         bebeckqo.addSkill(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.WATER)));
         bebeckqo.addSkill(new Skill("Test1", 100, 1, EnumSet.of(Elements.WATER)));
+        bebeckqo.setLevel(31);
+        wademe.setLevel(31);
         playya.addEngimon(bebeckqo);
         playya.addEngimon(wademe);
         playya.addSkillItem(new SkillItem(new Skill("Bakar Bakar", 100, 1, EnumSet.of(Elements.FIRE))), 5);

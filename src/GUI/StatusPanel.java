@@ -4,14 +4,9 @@ import entities.Player;
 import entities.SkillItem;
 import entities.engimon.Engimon;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.util.List;
 
 public class StatusPanel extends JTabbedPane {
@@ -82,10 +77,38 @@ public class StatusPanel extends JTabbedPane {
 
     private JPanel getBreedPanel() {
         JPanel breedPanel = new JPanel();
-        JLabel title = new JLabel("Breeding");
+        JPanel choicePanel = new JPanel(new GridLayout(2,1,0,0));
+        JComboBox dad = new JComboBox();
+        JComboBox mom = new JComboBox();
+        JLabel title = new JLabel("Breeding", SwingConstants.CENTER);
+        JButton breedBtn = new JButton("Breed");
         title.setFont(new Font("Segoe UI", Font.BOLD, 35));
+        breedPanel.setLayout(new BorderLayout());
+        breedBtn.setBorder(BorderFactory.createRaisedBevelBorder());
+        breedBtn.setFont(new Font("Roboto", Font.BOLD, 30));
+        breedBtn.setForeground(Color.WHITE);
+        breedBtn.setBackground(Color.GRAY);
+        breedBtn.setFocusable(false);
+        TitledBorder dadBorder = BorderFactory.createTitledBorder("Dad");
+        TitledBorder momBorder = BorderFactory.createTitledBorder("Mom");
+        dadBorder.setTitleFont(new Font("Roboto", Font.BOLD, 15));
+        momBorder.setTitleFont(new Font("Roboto", Font.BOLD, 15));
+        dad.setBorder(dadBorder);
+        mom.setBorder(momBorder);
 
-        breedPanel.add(title);
+        for (Engimon engimon : this.player.getEngiBag().getEngimonList()) {
+            if (engimon.getLevel() > 30) {
+                dad.addItem(engimon);
+                mom.addItem(engimon);
+            }
+        }
+
+        choicePanel.add(dad);
+        choicePanel.add(mom);
+
+        breedPanel.add(title, BorderLayout.NORTH);
+        breedPanel.add(choicePanel, BorderLayout.CENTER);
+        breedPanel.add(breedBtn, BorderLayout.SOUTH);
         return breedPanel;
     }
 

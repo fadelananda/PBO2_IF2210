@@ -2,8 +2,17 @@ package GUI;
 
 import entities.engimon.Engimon;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
 public class EngimonInfo extends JFrame {
     public EngimonInfo(Engimon engimon) {
