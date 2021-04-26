@@ -33,6 +33,53 @@ public class StatusPanel extends JTabbedPane {
         this.add("Breeding", this.breedPanel);
     }
 
+    public void updateEngimonPanel() {
+        this.engimonPanel.removeAll();
+
+        JPanel engimonContainer = new JPanel();
+        JLabel title = new JLabel("Engimon Inventory");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 35));
+        engimonContainer.setLayout(new GridLayout(1,2,10,10));
+
+        for (Engimon engimon : player.getEngiBag().getEngimonList()) {
+            JButton engimonBtn = new EngimonButton(engimon);
+            engimonBtn.addActionListener(e -> {
+                JFrame engiFrame = new EngimonInfo(engimon);
+                engiFrame.setVisible(true);
+            });
+            engimonContainer.add(engimonBtn);
+        }
+
+        this.engimonPanel.add(title);
+        this.engimonPanel.add(engimonContainer);
+    }
+
+    public void updateSkillPanel(){
+        this.skillItemPanel.removeAll();
+
+        // Update panel
+        JPanel skillContainer = new JPanel();
+        JLabel title = new JLabel("Skill Item Inventory");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 35));
+        skillContainer.setLayout(new GridLayout(1,2,10,10));
+
+        java.util.List<SkillItem> skillItems = player.getSkillItemBag().getSkillList();
+        List<Integer> countItems = player.getSkillItemBag().getJumlahTiapItem();
+
+        for (int i = 0; i < skillItems.size(); i++) {
+            SkillItem skill = skillItems.get(i);
+            SkillButton skillBtn = new SkillButton(skill, countItems.get(i));
+            skillBtn.addActionListener(e1 -> {
+                JFrame skillFrame = new SkillItemInfo(player, skill, this);
+                skillFrame.setVisible(true);
+            });
+            skillContainer.add(skillBtn);
+        }
+
+        this.skillItemPanel.add(title);
+        this.skillItemPanel.add(skillContainer);
+    }
+
     private JPanel getBreedPanel() {
         JPanel breedPanel = new JPanel();
         JLabel title = new JLabel("Breeding");
@@ -78,7 +125,7 @@ public class StatusPanel extends JTabbedPane {
             SkillItem skillItem = skillItems.get(i);
             SkillButton skillBtn = new SkillButton(skillItem, countItems.get(i));
             skillBtn.addActionListener(e -> {
-                JFrame skillFrame = new SkillItemInfo(player, skillItem, skillPanel);
+                JFrame skillFrame = new SkillItemInfo(player, skillItem, this);
                 skillFrame.setVisible(true);
             });
             skillContainer.add(skillBtn);
