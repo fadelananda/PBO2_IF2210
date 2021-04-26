@@ -1,4 +1,4 @@
-// import GUI.Game;
+ import GUI.Game;
 import GUI.OpeningFrame;
 
 import java.util.Scanner;

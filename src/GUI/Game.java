@@ -111,17 +111,17 @@ public class Game extends JFrame implements Runnable{
 
         //setup player Engimon
         if(engichoice.equals("Geni")){
-            Geni choice1 = new Geni(engiAvas, "Gwenii", 200, 200);
+            Geni choice1 = new Geni(engiAvas, "Gwenii", 400, 450);
             objects.add(choice1);
             playya.addEngimon(choice1);
         }
         if(engichoice.equals("Gledek")){
-            Gledek choice2 = new Gledek(engiAvas, "Gluedekk", 200, 200);
+            Gledek choice2 = new Gledek(engiAvas, "Gluedekk", 400, 450);
             objects.add(choice2);
             playya.addEngimon(choice2);
         }
         if(engichoice.equals("Teles")){
-            Teles choice3 = new Teles(engiAvas, "Twelesee", 200, 200);
+            Teles choice3 = new Teles(engiAvas, "Twelesee", 400, 450);
             objects.add(choice3);
             playya.addEngimon(choice3);
         }
