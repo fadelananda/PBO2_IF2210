@@ -4,11 +4,16 @@ import entities.Skill;
 import enums.Elements;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 import GUI.Tiles;
 
 public class Beckoo extends Engimon {
     public Beckoo(Tiles engiTiles) {
+        Random rand = new Random();
+        int rand1 = rand.nextInt(5);
+        rand1 += 1;
+        this.setLevel(rand1);
         this.setName("Wild Beckoo");
         this.addElement(Elements.ICE);
         this.addElement(Elements.WATER);

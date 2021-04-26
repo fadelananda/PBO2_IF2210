@@ -5,9 +5,14 @@ import entities.Skill;
 import enums.Elements;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class Gledek extends Engimon {
     public Gledek(Tiles engiTiles) {
+        Random rand = new Random();
+        int rand1 = rand.nextInt(5);
+        rand1 += 1;
+        this.setLevel(rand1);
         this.setName("Wild Gledek");
         this.addElement(Elements.ELECTRIC);
         this.addSkill(new Skill("Jedor", 100, 1, EnumSet.of(Elements.ELECTRIC)));
